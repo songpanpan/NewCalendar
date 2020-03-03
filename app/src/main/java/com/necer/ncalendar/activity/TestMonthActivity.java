@@ -16,6 +16,7 @@ import com.necer.ncalendar.tools.BaZi;
 import com.necer.ncalendar.tools.CalendarUtils;
 import com.necer.ncalendar.tools.MyDate;
 import com.necer.ncalendar.tools.PaiPan;
+import com.necer.ncalendar.tools.SiZhuData;
 import com.necer.utils.CalendarUtil;
 
 import org.joda.time.LocalDate;
@@ -50,17 +51,29 @@ public class TestMonthActivity extends BaseActivity {
                 MyDate.getInstance().initGanZhi(2020, 2, 21);
                 String result = MyDate.getInstance().getGanZhi();
                 Calendar calendar = Calendar.getInstance();
-//                calendar.set(2020, 2, 21, 13, 17);
-                String finalResult = CalendarUtils.getYearGanZhi(calendar);
+                calendar.set(1992, 2, 13, 22, 0);
+//                calendar.set(1990, 1, 11, 12, 30);
+//                calendar.set(2020, 0, 13, 10, 50);
 
-                BaZi baZi = new BaZi(calendar);
-                String secondFinalResult = baZi.getYearGanZhi(1);
-
+                Log.e("spptag", "check time:" + calendar.getTime());
                 PaiPan paiPan = new PaiPan(calendar);
                 paiPan.getSiZhuString();
                 Log.e("spptag", paiPan.getSiZhuString());
-                tv_result.setText(localDate + " 四柱为：" + paiPan.getSiZhuString());
+                SiZhuData siZhuData = paiPan.getSiZhuData();
 
+                tv_result.setText(  "1992年3月13（农历2月初十 ）22:00 四柱为：" + siZhuData.getNianZhu() + "(" + paiPan.getNaYin(siZhuData.getNianZhu()) + ":" + paiPan.getOtherNayin(siZhuData.getNianZhu()) + ")" + siZhuData.getYueZhu() + "(" + paiPan.getNaYin(siZhuData.getYueZhu()) + ":" + paiPan.getOtherNayin(siZhuData.getYueZhu()) + ")" + siZhuData.getRiZhu() + "(" + paiPan.getNaYin(siZhuData.getRiZhu()) + ":" + paiPan.getOtherNayin(siZhuData.getRiZhu()) + ")" + siZhuData.getShiZhu() + "(" + paiPan.getNaYin(siZhuData.getShiZhu()) + ":" + paiPan.getOtherNayin(siZhuData.getShiZhu()) + ")");
+//                tv_result.setText("1990年2月11（农历正月十六）12:30 四柱为：" + siZhuData.getNianZhu() + "(" + paiPan.getNaYin(siZhuData.getNianZhu()) + ":" + paiPan.getOtherNayin(siZhuData.getNianZhu()) + ")" + siZhuData.getYueZhu() + "(" + paiPan.getNaYin(siZhuData.getYueZhu()) + ":" + paiPan.getOtherNayin(siZhuData.getYueZhu()) + ")" + siZhuData.getRiZhu() + "(" + paiPan.getNaYin(siZhuData.getRiZhu()) + ":" + paiPan.getOtherNayin(siZhuData.getRiZhu()) + ")" + siZhuData.getShiZhu() + "(" + paiPan.getNaYin(siZhuData.getShiZhu()) + ":" + paiPan.getOtherNayin(siZhuData.getShiZhu()) + ")");
+                monthCalendar.jumpDate("1990-2-11");
+                String[] dayun = paiPan.getDaYunString(1, siZhuData.getNianZhu(), siZhuData.getYueZhu());
+                Log.e("spptag", "大运开始-----------------------------------------------------");
+
+                if (dayun != null && dayun.length > 0) {
+                    for (int i = 0; i < dayun.length; i++) {
+                        Log.e("spptag", "i：" + i + " dayun:" + dayun[i]);
+                    }
+                }
+                Log.e("spptag", "大运结束-----------------------------------------------------");
+//                monthCalendar.jumpDate("1992-3-13");
                 Log.d(TAG, "setOnCalendarChangedListener:::" + year + "年" + month + "月" + "   当前页面选中 " + localDate);
             }
         });
