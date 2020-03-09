@@ -1,6 +1,16 @@
-package com.necer.ncalendar.tools;
+package com.necer.utils;
 
 public class SiZhuData {
+    int year;
+
+    public int getYear() {
+        return year;
+    }
+
+    public void setYear(int year) {
+        this.year = year;
+    }
+
     String nianZhu;
     String yueZhu;
     String riZhu;

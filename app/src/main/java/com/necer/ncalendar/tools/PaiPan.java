@@ -7,9 +7,12 @@ import java.util.Date;
 
 import android.util.Log;
 
+import com.necer.utils.SiZhuData;
+
 public class PaiPan {
 
     private int DAYUN_COUNT = 8;// 需要的大运的数目
+    private Calendar calendar;
     // ==========干支数组===================
     final String[] Gan = new String[]{"甲", "乙", "丙", "丁", "戊", "己", "庚", "辛", "壬", "癸"};
     final String[] Zhi = new String[]{"子", "丑", "寅", "卯", "辰", "巳", "午", "未", "申", "酉", "戌", "亥"};
@@ -158,7 +161,7 @@ public class PaiPan {
      * @param cal
      */
     public PaiPan(Calendar cal) {
-
+        calendar = cal;
         Date baseDate = null;
         try {
             baseDate = sdf1.parse("1900-1-31");
@@ -193,6 +196,7 @@ public class PaiPan {
      */
     public SiZhuData getSiZhuData() {
         SiZhuData siZhuData = new SiZhuData();
+        siZhuData.setYear(calendar.get(Calendar.YEAR));
         siZhuData.setNianZhu(cyclicalm(yearCyl));
         siZhuData.setYueZhu(monthGanZhi);
         siZhuData.setRiZhu(cyclicalm(dayCyl));

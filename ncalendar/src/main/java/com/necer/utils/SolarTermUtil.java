@@ -1,6 +1,9 @@
 package com.necer.utils;
 
+import android.content.Context;
+
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -194,7 +197,7 @@ public class SolarTermUtil {
         }
     }
 
-    private static void solarTermToString(int year) {
+    public static void solarTermToString(int year) {
         mYear = year;
         if (mSolarData != null) {
             mSolarData.clear();
@@ -281,5 +284,166 @@ public class SolarTermUtil {
 
     }
 
+    /**
+     * 获取第一次大运的年龄
+     * @param calendar
+     * @param siZhuData
+     * @param sex
+     * @return
+     */
+    public static int getDaYunAge(Calendar calendar, SiZhuData siZhuData, int sex) {
+        int year = calendar.get(Calendar.YEAR);
+        int realMonth = calendar.get(Calendar.MONTH);
+        int day = calendar.get(Calendar.DAY_OF_MONTH);
+        int dayInYear = calendar.get(Calendar.DAY_OF_YEAR);
+        String countType = getConutType(siZhuData, sex);
+        JieQiBean jieQiBean = getSolarTermData(year);
+        List<JieQiBean.JieQi> jieQiList = jieQiBean.getJieQiList();
+        for (int i = 0; i < jieQiList.size(); i++) {
+            int tempMonth = jieQiList.get(i).getMonth();
+            int tempDay = jieQiList.get(i).getDayCountInMonth();
+            int interval = 0;
+            int remainder = 0;
+            int result = 0;
+            if (tempMonth == (realMonth + 1)) {
+                if (tempDay > day && countType.equals(Const.FORWARD)) {
+                    interval = tempDay - day;
+                    remainder = interval % 3;
+                    result = interval / 3;
+                    if (remainder > 1) {
+                        result++;
+                    }
+                    if (result == 0) {
+                        result++;
+                    }
+                    return result;
+                } else if (tempDay < day && countType.equals(Const.FORWARD)) {
+                    tempDay = jieQiList.get(i + 1).getDayCountInMonth();
+                    Calendar tempCalendar = Calendar.getInstance();
+                    tempCalendar.set(year, tempMonth, tempDay);
+                    int tempDayInYear = tempCalendar.get(Calendar.DAY_OF_YEAR);
+                    interval = tempDayInYear - dayInYear;
+                    remainder = interval % 3;
+                    result = interval / 3;
+                    if (remainder > 1) {
+                        result++;
+                    }
+                    if (result == 0) {
+                        result++;
+                    }
+                    return result;
+                } else {
+                    return 0;
+                }
+            }
+        }
+        return 0;
+    }
 
+    /**
+     * 获取本年度需要的12个节气的日期
+     *
+     * @param year 当前年
+     * @return
+     */
+    public static JieQiBean getSolarTermData(int year) {
+        mYear = year;
+        List<JieQiBean.JieQi> jieQiList = new ArrayList<>();
+        JieQiBean jieQiBean = new JieQiBean();
+        JieQiBean.JieQi jieQi = new JieQiBean.JieQi();
+        JieQiBean.JieQi jieQi2 = new JieQiBean.JieQi();
+        JieQiBean.JieQi jieQi3= new JieQiBean.JieQi();
+        JieQiBean.JieQi jieQi4= new JieQiBean.JieQi();
+        JieQiBean.JieQi jieQi5 = new JieQiBean.JieQi();
+        JieQiBean.JieQi jieQi6 = new JieQiBean.JieQi();
+        JieQiBean.JieQi jieQi7 = new JieQiBean.JieQi();
+        JieQiBean.JieQi jieQi8 = new JieQiBean.JieQi();
+        JieQiBean.JieQi jieQi9 = new JieQiBean.JieQi();
+        JieQiBean.JieQi jieQi10 = new JieQiBean.JieQi();
+        JieQiBean.JieQi jieQi11 = new JieQiBean.JieQi();
+        JieQiBean.JieQi jieQi12 = new JieQiBean.JieQi();
+        jieQi2.setYear(year);
+        jieQi2.setJieqiName("立春");
+        jieQi2.setMonth(2);
+        jieQi2.setDayCountInMonth(getSolarTermNum(year, SolarTermsEnum.LICHUN.name()));
+        jieQiList.add(jieQi2);
+        jieQi3.setJieqiName("惊蛰");
+        jieQi3.setMonth(3);
+        jieQi3.setDayCountInMonth(getSolarTermNum(year, SolarTermsEnum.JINGZHE.name()));
+        jieQiList.add(jieQi3);
+        jieQi4.setJieqiName("清明");
+        jieQi4.setMonth(4);
+        jieQi4.setDayCountInMonth(getSolarTermNum(year, SolarTermsEnum.QINGMING.name()));
+        jieQiList.add(jieQi4);
+        jieQi5.setJieqiName("立夏");
+        jieQi5.setMonth(5);
+        jieQi5.setDayCountInMonth(getSolarTermNum(year, SolarTermsEnum.LIXIA.name()));
+        jieQiList.add(jieQi5);
+        jieQi6.setJieqiName("芒种");
+        jieQi6.setMonth(6);
+        jieQi6.setDayCountInMonth(getSolarTermNum(year, SolarTermsEnum.MANGZHONG.name()));
+        jieQiList.add(jieQi6);
+        jieQi7.setJieqiName("小暑");
+        jieQi7.setMonth(7);
+        jieQi7.setDayCountInMonth(getSolarTermNum(year, SolarTermsEnum.XIAOSHU.name()));
+        jieQiList.add(jieQi7);
+        jieQi8.setJieqiName("立秋");
+        jieQi8.setMonth(8);
+        jieQi8.setDayCountInMonth(getSolarTermNum(year, SolarTermsEnum.LIQIU.name()));
+        jieQiList.add(jieQi8);
+        jieQi9.setJieqiName("白露");
+        jieQi9.setMonth(9);
+        jieQi9.setDayCountInMonth(getSolarTermNum(year, SolarTermsEnum.BAILU.name()));
+        jieQiList.add(jieQi9);
+        jieQi10.setJieqiName("寒露");
+        jieQi10.setMonth(10);
+        jieQi10.setDayCountInMonth(getSolarTermNum(year, SolarTermsEnum.HANLU.name()));
+        jieQiList.add(jieQi10);
+        jieQi11.setJieqiName("立冬");
+        jieQi11.setMonth(11);
+        jieQi11.setDayCountInMonth(getSolarTermNum(year, SolarTermsEnum.LIDONG.name()));
+        jieQiList.add(jieQi11);
+        jieQi12.setJieqiName("大雪");
+        jieQi12.setMonth(12);
+        jieQi12.setDayCountInMonth(getSolarTermNum(year, SolarTermsEnum.DAXUE.name()));
+        jieQiList.add(jieQi12);
+        jieQi.setJieqiName("小寒");
+        jieQi.setMonth(1);
+        jieQi.setDayCountInMonth(getSolarTermNum(year, SolarTermsEnum.XIAOHAN.name()));
+        jieQiList.add(jieQi);
+        jieQiBean.setJieQiList(jieQiList);
+        return jieQiBean;
+
+    }
+
+    /**
+     * 获取计算大运顺排运还是逆排运
+     *
+     * @param siZhuData
+     * @param sex
+     * @return
+     */
+    public static String getConutType(SiZhuData siZhuData, int sex) {
+        String yearType = getYearType(siZhuData);
+        if ((sex == Const.MAN & yearType.equals(Const.YANG)) || (sex == Const.WOMAN & yearType.equals(Const.YIN))) {
+            return Const.FORWARD;
+        } else {
+            return Const.BACKWARD;
+        }
+    }
+
+    /**
+     * 获取是阴年还是阳年
+     *
+     * @param siZhuData
+     * @return
+     */
+    public static String getYearType(SiZhuData siZhuData) {
+        String nianZhu = siZhuData.getNianZhu();
+        if (nianZhu.contains("子") || nianZhu.contains("寅") || nianZhu.contains("辰") || nianZhu.contains("午") || nianZhu.contains("申") || nianZhu.contains("戌")) {
+            return Const.YANG;
+        } else {
+            return Const.YIN;
+        }
+    }
 }
