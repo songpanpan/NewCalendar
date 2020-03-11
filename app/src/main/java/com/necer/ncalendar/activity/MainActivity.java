@@ -36,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
         picker.setTopLineColor(0x99FF0000);
         picker.setLabelTextColor(0xFFFF0000);
         picker.setDividerColor(0xFFFF0000);
+        picker.setSelectedItem(1990,1,1,12,30);
         picker.setOnDateTimePickListener(new DateTimePicker.OnYearMonthDayTimePickListener() {
             @Override
             public void onDateTimePicked(String year, String month, String day, String hour, String minute) {
