@@ -286,6 +286,7 @@ public class SolarTermUtil {
 
     /**
      * 获取第一次大运的年龄
+     *
      * @param calendar
      * @param siZhuData
      * @param sex
@@ -302,9 +303,9 @@ public class SolarTermUtil {
         for (int i = 0; i < jieQiList.size(); i++) {
             int tempMonth = jieQiList.get(i).getMonth();
             int tempDay = jieQiList.get(i).getDayCountInMonth();
-            int interval = 0;
-            int remainder = 0;
-            int result = 0;
+            int interval;
+            int remainder;
+            int result;
             if (tempMonth == (realMonth + 1)) {
                 if (tempDay > day && countType.equals(Const.FORWARD)) {
                     interval = tempDay - day;
@@ -323,6 +324,32 @@ public class SolarTermUtil {
                     tempCalendar.set(year, tempMonth, tempDay);
                     int tempDayInYear = tempCalendar.get(Calendar.DAY_OF_YEAR);
                     interval = tempDayInYear - dayInYear;
+                    remainder = interval % 3;
+                    result = interval / 3;
+                    if (remainder > 1) {
+                        result++;
+                    }
+                    if (result == 0) {
+                        result++;
+                    }
+                    return result;
+                } else if (tempDay > day && countType.equals(Const.BACKWARD)) {
+                    tempDay = jieQiList.get(i - 1).getDayCountInMonth();
+                    Calendar tempCalendar = Calendar.getInstance();
+                    tempCalendar.set(year, tempMonth - 2, tempDay);
+                    int tempDayInYear = tempCalendar.get(Calendar.DAY_OF_YEAR);
+                    interval = dayInYear - tempDayInYear;
+                    remainder = interval % 3;
+                    result = interval / 3;
+                    if (remainder > 1) {
+                        result++;
+                    }
+                    if (result == 0) {
+                        result++;
+                    }
+                    return result;
+                } else if (tempDay < day && countType.equals(Const.BACKWARD)) {
+                    interval = day - tempDay;
                     remainder = interval % 3;
                     result = interval / 3;
                     if (remainder > 1) {
@@ -352,8 +379,8 @@ public class SolarTermUtil {
         JieQiBean jieQiBean = new JieQiBean();
         JieQiBean.JieQi jieQi = new JieQiBean.JieQi();
         JieQiBean.JieQi jieQi2 = new JieQiBean.JieQi();
-        JieQiBean.JieQi jieQi3= new JieQiBean.JieQi();
-        JieQiBean.JieQi jieQi4= new JieQiBean.JieQi();
+        JieQiBean.JieQi jieQi3 = new JieQiBean.JieQi();
+        JieQiBean.JieQi jieQi4 = new JieQiBean.JieQi();
         JieQiBean.JieQi jieQi5 = new JieQiBean.JieQi();
         JieQiBean.JieQi jieQi6 = new JieQiBean.JieQi();
         JieQiBean.JieQi jieQi7 = new JieQiBean.JieQi();

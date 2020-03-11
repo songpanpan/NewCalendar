@@ -53,7 +53,12 @@ public class TestMonthActivity extends BaseActivity {
                 Calendar calendar = Calendar.getInstance();
                 calendar.set(1992, 2, 13, 22, 0);
 //                calendar.set(1990, 1, 11, 12, 30);
+//                calendar.set(1990, 9, 25, 12, 30);
+//                calendar.set(1970, 9, 13, 12, 30);
+//                calendar.set(1971, 6, 31, 12, 30);
+//                calendar.set(1980, 6, 31, 2, 30);
 //                calendar.set(2020, 0, 13, 10, 50);
+//                calendar.set(1995, 5, 20, 10, 50);
 
                 Log.e("spptag", "check time:" + calendar.getTime());
                 PaiPan paiPan = new PaiPan(calendar);
@@ -72,7 +77,7 @@ public class TestMonthActivity extends BaseActivity {
                         Log.e("spptag", "i：" + i + " dayun:" + dayun[i]);
                     }
                 }
-                Log.e("spptag", "大运年龄：" + SolarTermUtil.getDaYunAge(calendar, siZhuData, Const.MAN));
+                Log.e("spptag", "大运年龄：" + SolarTermUtil.getDaYunAge(calendar, siZhuData, Const.WOMAN));
                 Log.e("spptag", "大运结束-----------------------------------------------------");
                 Log.e("spptag", "惊蛰" + SolarTermUtil.getSolarTermNum(2020, "JINGZHE") + "");
                 SolarTermUtil.solarTermToString(2020);
