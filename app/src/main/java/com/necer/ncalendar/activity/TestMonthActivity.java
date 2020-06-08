@@ -5,6 +5,7 @@ import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.necer.calendar.BaseCalendar;
 import com.necer.calendar.MonthCalendar;
@@ -24,64 +25,28 @@ import org.joda.time.LocalDate;
 import java.util.Calendar;
 import java.util.List;
 
+import cn.qqtheme.framework.picker.DateTimePicker;
+import cn.qqtheme.framework.util.LogUtils;
+
 public class TestMonthActivity extends BaseActivity {
 
 
-    private TextView tv_result;
+    private TextView tv_result, tv_selected_date;
     private MonthCalendar monthCalendar;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_month);
-
         tv_result = findViewById(R.id.tv_result);
-
-
+        tv_selected_date = findViewById(R.id.tv_selected_date);
         monthCalendar = findViewById(R.id.monthCalendar);
         monthCalendar.setSelectedMode(selectedModel);
-
-
+        onYearMonthDayTimePicker();
         monthCalendar.setOnCalendarChangedListener(new OnCalendarChangedListener() {
             @Override
             public void onCalendarChange(BaseCalendar baseCalendar, int year, int month, LocalDate localDate) {
-//                tv_result.setText(year + "年" + month + "月" + "   当前页面选中 " + localDate);
 
-                CalendarDate calendarDate = CalendarUtil.getCalendarDate(localDate);
-                MyDate.getInstance().initGanZhi(2020, 2, 21);
-                String result = MyDate.getInstance().getGanZhi();
-                Calendar calendar = Calendar.getInstance();
-                calendar.set(1992, 2, 13, 22, 0);
-//                calendar.set(1990, 1, 11, 12, 30);
-//                calendar.set(1990, 9, 25, 12, 30);
-//                calendar.set(1970, 9, 13, 12, 30);
-//                calendar.set(1971, 6, 31, 12, 30);
-//                calendar.set(1980, 6, 31, 2, 30);
-//                calendar.set(2020, 0, 13, 10, 50);
-//                calendar.set(1995, 5, 20, 10, 50);
-
-                Log.e("spptag", "check time:" + calendar.getTime());
-                PaiPan paiPan = new PaiPan(calendar);
-                paiPan.getSiZhuString();
-                Log.e("spptag", paiPan.getSiZhuString());
-                SiZhuData siZhuData = paiPan.getSiZhuData();
-
-                tv_result.setText("1992年3月13（农历2月初十 ）22:00 四柱为：" + siZhuData.getNianZhu() + "(" + paiPan.getNaYin(siZhuData.getNianZhu()) + ":" + paiPan.getOtherNayin(siZhuData.getNianZhu()) + ")" + siZhuData.getYueZhu() + "(" + paiPan.getNaYin(siZhuData.getYueZhu()) + ":" + paiPan.getOtherNayin(siZhuData.getYueZhu()) + ")" + siZhuData.getRiZhu() + "(" + paiPan.getNaYin(siZhuData.getRiZhu()) + ":" + paiPan.getOtherNayin(siZhuData.getRiZhu()) + ")" + siZhuData.getShiZhu() + "(" + paiPan.getNaYin(siZhuData.getShiZhu()) + ":" + paiPan.getOtherNayin(siZhuData.getShiZhu()) + ")");
-//                tv_result.setText("1990年2月11（农历正月十六）12:30 四柱为：" + siZhuData.getNianZhu() + "(" + paiPan.getNaYin(siZhuData.getNianZhu()) + ":" + paiPan.getOtherNayin(siZhuData.getNianZhu()) + ")" + siZhuData.getYueZhu() + "(" + paiPan.getNaYin(siZhuData.getYueZhu()) + ":" + paiPan.getOtherNayin(siZhuData.getYueZhu()) + ")" + siZhuData.getRiZhu() + "(" + paiPan.getNaYin(siZhuData.getRiZhu()) + ":" + paiPan.getOtherNayin(siZhuData.getRiZhu()) + ")" + siZhuData.getShiZhu() + "(" + paiPan.getNaYin(siZhuData.getShiZhu()) + ":" + paiPan.getOtherNayin(siZhuData.getShiZhu()) + ")");
-                monthCalendar.jumpDate("1990-2-11");
-                String[] dayun = paiPan.getDaYunString(1, siZhuData.getNianZhu(), siZhuData.getYueZhu());
-                Log.e("spptag", "大运开始-----------------------------------------------------");
-
-                if (dayun != null && dayun.length > 0) {
-                    for (int i = 0; i < dayun.length; i++) {
-                        Log.e("spptag", "i：" + i + " dayun:" + dayun[i]);
-                    }
-                }
-                Log.e("spptag", "大运年龄：" + SolarTermUtil.getDaYunAge(calendar, siZhuData, Const.WOMAN));
-                Log.e("spptag", "大运结束-----------------------------------------------------");
-                Log.e("spptag", "惊蛰" + SolarTermUtil.getSolarTermNum(2020, "JINGZHE") + "");
-                SolarTermUtil.solarTermToString(2020);
-//                monthCalendar.jumpDate("1992-3-13");
                 Log.d(TAG, "setOnCalendarChangedListener:::" + year + "年" + month + "月" + "   当前页面选中 " + localDate);
             }
         });
@@ -100,6 +65,31 @@ public class TestMonthActivity extends BaseActivity {
 
     }
 
+    /**
+     * 时间选择工具，只选择公历
+     */
+    public void onYearMonthDayTimePicker() {
+        DateTimePicker picker = new DateTimePicker(this, DateTimePicker.HOUR_24);
+        picker.setDateRangeStart(1920, 1, 1);
+        picker.setDateRangeEnd(2099, 12, 31);
+        picker.setTimeRangeStart(1, 0);
+        picker.setTimeRangeEnd(23, 59);
+        picker.setTopLineColor(0x99FF0000);
+        picker.setLabelTextColor(0xFFFF0000);
+        picker.setDividerColor(0xFFFF0000);
+        picker.setSelectedItem(1990, 1, 1, 12, 30);
+        picker.setOnDateTimePickListener(new DateTimePicker.OnYearMonthDayTimePickListener() {
+            @Override
+            public void onDateTimePicked(String year, String month, String day, String hour, String minute) {
+//                Toast.makeText(TestMonthActivity.this, year + "-" + month + "-" + day + " " + hour + ":" + minute, Toast.LENGTH_LONG).show();
+                tv_selected_date.setText(year + "年" + month + "月" + day + "日");
+                jumpToData(year, month, day);
+                getDaYun(year, month, day, hour, minute);
+            }
+        });
+        picker.show();
+    }
+
     public void lastMonth(View view) {
         monthCalendar.toLastPager();
     }
@@ -107,6 +97,67 @@ public class TestMonthActivity extends BaseActivity {
     public void nextMonth(View view) {
         monthCalendar.toNextPager();
     }
+
+    /**
+     * 根据年月日跳转日历
+     *
+     * @param year  年
+     * @param month 月
+     * @param day   日
+     */
+    private void jumpToData(String year, String month, String day) {
+        monthCalendar.jumpDate(year + "-" + month + "-" + day);
+    }
+
+    /**
+     * 根据时间计算大运
+     *
+     * @param year   年
+     * @param month  月
+     * @param day    日
+     * @param hour   时
+     * @param minute 分
+     */
+    private void getDaYun(String year, String month, String day, String hour, String minute) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Integer.parseInt(year), Integer.parseInt(month) - 1, Integer.parseInt(day),
+                Integer.parseInt(hour), Integer.parseInt(minute));
+        Log.e("spptag", "check time:" + calendar.getTime());
+        PaiPan paiPan = new PaiPan(calendar);
+        paiPan.getSiZhuString();
+        Log.e("spptag", paiPan.getSiZhuString());
+        SiZhuData siZhuData = paiPan.getSiZhuData();
+
+        tv_result.setText("四柱为：\n" + siZhuData.getNianZhu() + "(" +
+                paiPan.getNaYin(siZhuData.getNianZhu()) + ":" + paiPan.getOtherNayin(siZhuData.getNianZhu())
+                + ")\n" + siZhuData.getYueZhu() + "(" + paiPan.getNaYin(siZhuData.getYueZhu())
+                + ":" + paiPan.getOtherNayin(siZhuData.getYueZhu()) + ")\n" + siZhuData.getRiZhu()
+                + "(" + paiPan.getNaYin(siZhuData.getRiZhu()) + ":" + paiPan.getOtherNayin(siZhuData.getRiZhu())
+                + ")\n" + siZhuData.getShiZhu() + "(" + paiPan.getNaYin(siZhuData.getShiZhu())
+                + ":" + paiPan.getOtherNayin(siZhuData.getShiZhu()) + ")\n");
+        String[] dayun = paiPan.getDaYunString(1, siZhuData.getNianZhu(), siZhuData.getYueZhu());
+        Log.e("spptag", "大运开始-----------------------------------------------------");
+
+        if (dayun != null && dayun.length > 0) {
+            for (int i = 0; i < dayun.length; i++) {
+                Log.e("spptag", "i：" + i + " dayun:" + dayun[i]);
+            }
+        }
+        Log.e("spptag", "大运年龄：" + SolarTermUtil.getDaYunAge(calendar, siZhuData, Const.MAN));
+        Log.e("spptag", "大运结束-----------------------------------------------------");
+        Log.e("spptag", "惊蛰" + SolarTermUtil.getSolarTermNum(2020, "JINGZHE") + "");
+        SolarTermUtil.solarTermToString(2020);
+    }
+//生日数据
+//    calendar.set(1992,2,13,22,0);
+//    calendar.set(1990,1,11,12,30);
+//    calendar.set(1990,9,25,12,30);
+//    calendar.set(1970,9,13,12,30);
+//    calendar.set(1971,6,31,12,30);
+//    calendar.set(1980,6,31,2,30);
+//    calendar.set(2020,0,13,10,50);
+//    calendar.set(1995,5,20,10,50);
+
 
     public void jump_2018_10_10(View view) {
         monthCalendar.jumpDate("2018-10-10");

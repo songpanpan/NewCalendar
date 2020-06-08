@@ -23,28 +23,12 @@ public class MainActivity extends AppCompatActivity {
 
         TextView tvVersion = (TextView) findViewById(R.id.tv_version);
         tvVersion.setText("版本：" + Utils.getCurrentVersion(this));
-        onYearMonthDayTimePicker();
+        month_selected(null);
+
 
     }
 
-    public void onYearMonthDayTimePicker() {
-        DateTimePicker picker = new DateTimePicker(this, DateTimePicker.HOUR_24);
-        picker.setDateRangeStart(1920, 1, 1);
-        picker.setDateRangeEnd(2099, 12, 31);
-        picker.setTimeRangeStart(1, 0);
-        picker.setTimeRangeEnd(23, 59);
-        picker.setTopLineColor(0x99FF0000);
-        picker.setLabelTextColor(0xFFFF0000);
-        picker.setDividerColor(0xFFFF0000);
-        picker.setSelectedItem(1990,1,1,12,30);
-        picker.setOnDateTimePickListener(new DateTimePicker.OnYearMonthDayTimePickListener() {
-            @Override
-            public void onDateTimePicked(String year, String month, String day, String hour, String minute) {
-                Toast.makeText(MainActivity.this,year + "-" + month + "-" + day + " " + hour + ":" + minute,Toast.LENGTH_LONG).show();
-            }
-        });
-        picker.show();
-    }
+
 
     public void month_selected(View view) {
         startActivity(getNewIntent(TestMonthActivity.class, SelectedModel.SINGLE_SELECTED, "月日历默认选中"));
