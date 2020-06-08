@@ -24,8 +24,7 @@ public class MainActivity extends AppCompatActivity {
         TextView tvVersion = (TextView) findViewById(R.id.tv_version);
         tvVersion.setText("版本：" + Utils.getCurrentVersion(this));
         month_selected(null);
-
-
+        finish();
     }
 
 
