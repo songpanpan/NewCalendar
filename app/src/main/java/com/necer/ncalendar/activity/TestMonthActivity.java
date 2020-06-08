@@ -46,11 +46,14 @@ public class TestMonthActivity extends BaseActivity {
         monthCalendar.setOnCalendarChangedListener(new OnCalendarChangedListener() {
             @Override
             public void onCalendarChange(BaseCalendar baseCalendar, int year, int month, LocalDate localDate) {
-
+                CalendarDate calendarDate = CalendarUtil.getCalendarDate(localDate);
                 Log.d(TAG, "setOnCalendarChangedListener:::" + year + "年" + month + "月" + "   当前页面选中 " + localDate);
-                tv_selected_date.setText(year + "年" + month + "月");
+                tv_selected_date.setText(year + "年" + month + "月 农历" + calendarDate.lunar.lunarYear
+                        + "年" + calendarDate.lunar.lunarMonth + "月" + calendarDate.lunar.lunarDay + "日");
                 jumpToData(year + "", month + "", localDate.getDayOfMonth() + "");
                 getDaYun(year + "", month + "", localDate.getDayOfMonth() + "", 12 + "", 30 + "");
+
+
             }
         });
 
@@ -149,8 +152,8 @@ public class TestMonthActivity extends BaseActivity {
                 + ":" + paiPan.getOtherNayin(siZhuData.getYueZhu()) + ")\n" + siZhuData.getRiZhu()
                 + "(" + paiPan.getNaYin(siZhuData.getRiZhu()) + ":" + paiPan.getOtherNayin(siZhuData.getRiZhu())
                 + ")\n" + siZhuData.getShiZhu() + "(" + paiPan.getNaYin(siZhuData.getShiZhu())
-                + ":" + paiPan.getOtherNayin(siZhuData.getShiZhu()) + ")\n" + "大运：\n" + dayunStr+
-                "\n大运年龄："+SolarTermUtil.getDaYunAge(calendar, siZhuData, Const.MAN));
+                + ":" + paiPan.getOtherNayin(siZhuData.getShiZhu()) + ")\n" + "大运：\n" + dayunStr +
+                "\n大运年龄：" + SolarTermUtil.getDaYunAge(calendar, siZhuData, Const.MAN));
 
     }
 //生日数据
