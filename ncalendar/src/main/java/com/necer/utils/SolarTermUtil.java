@@ -7,14 +7,6 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-/**
- * 作者：Sun_LeiLei
- * 来源：CSDN
- * 原文：https://blog.csdn.net/sun_leilei/article/details/50148297
- * 版权声明：本文为博主原创文章，转载请附上博文链接！
- * Created by necer on 2018/11/16.
- */
 public class SolarTermUtil {
 
 
@@ -181,10 +173,9 @@ public class SolarTermUtil {
     /**
      * 判断一天是什么节气  公历日期
      *
-     * @param year
+     * @param year 年
      * @param data 月份占两位，日不确定，如一月一日为：011，五月十日为0510
-     * @return
-     * @data2015-12-2下午2:49:32
+     * @return 节气，不是节气返回null
      */
     public static String getSolatName(int year, String data) {
         if (year != mYear) {
@@ -483,9 +474,9 @@ public class SolarTermUtil {
     /**
      * 获取计算大运顺排运还是逆排运
      *
-     * @param siZhuData
-     * @param sex
-     * @return
+     * @param siZhuData 四柱
+     * @param sex       性别
+     * @return 顺排运还是逆排运
      */
     public static String getConutType(SiZhuData siZhuData, int sex) {
         String yearType = getYearType(siZhuData);
@@ -499,8 +490,8 @@ public class SolarTermUtil {
     /**
      * 获取是阴年还是阳年
      *
-     * @param siZhuData
-     * @return
+     * @param siZhuData 四柱
+     * @return 阳年或者阴年
      */
     public static String getYearType(SiZhuData siZhuData) {
         String nianZhu = siZhuData.getNianZhu();
