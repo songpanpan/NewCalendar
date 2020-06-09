@@ -53,7 +53,6 @@ public class TestMonthActivity extends BaseActivity {
                 jumpToData(year + "", month + "", localDate.getDayOfMonth() + "");
                 getDaYun(year + "", month + "", localDate.getDayOfMonth() + "", 12 + "", 30 + "");
 
-
             }
         });
 

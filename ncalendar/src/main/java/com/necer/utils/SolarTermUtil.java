@@ -287,10 +287,11 @@ public class SolarTermUtil {
     /**
      * 获取第一次大运的年龄
      *
-     * @param calendar
-     * @param siZhuData
-     * @param sex
-     * @return
+     * @param calendar  日期
+     * @param siZhuData 四柱信息
+     * @param sex       性别
+     * @return 大运年龄
+     * ToDo 跨年边界问题
      */
     public static int getDaYunAge(Calendar calendar, SiZhuData siZhuData, int sex) {
         int year = calendar.get(Calendar.YEAR);
@@ -299,6 +300,8 @@ public class SolarTermUtil {
         int dayInYear = calendar.get(Calendar.DAY_OF_YEAR);
         String countType = getConutType(siZhuData, sex);
         JieQiBean jieQiBean = getSolarTermData(year);
+        JieQiBean.JieQi preJieQi = getPreJieQi(year);
+        JieQiBean.JieQi nextJieQi = getNextPreJieQi(year);
         List<JieQiBean.JieQi> jieQiList = jieQiBean.getJieQiList();
         for (int i = 0; i < jieQiList.size(); i++) {
             int tempMonth = jieQiList.get(i).getMonth();
@@ -319,6 +322,9 @@ public class SolarTermUtil {
                     }
                     return result;
                 } else if (tempDay < day && countType.equals(Const.FORWARD)) {
+                    if (i + 1 >= jieQiList.size()) {
+                        return 0;
+                    }
                     tempDay = jieQiList.get(i + 1).getDayCountInMonth();
                     Calendar tempCalendar = Calendar.getInstance();
                     tempCalendar.set(year, tempMonth, tempDay);
@@ -334,6 +340,9 @@ public class SolarTermUtil {
                     }
                     return result;
                 } else if (tempDay > day && countType.equals(Const.BACKWARD)) {
+                    if (i - 1 < 0) {
+                        return 0;
+                    }
                     tempDay = jieQiList.get(i - 1).getDayCountInMonth();
                     Calendar tempCalendar = Calendar.getInstance();
                     tempCalendar.set(year, tempMonth - 2, tempDay);
@@ -368,10 +377,39 @@ public class SolarTermUtil {
     }
 
     /**
+     * 获取本年度前一年的最后一个节气
+     *
+     * @param year 当前年
+     * @return 当前年的节气列表
+     */
+    public static JieQiBean.JieQi getPreJieQi(int year) {
+        JieQiBean.JieQi jieQi = new JieQiBean.JieQi();
+        jieQi.setJieqiName("小寒");
+        jieQi.setMonth(1);
+        jieQi.setDayCountInMonth(getSolarTermNum(year - 1, SolarTermsEnum.XIAOHAN.name()));
+        return jieQi;
+    }
+
+    /**
+     * 获取下一年第一个节气
+     *
+     * @param year 当前年
+     * @return 当前年的节气列表
+     */
+    public static JieQiBean.JieQi getNextPreJieQi(int year) {
+        JieQiBean.JieQi jieQi = new JieQiBean.JieQi();
+        jieQi.setYear(year);
+        jieQi.setJieqiName("立春");
+        jieQi.setMonth(2);
+        jieQi.setDayCountInMonth(getSolarTermNum(year + 1, SolarTermsEnum.LICHUN.name()));
+        return jieQi;
+    }
+
+    /**
      * 获取本年度需要的12个节气的日期
      *
      * @param year 当前年
-     * @return
+     * @return 当前年的节气列表
      */
     public static JieQiBean getSolarTermData(int year) {
         mYear = year;
@@ -440,7 +478,6 @@ public class SolarTermUtil {
         jieQiList.add(jieQi);
         jieQiBean.setJieQiList(jieQiList);
         return jieQiBean;
-
     }
 
     /**
