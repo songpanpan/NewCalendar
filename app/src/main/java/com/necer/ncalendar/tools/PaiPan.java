@@ -4,6 +4,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import android.util.Log;
 
@@ -11,11 +13,28 @@ import com.necer.utils.SiZhuData;
 
 public class PaiPan {
 
+    //建 除 满 平 定 执 破 危 成 收 开 闭
+
     private int DAYUN_COUNT = 8;// 需要的大运的数目
     private Calendar calendar;
     // ==========干支数组===================
+
     final String[] Gan = new String[]{"甲", "乙", "丙", "丁", "戊", "己", "庚", "辛", "壬", "癸"};
     final String[] Zhi = new String[]{"子", "丑", "寅", "卯", "辰", "巳", "午", "未", "申", "酉", "戌", "亥"};
+    final String[] JianXing = new String[]{"建", "除", "满", "平", "定", "执", "破", "危", "成", "收", "开", "闭"};
+    //    final String[] zhagenYun = new String[]{"葵花树", "桂花树", "松树", "寺院", "靠城", "松林", "扎路", "绣楼厅", "河边上", "河套中"};
+    final static Map<String, String> zhagenYun = new HashMap<String, String>() {{
+        put("甲", "葵花树");
+        put("乙", "桂花树");
+        put("丙", "松树");
+        put("丁", "寺院");
+        put("戊", "靠城");
+        put("己", "松林");
+        put("庚", "扎路");
+        put("辛", "绣楼厅");
+        put("壬", "河边上");
+        put("癸", "河套中");
+    }};
     final String[] NaYin = new String[]{"海中金", "海中金", "炉中火", "炉中火", "大林木", "大林木", "路旁土", "路旁土", "剑锋金", "剑锋金", "山头火",
             "山头火", "涧下水", "涧下水", "城头土", "城头土", "白腊金", "白腊金", "杨柳木", "杨柳木", "泉中水", "泉中水", "屋上土", "屋上土", "霹雳火", "霹雳火",
             "松柏木", "松柏木", "长流水", "长流水", "沙中金", "沙中金", "山下火", "山下火", "平地木", "平地木", "壁上土", "壁上土", "金箔金", "金箔金", "佛灯火",
@@ -183,7 +202,7 @@ public class PaiPan {
     /**
      * 输出四柱
      *
-     * @return
+     * @return 四柱string
      */
     public String getSiZhuString() {// 返回四柱
         return cyclicalm(yearCyl) + monthGanZhi + cyclicalm(dayCyl) + cyclicalm(hourCyl);
@@ -192,7 +211,7 @@ public class PaiPan {
     /**
      * 获取4柱
      *
-     * @return
+     * @return 四柱
      */
     public SiZhuData getSiZhuData() {
         SiZhuData siZhuData = new SiZhuData();
@@ -207,7 +226,7 @@ public class PaiPan {
     /**
      * 获取四柱对应的纳音
      *
-     * @return
+     * @return 纳音
      */
     public String getNaYin(String sizhu) {
         for (int i = 0; i < nayinArray.length; i++) {
@@ -500,5 +519,37 @@ public class PaiPan {
     // System.out.println("Here:"+test[j]);
     // }
     // }
+
+    /**
+     * 根据日柱获取扎根运类型
+     *
+     * @param riZhu 日柱
+     * @return 扎根运类型
+     */
+    public static String getZhaGenYunFromRiZhu(String riZhu) {
+        String real = riZhu.substring(0, 1);
+        return zhagenYun.get(real);
+    }
+
+    /**
+     * 获取扎根运第几阶段
+     *
+     * @param daYunYear 大运年龄
+     * @return 扎根运第几段
+     */
+    public static int getZhaGenYunLevel(int daYunYear) {
+        if (daYunYear <= 2) {
+            return 1;
+        } else if (daYunYear <= 4) {
+            return 2;
+        } else if (daYunYear <= 6) {
+            return 3;
+        } else if (daYunYear <= 8) {
+            return 4;
+        } else if (daYunYear <= 10) {
+            return 5;
+        }
+        return 0;
+    }
 
 }

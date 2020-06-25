@@ -51,7 +51,7 @@ public class TestMonthActivity extends BaseActivity {
                 tv_selected_date.setText(year + "年" + month + "月 农历" + calendarDate.lunar.lunarYear
                         + "年" + calendarDate.lunar.lunarMonth + "月" + calendarDate.lunar.lunarDay + "日");
                 jumpToData(year + "", month + "", localDate.getDayOfMonth() + "");
-                getDaYun(year + "", month + "", localDate.getDayOfMonth() + "", 12 + "", 30 + "");
+                getDaYun(year + "", month + "", localDate.getDayOfMonth() + "", 22 + "", 00 + "");
 
             }
         });
@@ -152,7 +152,10 @@ public class TestMonthActivity extends BaseActivity {
                 + "(" + paiPan.getNaYin(siZhuData.getRiZhu()) + ":" + paiPan.getOtherNayin(siZhuData.getRiZhu())
                 + ")\n" + siZhuData.getShiZhu() + "(" + paiPan.getNaYin(siZhuData.getShiZhu())
                 + ":" + paiPan.getOtherNayin(siZhuData.getShiZhu()) + ")\n" + "大运：\n" + dayunStr +
-                "\n大运年龄：" + SolarTermUtil.getDaYunAge(calendar, siZhuData, Const.MAN));
+                "\n大运年龄：" + SolarTermUtil.getDaYunAge(calendar, siZhuData, Const.MAN)+"\n"+"扎根运："+
+                PaiPan.getZhaGenYunFromRiZhu(siZhuData.getRiZhu())+" 第"+
+                PaiPan.getZhaGenYunLevel(SolarTermUtil.getDaYunAge(calendar, siZhuData, Const.MAN))+"段\n"
+                +"时辰："+siZhuData.getShiZhu().substring(1)+"\n"+"建星："+"收");
 
     }
 //生日数据
