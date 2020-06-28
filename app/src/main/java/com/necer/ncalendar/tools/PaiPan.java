@@ -20,9 +20,22 @@ public class PaiPan {
     // ==========干支数组===================
 
     final String[] Gan = new String[]{"甲", "乙", "丙", "丁", "戊", "己", "庚", "辛", "壬", "癸"};
-    final String[] Zhi = new String[]{"子", "丑", "寅", "卯", "辰", "巳", "午", "未", "申", "酉", "戌", "亥"};
+    public static final String[] Zhi = new String[]{"子", "丑", "寅", "卯", "辰", "巳", "午", "未", "申", "酉", "戌", "亥"};
     final String[] JianXingZhi = new String[]{"寅", "卯", "辰", "巳", "午", "未", "申", "酉", "戌", "亥", "子", "丑"};
-    final String[] JianXing = new String[]{"建", "除", "满", "平", "定", "执", "破", "危", "成", "收", "开", "闭"};
+    public static final String[] JianXing = new String[]{"建", "除", "满", "平", "定", "执", "破", "危", "成", "收", "开", "闭"};
+    public static final String[] JianXingNew = new String[]{"开", "闭", "建", "除", "满", "平", "定", "执", "破", "危", "成", "收"};
+    public static final String[] JianXingNew2 = new String[]{"收", "开", "闭", "建", "除", "满", "平", "定", "执", "破", "危", "成"};
+    public static final String[] JianXingNew3 = new String[]{"成", "收", "开", "闭", "建", "除", "满", "平", "定", "执", "破", "危"};
+    public static final String[] JianXingNew4 = new String[]{"危", "成", "收", "开", "闭", "建", "除", "满", "平", "定", "执", "破"};
+    public static final String[] JianXingNew5 = new String[]{"破", "危", "成", "收", "开", "闭", "建", "除", "满", "平", "定", "执"};
+    public static final String[] JianXingNew6 = new String[]{"执", "破", "危", "成", "收", "开", "闭", "建", "除", "满", "平", "定"};
+    public static final String[] JianXingNew7 = new String[]{"定", "执", "破", "危", "成", "收", "开", "闭", "建", "除", "满", "平"};
+    public static final String[] JianXingNew8 = new String[]{"平", "定", "执", "破", "危", "成", "收", "开", "闭", "建", "除", "满"};
+    public static final String[] JianXingNew9 = new String[]{"满", "平", "定", "执", "破", "危", "成", "收", "开", "闭", "建", "除"};
+    public static final String[] JianXingNew10 = new String[]{"除", "满", "平", "定", "执", "破", "危", "成", "收", "开", "闭", "建"};
+    public static final String[] JianXingNew11 = new String[]{"建", "除", "满", "平", "定", "执", "破", "危", "成", "收", "开", "闭"};
+    public static final String[] JianXingNew12 = new String[]{"闭", "建", "除", "满", "平", "定", "执", "破", "危", "成", "收", "开"};
+
     //    final String[] zhagenYun = new String[]{"葵花树", "桂花树", "松树", "寺院", "靠城", "松林", "扎路", "绣楼厅", "河边上", "河套中"};
     final static Map<String, String> zhagenYun = new HashMap<String, String>() {{
         put("甲", "葵花树");
@@ -200,17 +213,21 @@ public class PaiPan {
 
     }
 
-    /**
-     * 获取建星（哪天起建叫月令  月令之前按照上一个月令 之后按照本月月令）
-     *
-     * @return 建星
-     */
-    public String getJianXing() {
-        Calendar tempCalendar = calendar;
-        //建星后第几天
-        int preDay = 0;
-        SiZhuData siZhuData = getSiZhuData();
-        return NongLi.getDate("19930110");
+
+    public static String getNongLiMonth(Calendar calendar) {
+        if (calendar == null) {
+            return null;
+        }
+        try {
+            SimpleDateFormat df = new SimpleDateFormat("yyyyMMdd");// 设置你想要的格式
+            String dateStr = df.format(calendar.getTime());
+            String nongLiMonth = NongLi.getDateMonth(dateStr);
+            return nongLiMonth;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "";
+        }
+
     }
 
     /**

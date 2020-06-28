@@ -368,6 +368,12 @@ public class NongLi {
         return sb.toString();
     }
 
+    private static String castMonth(String date) {
+        StringBuilder sb = new StringBuilder("");
+        int[] result = cast2Array(date);
+        return formatMonth(result[1]);
+    }
+
     public static String getDate(String date) {
         int[] dateArray = judge(date);
         if (dateArray == null) {
@@ -377,6 +383,23 @@ public class NongLi {
             if (year >= FIRST_YEAR && year <= LAST_YEAR) {
                 String dateStr = cast(dateArray);
                 return cast(dateStr);
+            } else {
+                throw new RuntimeException("-输入的日期年份超出范围,年份必须在" + FIRST_YEAR + "与" + LAST_YEAR + "之间-");
+            }
+        } else {
+            throw new RuntimeException("-输入的日期不合法-");
+        }
+    }
+
+    public static String getDateMonth(String date) {
+        int[] dateArray = judge(date);
+        if (dateArray == null) {
+            throw new RuntimeException("-输入的日期不合法-");
+        } else if (judge(dateArray)) {
+            int year = dateArray[0];
+            if (year >= FIRST_YEAR && year <= LAST_YEAR) {
+                String dateStr = cast(dateArray);
+                return castMonth(dateStr);
             } else {
                 throw new RuntimeException("-输入的日期年份超出范围,年份必须在" + FIRST_YEAR + "与" + LAST_YEAR + "之间-");
             }

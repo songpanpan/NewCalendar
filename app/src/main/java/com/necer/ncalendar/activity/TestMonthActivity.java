@@ -152,10 +152,10 @@ public class TestMonthActivity extends BaseActivity {
                 + "(" + paiPan.getNaYin(siZhuData.getRiZhu()) + ":" + paiPan.getOtherNayin(siZhuData.getRiZhu())
                 + ")\n" + siZhuData.getShiZhu() + "(" + paiPan.getNaYin(siZhuData.getShiZhu())
                 + ":" + paiPan.getOtherNayin(siZhuData.getShiZhu()) + ")\n" + "大运：\n" + dayunStr +
-                "\n大运年龄：" + SolarTermUtil.getDaYunAge(calendar, siZhuData, Const.MAN)+"\n"+"扎根运："+
-                PaiPan.getZhaGenYunFromRiZhu(siZhuData.getRiZhu())+" 第"+
-                PaiPan.getZhaGenYunLevel(SolarTermUtil.getDaYunAge(calendar, siZhuData, Const.MAN))+"段\n"
-                +"时辰："+siZhuData.getShiZhu().substring(1)+"\n"+"建星："+paiPan.getJianXing());
+                "\n大运年龄：" + SolarTermUtil.getDaYunAge(calendar, siZhuData, Const.MAN) + "\n" + "扎根运：" +
+                PaiPan.getZhaGenYunFromRiZhu(siZhuData.getRiZhu()) + " 第" +
+                PaiPan.getZhaGenYunLevel(SolarTermUtil.getDaYunAge(calendar, siZhuData, Const.MAN)) + "段\n"
+                + "时辰：" + siZhuData.getShiZhu().substring(1) + "\n" + "建星：" + getJianXingNew(calendar));
 
     }
 //生日数据
@@ -184,5 +184,80 @@ public class TestMonthActivity extends BaseActivity {
 
     public void today(View view) {
         monthCalendar.toToday();
+    }
+
+    /**
+     * 获取建星（哪天起建叫月令  月令之前按照上一个月令 之后按照本月月令）
+     *
+     * @return 建星
+     */
+    public String getJianXing(Calendar calendar) {
+        Calendar tempCalendar = calendar;
+        //建星后第几天
+        int preDay = 0;
+        PaiPan paiPan = new PaiPan(calendar);
+        SiZhuData siZhuData = paiPan.getSiZhuData();
+        String yueZhu = siZhuData.getYueZhu().substring(1);
+        String riZhu = siZhuData.getRiZhu().substring(1);
+        if (yueZhu.equals(riZhu)) {
+            return "建";
+        }
+        for (int i = 0; i < 15; i++) {
+            tempCalendar.add(Calendar.DATE, -1);
+            preDay++;
+            paiPan = new PaiPan(tempCalendar);
+            siZhuData = paiPan.getSiZhuData();
+            yueZhu = siZhuData.getYueZhu().substring(1);
+            riZhu = siZhuData.getRiZhu().substring(1);
+            if (yueZhu.equals(riZhu)) {
+                return PaiPan.JianXing[preDay - 1];
+            }
+        }
+        return "";
+    }
+
+    /**
+     * 获取建星（哪天起建叫月令  月令之前按照上一个月令 之后按照本月月令）
+     *
+     * @param calendar 日期
+     * @return 建星
+     */
+    public String getJianXingNew(Calendar calendar) {
+        String nongLiMonth = PaiPan.getNongLiMonth(calendar);
+        String[] JianXingZhi = null;
+        if (nongLiMonth.contains("正")) {
+            JianXingZhi = PaiPan.JianXingNew;
+        } else if (nongLiMonth.contains("二")) {
+            JianXingZhi = PaiPan.JianXingNew2;
+        } else if (nongLiMonth.contains("三")) {
+            JianXingZhi = PaiPan.JianXingNew3;
+        } else if (nongLiMonth.contains("四")) {
+            JianXingZhi = PaiPan.JianXingNew4;
+        } else if (nongLiMonth.contains("五")) {
+            JianXingZhi = PaiPan.JianXingNew5;
+        } else if (nongLiMonth.contains("六")) {
+            JianXingZhi = PaiPan.JianXingNew6;
+        } else if (nongLiMonth.contains("七")) {
+            JianXingZhi = PaiPan.JianXingNew7;
+        } else if (nongLiMonth.contains("八")) {
+            JianXingZhi = PaiPan.JianXingNew8;
+        } else if (nongLiMonth.contains("九")) {
+            JianXingZhi = PaiPan.JianXingNew9;
+        } else if (nongLiMonth.contains("十")) {
+            JianXingZhi = PaiPan.JianXingNew10;
+        } else if (nongLiMonth.contains("冬")) {
+            JianXingZhi = PaiPan.JianXingNew11;
+        } else if (nongLiMonth.contains("腊")) {
+            JianXingZhi = PaiPan.JianXingNew12;
+        }
+        PaiPan paiPan = new PaiPan(calendar);
+        SiZhuData siZhuData = paiPan.getSiZhuData();
+        String riZhu = siZhuData.getRiZhu().substring(1);
+        for (int i = 0; i < PaiPan.Zhi.length; i++) {
+            if (riZhu.equals(PaiPan.Zhi[i])) {
+                return JianXingZhi[i];
+            }
+        }
+        return nongLiMonth;
     }
 }
