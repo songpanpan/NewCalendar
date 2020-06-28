@@ -21,6 +21,7 @@ public class PaiPan {
 
     final String[] Gan = new String[]{"甲", "乙", "丙", "丁", "戊", "己", "庚", "辛", "壬", "癸"};
     final String[] Zhi = new String[]{"子", "丑", "寅", "卯", "辰", "巳", "午", "未", "申", "酉", "戌", "亥"};
+    final String[] JianXingZhi = new String[]{"寅", "卯", "辰", "巳", "午", "未", "申", "酉", "戌", "亥", "子", "丑"};
     final String[] JianXing = new String[]{"建", "除", "满", "平", "定", "执", "破", "危", "成", "收", "开", "闭"};
     //    final String[] zhagenYun = new String[]{"葵花树", "桂花树", "松树", "寺院", "靠城", "松林", "扎路", "绣楼厅", "河边上", "河套中"};
     final static Map<String, String> zhagenYun = new HashMap<String, String>() {{
@@ -197,6 +198,19 @@ public class PaiPan {
         dayCyl = offset + 40;
         hourCyl = (int) ((cal.getTime().getTime() - baseDate.getTime() + 3300000L) / 7200000L);
 
+    }
+
+    /**
+     * 获取建星（哪天起建叫月令  月令之前按照上一个月令 之后按照本月月令）
+     *
+     * @return 建星
+     */
+    public String getJianXing() {
+        Calendar tempCalendar = calendar;
+        //建星后第几天
+        int preDay = 0;
+        SiZhuData siZhuData = getSiZhuData();
+        return NongLi.getDate("19930110");
     }
 
     /**
