@@ -155,7 +155,7 @@ public class TestMonthActivity extends BaseActivity {
                 "\n大运年龄：" + SolarTermUtil.getDaYunAge(calendar, siZhuData, Const.MAN) + "\n" + "扎根运：" +
                 PaiPan.getZhaGenYunFromRiZhu(siZhuData.getRiZhu()) + " 第" +
                 PaiPan.getZhaGenYunLevel(SolarTermUtil.getDaYunAge(calendar, siZhuData, Const.MAN)) + "段\n"
-                + "时辰：" + siZhuData.getShiZhu().substring(1) + "\n" + "建星：" + getJianXingNew(calendar));
+                + "时辰：" + siZhuData.getShiZhu().substring(1) + "\n" + "建星：" + getJianXing(calendar));
 
     }
 //生日数据
@@ -204,16 +204,35 @@ public class TestMonthActivity extends BaseActivity {
         }
         for (int i = 0; i < 15; i++) {
             tempCalendar.add(Calendar.DATE, -1);
-            preDay++;
+
+            String jieQi = getJieQi(tempCalendar);
+            if (jieQi == null || !SolarTermUtil.specialJieQi.contains(jieQi)) {
+                preDay++;
+            }
+            Log.e("getJieQi", "getJieQi:" + getJieQi(tempCalendar));
             paiPan = new PaiPan(tempCalendar);
             siZhuData = paiPan.getSiZhuData();
             yueZhu = siZhuData.getYueZhu().substring(1);
             riZhu = siZhuData.getRiZhu().substring(1);
             if (yueZhu.equals(riZhu)) {
-                return PaiPan.JianXing[preDay - 1];
+                return PaiPan.JianXing[preDay];
             }
         }
         return "";
+    }
+
+    /**
+     * 获取当前日期的节气
+     *
+     * @param calendar 日期
+     * @return 节气
+     */
+    private String getJieQi(Calendar calendar) {
+        int solarYear = calendar.get(Calendar.YEAR);
+        int solarMonth = calendar.get(Calendar.MONTH);
+        int solarDay = calendar.get(Calendar.DAY_OF_MONTH);
+        Log.e("getJieQi", "solarYear:" + solarYear + "  solarMonth:" + solarMonth + " solarDay:" + solarDay);
+        return SolarTermUtil.getSolatName(solarYear, (solarMonth < 10 ? ("0" + solarMonth) : (solarMonth + "")) + solarDay);
     }
 
     /**

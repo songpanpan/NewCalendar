@@ -7,12 +7,29 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 public class SolarTermUtil {
 
 
     private static final double D = 0.2422;
     private final static Map<String, Integer[]> INCREASE_OFFSETMAP = new HashMap<String, Integer[]>();// +1偏移
     private final static Map<String, Integer[]> DECREASE_OFFSETMAP = new HashMap<String, Integer[]>();// -1偏移
+
+    public final static ArrayList<String> specialJieQi = new ArrayList<String>() {{
+        add("立春");
+        add("惊蛰");
+        add("清明");
+        add("立夏");
+        add("芒种");
+        add("小暑");
+        add("立秋");
+        add("白露");
+        add("寒露");
+        add("立冬");
+        add("大雪");
+        add("小寒");
+    }};
+
 
     /**
      * 24节气
