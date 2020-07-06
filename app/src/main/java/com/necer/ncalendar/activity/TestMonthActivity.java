@@ -155,7 +155,9 @@ public class TestMonthActivity extends BaseActivity {
                 "\n大运年龄：" + SolarTermUtil.getDaYunAge(calendar, siZhuData, Const.MAN) + "\n" + "扎根运：" +
                 PaiPan.getZhaGenYunFromRiZhu(siZhuData.getRiZhu()) + " 第" +
                 PaiPan.getZhaGenYunLevel(SolarTermUtil.getDaYunAge(calendar, siZhuData, Const.MAN)) + "段\n"
-                + "时辰：" + siZhuData.getShiZhu().substring(1) + "\n" + "建星：" + getJianXing(calendar));
+                + "时辰：" + siZhuData.getShiZhu().substring(1) + "\n" + "建星：" + getJianXing(calendar) + "\n日柱挂："
+                + paiPan.getOtherNayin(siZhuData.getRiZhu()) + "," +
+                PaiPan.LiuShiGua.get(paiPan.getOtherNayin(siZhuData.getRiZhu())));
 
     }
 //生日数据
