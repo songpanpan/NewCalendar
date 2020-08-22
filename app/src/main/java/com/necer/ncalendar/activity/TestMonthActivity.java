@@ -179,7 +179,14 @@ public class TestMonthActivity extends BaseActivity {
         String yueZhuNaYin = paiPan.getOtherNayin(siZhuData.getYueZhu());
         String riZhuNaYin = paiPan.getOtherNayin(siZhuData.getRiZhu());
         String shiZhuNaYin = paiPan.getOtherNayin(siZhuData.getShiZhu());
-        Log.e(TAG, "getWuXingList: " + nianZhuNaYin.substring(2, 4)+ " "+nianZhuNaYin.substring(6));
+        Log.e(TAG, "getWuXingList: " + nianZhuNaYin);
+        Log.e(TAG, "getWuXingList: " + yueZhuNaYin);
+        Log.e(TAG, "getWuXingList: " + riZhuNaYin);
+        Log.e(TAG, "getWuXingList: " + shiZhuNaYin);
+        Log.e(TAG, "getWuXingList: " + nianZhuNaYin + " " + nianZhuNaYin.substring(2, 4) + " " + nianZhuNaYin.substring(6));
+        Log.e(TAG, "getWuXingList: " + yueZhuNaYin + " " + yueZhuNaYin.substring(2, 4) + " " + yueZhuNaYin.substring(6));
+        Log.e(TAG, "getWuXingList: " + riZhuNaYin + " " + riZhuNaYin.substring(2, 4) + " " + riZhuNaYin.substring(6));
+        Log.e(TAG, "getWuXingList: " + shiZhuNaYin + " " + shiZhuNaYin.substring(2, 4) + " " + shiZhuNaYin.substring(6));
         if (nianZhuNaYin.length() == 8) {
             wuXingList.add(0, PaiPan.yinYangWuXing.get(nianZhuNaYin.substring(2, 4)));
             wuXingList.add(1, PaiPan.yinYangWuXing.get(nianZhuNaYin.substring(6)));
