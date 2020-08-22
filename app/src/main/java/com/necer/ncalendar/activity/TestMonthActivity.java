@@ -148,6 +148,15 @@ public class TestMonthActivity extends BaseActivity {
         Log.e("spptag", "惊蛰" + SolarTermUtil.getSolarTermNum(2020, "JINGZHE") + "");
         SolarTermUtil.solarTermToString(2020);
         List<String> wuXingList = getWuXingList(paiPan, siZhuData);
+        String baZi = siZhuData.getNianZhu() + siZhuData.getYueZhu() + siZhuData.getRiZhu() + siZhuData.getShiZhu();
+        String[] baZiArray = baZi.split("");
+        List<String> baZiList = new ArrayList<>();
+        for (int i = 0; i < baZiArray.length; i++) {
+            if (!baZiArray[i].equals("")) {
+                baZiList.add(baZiArray[i]);
+            }
+        }
+        Log.e(TAG, "getDaYun: getShiTianGanXiangHe(baZiList)"+getShiTianGanXiangHe(baZiList) );
         tv_result.setText(year + "年" + month + "月" + day + "日" + "四柱为：\n" +
                 siZhuData.getNianZhu() + "(" + paiPan.getNaYin(siZhuData.getNianZhu()) + ":" + paiPan.getOtherNayin(siZhuData.getNianZhu())
                 + " 五行：" + wuXingList.get(0) + " " + wuXingList.get(1) + ")\n"
@@ -164,6 +173,68 @@ public class TestMonthActivity extends BaseActivity {
                 + paiPan.getOtherNayin(siZhuData.getRiZhu()) + "," +
                 PaiPan.LiuShiGua.get(paiPan.getOtherNayin(siZhuData.getRiZhu())) + "\n五行\n" + "");
 
+    }
+
+    /**
+     * 获取十天干相合
+     *
+     * @param baZiList 八字list
+     * @return 返回相合的十天干
+     */
+    private String getShiTianGanXiangHe(List<String> baZiList) {
+        String result = "";
+        List<String> list1 = new ArrayList<>();
+        list1.add("甲");
+        list1.add("己");
+        List<String> list2 = new ArrayList<>();
+        list2.add("乙");
+        list2.add("庚");
+        List<String> list3 = new ArrayList<>();
+        list3.add("丙");
+        list3.add("辛");
+        List<String> list4 = new ArrayList<>();
+        list4.add("丁");
+        list4.add("壬");
+        List<String> list5 = new ArrayList<>();
+        list5.add("戊");
+        list5.add("癸");
+        if (aContainsB(baZiList,list1)) {
+            result += "甲与己合";
+        }
+        if (aContainsB(baZiList,list2)) {
+            result += "乙与庚合";
+        }
+        if (aContainsB(baZiList,list3)) {
+            result += "丙与辛合";
+        }
+        if (aContainsB(baZiList,list4)) {
+            result += "丁与壬合";
+        }
+        if (aContainsB(baZiList,list5)) {
+            result += "戊与癸合";
+        }
+
+        return result;
+    }
+
+    /**
+     * 判断list a 是否包含list b
+     *
+     * @param aList list a
+     * @param bList list b
+     * @return list a 是否包含list b
+     */
+    private boolean aContainsB(List<String> aList, List<String> bList) {
+        if (aList != null && aList.size() > 0 && bList != null && bList.size() > 0) {
+            for (int i = 0; i < bList.size(); i++) {
+                if (!aList.contains(bList.get(i))) {
+                    return false;
+                }
+            }
+        } else {
+            return false;
+        }
+        return true;
     }
 
     /**
