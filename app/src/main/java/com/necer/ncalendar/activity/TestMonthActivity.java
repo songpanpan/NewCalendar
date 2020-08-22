@@ -1,5 +1,6 @@
 package com.necer.ncalendar.activity;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
@@ -22,6 +23,7 @@ import com.necer.utils.SolarTermUtil;
 
 import org.joda.time.LocalDate;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -121,6 +123,7 @@ public class TestMonthActivity extends BaseActivity {
      * @param hour   时
      * @param minute 分
      */
+    @SuppressLint("SetTextI18n")
     private void getDaYun(String year, String month, String day, String hour, String minute) {
         Calendar calendar = Calendar.getInstance();
         calendar.set(Integer.parseInt(year), Integer.parseInt(month) - 1, Integer.parseInt(day),
@@ -144,21 +147,56 @@ public class TestMonthActivity extends BaseActivity {
         Log.e("spptag", "大运结束-----------------------------------------------------");
         Log.e("spptag", "惊蛰" + SolarTermUtil.getSolarTermNum(2020, "JINGZHE") + "");
         SolarTermUtil.solarTermToString(2020);
-
-        tv_result.setText(year + "年" + month + "月" + day + "日" + "四柱为：\n" + siZhuData.getNianZhu() + "(" +
-                paiPan.getNaYin(siZhuData.getNianZhu()) + ":" + paiPan.getOtherNayin(siZhuData.getNianZhu())
-                + ")\n" + siZhuData.getYueZhu() + "(" + paiPan.getNaYin(siZhuData.getYueZhu())
-                + ":" + paiPan.getOtherNayin(siZhuData.getYueZhu()) + ")\n" + siZhuData.getRiZhu()
-                + "(" + paiPan.getNaYin(siZhuData.getRiZhu()) + ":" + paiPan.getOtherNayin(siZhuData.getRiZhu())
-                + ")\n" + siZhuData.getShiZhu() + "(" + paiPan.getNaYin(siZhuData.getShiZhu())
-                + ":" + paiPan.getOtherNayin(siZhuData.getShiZhu()) + ")\n" + "大运：\n" + dayunStr +
-                "\n大运年龄：" + SolarTermUtil.getDaYunAge(calendar, siZhuData, Const.MAN) + "\n" + "扎根运：" +
+        List<String> wuXingList = getWuXingList(paiPan, siZhuData);
+        tv_result.setText(year + "年" + month + "月" + day + "日" + "四柱为：\n" +
+                siZhuData.getNianZhu() + "(" + paiPan.getNaYin(siZhuData.getNianZhu()) + ":" + paiPan.getOtherNayin(siZhuData.getNianZhu())
+                + " 五行：" + wuXingList.get(0) + " " + wuXingList.get(1) + ")\n"
+                + siZhuData.getYueZhu() + "(" + paiPan.getNaYin(siZhuData.getYueZhu()) + ":" + paiPan.getOtherNayin(siZhuData.getYueZhu())
+                + " 五行：" + wuXingList.get(2) + " " + wuXingList.get(3) + ")\n"
+                + siZhuData.getRiZhu() + "(" + paiPan.getNaYin(siZhuData.getRiZhu()) + ":" + paiPan.getOtherNayin(siZhuData.getRiZhu())
+                + " 五行：" + wuXingList.get(4) + " " + wuXingList.get(5) + ")\n"
+                + siZhuData.getShiZhu() + "(" + paiPan.getNaYin(siZhuData.getShiZhu()) + ":" + paiPan.getOtherNayin(siZhuData.getShiZhu())
+                + " 五行：" + wuXingList.get(6) + " " + wuXingList.get(7) + ")\n"
+                + "大运：\n" + dayunStr + "\n大运年龄：" + SolarTermUtil.getDaYunAge(calendar, siZhuData, Const.MAN) + "\n" + "扎根运：" +
                 PaiPan.getZhaGenYunFromRiZhu(siZhuData.getRiZhu()) + " 第" +
                 PaiPan.getZhaGenYunLevel(SolarTermUtil.getDaYunAge(calendar, siZhuData, Const.MAN)) + "段\n"
                 + "时辰：" + siZhuData.getShiZhu().substring(1) + "\n" + "建星：" + getJianXing(calendar) + "\n日柱挂："
                 + paiPan.getOtherNayin(siZhuData.getRiZhu()) + "," +
-                PaiPan.LiuShiGua.get(paiPan.getOtherNayin(siZhuData.getRiZhu())));
+                PaiPan.LiuShiGua.get(paiPan.getOtherNayin(siZhuData.getRiZhu())) + "\n五行\n" + "");
 
+    }
+
+    /**
+     * 获取五行list
+     *
+     * @param paiPan    排盘
+     * @param siZhuData 四柱
+     * @return 阴阳五行list
+     */
+    private List<String> getWuXingList(PaiPan paiPan, SiZhuData siZhuData) {
+        List<String> wuXingList = new ArrayList<>();
+        String nianZhuNaYin = paiPan.getOtherNayin(siZhuData.getNianZhu());
+        String yueZhuNaYin = paiPan.getOtherNayin(siZhuData.getYueZhu());
+        String riZhuNaYin = paiPan.getOtherNayin(siZhuData.getRiZhu());
+        String shiZhuNaYin = paiPan.getOtherNayin(siZhuData.getShiZhu());
+        Log.e(TAG, "getWuXingList: " + nianZhuNaYin.substring(2, 4)+ " "+nianZhuNaYin.substring(6));
+        if (nianZhuNaYin.length() == 8) {
+            wuXingList.add(0, PaiPan.yinYangWuXing.get(nianZhuNaYin.substring(2, 4)));
+            wuXingList.add(1, PaiPan.yinYangWuXing.get(nianZhuNaYin.substring(6)));
+        }
+        if (yueZhuNaYin.length() == 8) {
+            wuXingList.add(2, PaiPan.yinYangWuXing.get(yueZhuNaYin.substring(2, 4)));
+            wuXingList.add(3, PaiPan.yinYangWuXing.get(yueZhuNaYin.substring(6)));
+        }
+        if (riZhuNaYin.length() == 8) {
+            wuXingList.add(4, PaiPan.yinYangWuXing.get(riZhuNaYin.substring(2, 4)));
+            wuXingList.add(5, PaiPan.yinYangWuXing.get(riZhuNaYin.substring(6)));
+        }
+        if (shiZhuNaYin.length() == 8) {
+            wuXingList.add(6, PaiPan.yinYangWuXing.get(shiZhuNaYin.substring(2, 4)));
+            wuXingList.add(7, PaiPan.yinYangWuXing.get(shiZhuNaYin.substring(6)));
+        }
+        return wuXingList;
     }
 //生日数据
 //    calendar.set(1992,2,13,22,0);
