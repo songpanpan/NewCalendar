@@ -156,7 +156,7 @@ public class TestMonthActivity extends BaseActivity {
                 baZiList.add(baZiArray[i]);
             }
         }
-        Log.e(TAG, "getDaYun: getShiTianGanXiangHe(baZiList)"+getShiTianGanXiangHe(baZiList) );
+        Log.e(TAG, "getDaYun: getShiTianGanXiangHe(baZiList)" + getShiTianGanXiangHe(baZiList));
         tv_result.setText(year + "年" + month + "月" + day + "日" + "四柱为：\n" +
                 siZhuData.getNianZhu() + "(" + paiPan.getNaYin(siZhuData.getNianZhu()) + ":" + paiPan.getOtherNayin(siZhuData.getNianZhu())
                 + " 五行：" + wuXingList.get(0) + " " + wuXingList.get(1) + ")\n"
@@ -166,6 +166,14 @@ public class TestMonthActivity extends BaseActivity {
                 + " 五行：" + wuXingList.get(4) + " " + wuXingList.get(5) + ")\n"
                 + siZhuData.getShiZhu() + "(" + paiPan.getNaYin(siZhuData.getShiZhu()) + ":" + paiPan.getOtherNayin(siZhuData.getShiZhu())
                 + " 五行：" + wuXingList.get(6) + " " + wuXingList.get(7) + ")\n"
+                + "十天干相合:" + getShiTianGanXiangHe(baZiList) + "\n"
+                + "十二支六合:" + getShiErZhiLiuHe(baZiList) + "\n"
+                + "生合:" + getShengHe(baZiList) + "\n"
+                + "克合:" + getKeHe(baZiList) + "\n"
+                + "十二支三合:" + getShiErZhiSanHe(baZiList) + "\n"
+                + "十二支相冲:" + getShiErZhiXiangChong(baZiList) + "\n"
+                + "十二支相穿:" + getShiErZhiXiangChuan(baZiList) + "\n"
+                + "十二支相邢:" + getShiErZhiXiangXing(baZiList) + "\n"
                 + "大运：\n" + dayunStr + "\n大运年龄：" + SolarTermUtil.getDaYunAge(calendar, siZhuData, Const.MAN) + "\n" + "扎根运：" +
                 PaiPan.getZhaGenYunFromRiZhu(siZhuData.getRiZhu()) + " 第" +
                 PaiPan.getZhaGenYunLevel(SolarTermUtil.getDaYunAge(calendar, siZhuData, Const.MAN)) + "段\n"
@@ -198,20 +206,310 @@ public class TestMonthActivity extends BaseActivity {
         List<String> list5 = new ArrayList<>();
         list5.add("戊");
         list5.add("癸");
-        if (aContainsB(baZiList,list1)) {
-            result += "甲与己合";
+        if (aContainsB(baZiList, list1)) {
+            result += "甲与己合 ";
         }
-        if (aContainsB(baZiList,list2)) {
-            result += "乙与庚合";
+        if (aContainsB(baZiList, list2)) {
+            result += "乙与庚合 ";
         }
-        if (aContainsB(baZiList,list3)) {
-            result += "丙与辛合";
+        if (aContainsB(baZiList, list3)) {
+            result += "丙与辛合 ";
         }
-        if (aContainsB(baZiList,list4)) {
-            result += "丁与壬合";
+        if (aContainsB(baZiList, list4)) {
+            result += "丁与壬合 ";
         }
-        if (aContainsB(baZiList,list5)) {
-            result += "戊与癸合";
+        if (aContainsB(baZiList, list5)) {
+            result += "戊与癸合 ";
+        }
+
+        return result;
+    }
+
+    /**
+     * 获取十二支六合
+     *
+     * @param baZiList 八字list
+     * @return 返回十二支六合
+     */
+    private String getShiErZhiLiuHe(List<String> baZiList) {
+        String result = "";
+        List<String> list1 = new ArrayList<>();
+        list1.add("子");
+        list1.add("丑");
+        List<String> list2 = new ArrayList<>();
+        list2.add("寅");
+        list2.add("亥");
+        List<String> list3 = new ArrayList<>();
+        list3.add("卯");
+        list3.add("戌");
+        List<String> list4 = new ArrayList<>();
+        list4.add("辰");
+        list4.add("酉");
+        List<String> list5 = new ArrayList<>();
+        list5.add("巳");
+        list5.add("申");
+        List<String> list6 = new ArrayList<>();
+        list5.add("午");
+        list5.add("未");
+        if (aContainsB(baZiList, list1)) {
+            result += "子与丑合土 ";
+        }
+        if (aContainsB(baZiList, list2)) {
+            result += "寅与亥合木 ";
+        }
+        if (aContainsB(baZiList, list3)) {
+            result += "卯与戊合火 ";
+        }
+        if (aContainsB(baZiList, list4)) {
+            result += "辰与酉合金 ";
+        }
+        if (aContainsB(baZiList, list5)) {
+            result += "巳与申合水 ";
+        }
+        if (aContainsB(baZiList, list6)) {
+            result += "午与未合午太阳，未太阴也 ";
+        }
+
+        return result;
+    }
+
+    /**
+     * 生合
+     *
+     * @param baZiList 八字list
+     * @return 返回生合的十天干
+     */
+    private String getShengHe(List<String> baZiList) {
+        String result = "";
+        List<String> list1 = new ArrayList<>();
+        list1.add("寅");
+        list1.add("亥");
+        List<String> list2 = new ArrayList<>();
+        list2.add("辰");
+        list2.add("酉");
+        List<String> list3 = new ArrayList<>();
+        list3.add("午");
+        list3.add("未");
+        if (aContainsB(baZiList, list1)) {
+            result += "寅亥合水生木 ";
+        }
+        if (aContainsB(baZiList, list2)) {
+            result += "辰酉合土生金 ";
+        }
+        if (aContainsB(baZiList, list3)) {
+            result += "午未合火生土 ";
+        }
+        return result;
+    }
+
+    /**
+     * 克合
+     *
+     * @param baZiList 八字list
+     * @return 返回克合的十天干
+     */
+    private String getKeHe(List<String> baZiList) {
+        String result = "";
+        List<String> list1 = new ArrayList<>();
+        list1.add("子");
+        list1.add("丑");
+        List<String> list2 = new ArrayList<>();
+        list2.add("巳");
+        list2.add("申");
+        List<String> list3 = new ArrayList<>();
+        list3.add("卯");
+        list3.add("戌");
+        if (aContainsB(baZiList, list1)) {
+            result += "子丑合土克水 ";
+        }
+        if (aContainsB(baZiList, list2)) {
+            result += "巳申合火克金 ";
+        }
+        if (aContainsB(baZiList, list3)) {
+            result += "卯戌合木克土 ";
+        }
+        return result;
+    }
+
+    /**
+     * 获取十二支三合
+     *
+     * @param baZiList 八字list
+     * @return 返回相合的十天干
+     */
+    private String getShiErZhiSanHe(List<String> baZiList) {
+        String result = "";
+        List<String> list1 = new ArrayList<>();
+        list1.add("申");
+        list1.add("子");
+        list1.add("辰");
+        List<String> list2 = new ArrayList<>();
+        list2.add("亥");
+        list2.add("卯");
+        list2.add("未");
+        List<String> list3 = new ArrayList<>();
+        list3.add("寅");
+        list3.add("午");
+        list3.add("戌");
+        List<String> list4 = new ArrayList<>();
+        list4.add("巳");
+        list4.add("酉");
+        list4.add("丑");
+        List<String> list5 = new ArrayList<>();
+        list5.add("辰");
+        list5.add("戌");
+        list5.add("丑");
+        list5.add("未");
+        if (aContainsB(baZiList, list1)) {
+            result += "申子辰水局 ";
+        }
+        if (aContainsB(baZiList, list2)) {
+            result += "亥卯未木局 ";
+        }
+        if (aContainsB(baZiList, list3)) {
+            result += "寅午戌火局 ";
+        }
+        if (aContainsB(baZiList, list4)) {
+            result += "巳酉丑金局 ";
+        }
+        if (aContainsB(baZiList, list5)) {
+            result += "辰戌丑未土局 ";
+        }
+
+        return result;
+    }
+
+    /**
+     * 获取十二支相冲
+     *
+     * @param baZiList 八字list
+     * @return 返回十二支六合
+     */
+    private String getShiErZhiXiangChong(List<String> baZiList) {
+        String result = "";
+        List<String> list1 = new ArrayList<>();
+        list1.add("子");
+        list1.add("午");
+        List<String> list2 = new ArrayList<>();
+        list2.add("寅");
+        list2.add("申");
+        List<String> list3 = new ArrayList<>();
+        list3.add("卯");
+        list3.add("酉");
+        List<String> list4 = new ArrayList<>();
+        list4.add("辰");
+        list4.add("戌");
+        List<String> list5 = new ArrayList<>();
+        list5.add("巳");
+        list5.add("亥");
+        List<String> list6 = new ArrayList<>();
+        list5.add("丑");
+        list5.add("未");
+        if (aContainsB(baZiList, list1)) {
+            result += "子午相冲 ";
+        }
+        if (aContainsB(baZiList, list2)) {
+            result += "寅申相冲 ";
+        }
+        if (aContainsB(baZiList, list3)) {
+            result += "卯酉相冲 ";
+        }
+        if (aContainsB(baZiList, list4)) {
+            result += "辰戌相冲 ";
+        }
+        if (aContainsB(baZiList, list5)) {
+            result += "巳亥相冲 ";
+        }
+        if (aContainsB(baZiList, list6)) {
+            result += "丑未相冲 ";
+        }
+
+        return result;
+    }
+
+    /**
+     * 获取十二支相穿
+     *
+     * @param baZiList 八字list
+     * @return 返回十二支六合
+     */
+    private String getShiErZhiXiangChuan(List<String> baZiList) {
+        String result = "";
+        List<String> list1 = new ArrayList<>();
+        list1.add("子");
+        list1.add("未");
+        List<String> list2 = new ArrayList<>();
+        list2.add("丑");
+        list2.add("午");
+        List<String> list3 = new ArrayList<>();
+        list3.add("寅");
+        list3.add("巳");
+        List<String> list4 = new ArrayList<>();
+        list4.add("卯");
+        list4.add("辰");
+        List<String> list5 = new ArrayList<>();
+        list5.add("申");
+        list5.add("亥");
+        List<String> list6 = new ArrayList<>();
+        list5.add("酉");
+        list5.add("戌");
+        if (aContainsB(baZiList, list1)) {
+            result += "子未相穿 ";
+        }
+        if (aContainsB(baZiList, list2)) {
+            result += "丑午相穿 ";
+        }
+        if (aContainsB(baZiList, list3)) {
+            result += "寅巳相穿 ";
+        }
+        if (aContainsB(baZiList, list4)) {
+            result += "卯辰相穿 ";
+        }
+        if (aContainsB(baZiList, list5)) {
+            result += "申亥相穿 ";
+        }
+        if (aContainsB(baZiList, list6)) {
+            result += "酉戌相穿 ";
+        }
+
+        return result;
+    }
+
+    /**
+     * 获取十二支相邢
+     *
+     * @param baZiList 八字list
+     * @return 返回相合的十天干
+     */
+    private String getShiErZhiXiangXing(List<String> baZiList) {
+        String result = "";
+        List<String> list1 = new ArrayList<>();
+        list1.add("寅");
+        list1.add("巳");
+        list1.add("申");
+        List<String> list2 = new ArrayList<>();
+        list2.add("丑");
+        list2.add("戌");
+        list2.add("未");
+        List<String> list3 = new ArrayList<>();
+        list3.add("子");
+        list3.add("卯");
+        List<String> list4 = new ArrayList<>();
+        list4.add("辰");
+        list4.add("午");
+        list4.add("酉");
+        list4.add("亥");
+        if (aContainsB(baZiList, list1)) {
+            result += "寅邢巳，巳邢申，申邢寅，为恃势之邢";
+        }
+        if (aContainsB(baZiList, list2)) {
+            result += "丑邢戌，戌邢未，未邢丑，为无恩之邢";
+        }
+        if (aContainsB(baZiList, list3)) {
+            result += "子邢卯，卯邢子，为无礼只邢";
+        }
+        if (aContainsB(baZiList, list4)) {
+            result += "辰午酉亥，自邢之邢";
         }
 
         return result;
