@@ -173,7 +173,7 @@ public class TestMonthActivity extends BaseActivity {
                 + "十二支三合:" + getShiErZhiSanHe(baZiList) + "\n"
                 + "十二支相冲:" + getShiErZhiXiangChong(baZiList) + "\n"
                 + "十二支相穿:" + getShiErZhiXiangChuan(baZiList) + "\n"
-                + "十二支相邢:" + getShiErZhiXiangXing(baZiList) + "\n"
+                + "十二支相刑:" + getShiErZhiXiangXing(baZiList) + "\n"
                 + "大运：\n" + dayunStr + "\n大运年龄：" + SolarTermUtil.getDaYunAge(calendar, siZhuData, Const.MAN) + "\n" + "扎根运：" +
                 PaiPan.getZhaGenYunFromRiZhu(siZhuData.getRiZhu()) + " 第" +
                 PaiPan.getZhaGenYunLevel(SolarTermUtil.getDaYunAge(calendar, siZhuData, Const.MAN)) + "段\n"
@@ -249,8 +249,8 @@ public class TestMonthActivity extends BaseActivity {
         list5.add("巳");
         list5.add("申");
         List<String> list6 = new ArrayList<>();
-        list5.add("午");
-        list5.add("未");
+        list6.add("午");
+        list6.add("未");
         if (aContainsB(baZiList, list1)) {
             result += "子与丑合土 ";
         }
@@ -403,8 +403,8 @@ public class TestMonthActivity extends BaseActivity {
         list5.add("巳");
         list5.add("亥");
         List<String> list6 = new ArrayList<>();
-        list5.add("丑");
-        list5.add("未");
+        list6.add("丑");
+        list6.add("未");
         if (aContainsB(baZiList, list1)) {
             result += "子午相冲 ";
         }
@@ -451,8 +451,8 @@ public class TestMonthActivity extends BaseActivity {
         list5.add("申");
         list5.add("亥");
         List<String> list6 = new ArrayList<>();
-        list5.add("酉");
-        list5.add("戌");
+        list6.add("酉");
+        list6.add("戌");
         if (aContainsB(baZiList, list1)) {
             result += "子未相穿 ";
         }
@@ -476,40 +476,74 @@ public class TestMonthActivity extends BaseActivity {
     }
 
     /**
-     * 获取十二支相邢
+     * 获取十二支相刑
      *
      * @param baZiList 八字list
      * @return 返回相合的十天干
      */
     private String getShiErZhiXiangXing(List<String> baZiList) {
         String result = "";
-        List<String> list1 = new ArrayList<>();
-        list1.add("寅");
-        list1.add("巳");
-        list1.add("申");
-        List<String> list2 = new ArrayList<>();
-        list2.add("丑");
-        list2.add("戌");
-        list2.add("未");
+        List<String> list11 = new ArrayList<>();
+        list11.add("寅");
+        list11.add("巳");
+        List<String> list12 = new ArrayList<>();
+        list12.add("巳");
+        list12.add("申");
+        List<String> list13 = new ArrayList<>();
+        list13.add("寅");
+        list13.add("申");
+        List<String> list21 = new ArrayList<>();
+        list21.add("丑");
+        list21.add("戌");
+        List<String> list22 = new ArrayList<>();
+        list22.add("戌");
+        list22.add("未");
+        List<String> list23 = new ArrayList<>();
+        list23.add("丑");
+        list23.add("未");
         List<String> list3 = new ArrayList<>();
         list3.add("子");
         list3.add("卯");
-        List<String> list4 = new ArrayList<>();
-        list4.add("辰");
-        list4.add("午");
-        list4.add("酉");
-        list4.add("亥");
-        if (aContainsB(baZiList, list1)) {
-            result += "寅邢巳，巳邢申，申邢寅，为恃势之邢";
+        List<String> list41 = new ArrayList<>();
+        list41.add("辰");
+        List<String> list42 = new ArrayList<>();
+        list42.add("午");
+        List<String> list43 = new ArrayList<>();
+        list43.add("酉");
+        List<String> list44 = new ArrayList<>();
+        list44.add("亥");
+        if (aContainsB(baZiList, list11)) {
+            result += "寅刑巳，为恃势之刑 ";
         }
-        if (aContainsB(baZiList, list2)) {
-            result += "丑邢戌，戌邢未，未邢丑，为无恩之邢";
+        if (aContainsB(baZiList, list12)) {
+            result += "巳刑申，为恃势之刑 ";
+        }
+        if (aContainsB(baZiList, list13)) {
+            result += "申刑寅，为恃势之刑 ";
+        }
+        if (aContainsB(baZiList, list21)) {
+            result += "丑刑戌，为无恩之刑 ";
+        }
+        if (aContainsB(baZiList, list22)) {
+            result += "戌刑未，为无恩之刑 ";
+        }
+        if (aContainsB(baZiList, list23)) {
+            result += "未刑丑，为无恩之刑 ";
         }
         if (aContainsB(baZiList, list3)) {
-            result += "子邢卯，卯邢子，为无礼只邢";
+            result += "子刑卯，卯刑子，为无礼只刑 ";
         }
-        if (aContainsB(baZiList, list4)) {
-            result += "辰午酉亥，自邢之邢";
+        if (aContainsB(baZiList, list41)) {
+            result += "辰，自刑之刑 ";
+        }
+        if (aContainsB(baZiList, list42)) {
+            result += "午，自刑之刑 ";
+        }
+        if (aContainsB(baZiList, list43)) {
+            result += "酉，自刑之刑 ";
+        }
+        if (aContainsB(baZiList, list44)) {
+            result += "亥，自刑之刑 ";
         }
 
         return result;
