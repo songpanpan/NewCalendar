@@ -305,7 +305,7 @@ public class CalendarUtil {
         if (solarYear != 1900) {
             calendarDate.lunar = lunar;
             calendarDate.localDate = localDate;
-            calendarDate.solarTerm = SolarTermUtil.getSolatName(solarYear, (solarMonth < 10 ? ("0" + solarMonth) : (solarMonth + "")) + solarDay);
+            calendarDate.solarTerm = SolarTermUtil.getSolarName(solarYear, (solarMonth < 10 ? ("0" + solarMonth) : (solarMonth + "")) + solarDay);
             calendarDate.solarHoliday = HolidayUtil.getSolarHoliday(solarYear, solarMonth, solarDay);
             calendarDate.lunarHoliday = HolidayUtil.getLunarHoliday(lunar.lunarYear, lunar.lunarMonth, lunar.lunarDay);
         }

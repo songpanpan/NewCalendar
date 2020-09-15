@@ -6,7 +6,6 @@ import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.necer.calendar.BaseCalendar;
 import com.necer.calendar.MonthCalendar;
@@ -14,7 +13,6 @@ import com.necer.entity.CalendarDate;
 import com.necer.listener.OnCalendarChangedListener;
 import com.necer.listener.OnCalendarMultipleChangedListener;
 import com.necer.ncalendar.R;
-import com.necer.ncalendar.tools.MyDate;
 import com.necer.ncalendar.tools.PaiPan;
 import com.necer.utils.CalendarUtil;
 import com.necer.utils.Const;
@@ -28,7 +26,6 @@ import java.util.Calendar;
 import java.util.List;
 
 import cn.qqtheme.framework.picker.DateTimePicker;
-import cn.qqtheme.framework.util.LogUtils;
 
 public class TestMonthActivity extends BaseActivity {
 
@@ -146,7 +143,7 @@ public class TestMonthActivity extends BaseActivity {
         Log.e("spptag", "大运年龄：" + SolarTermUtil.getDaYunAge(calendar, siZhuData, Const.MAN));
         Log.e("spptag", "大运结束-----------------------------------------------------");
         Log.e("spptag", "惊蛰" + SolarTermUtil.getSolarTermNum(2020, "JINGZHE") + "");
-        SolarTermUtil.solarTermToString(2020);
+        SolarTermUtil.solarTermToString(Integer.parseInt(year));
         List<String> wuXingList = getWuXingList(paiPan, siZhuData);
         String baZi = siZhuData.getNianZhu() + siZhuData.getYueZhu() + siZhuData.getRiZhu() + siZhuData.getShiZhu();
         String[] baZiArray = baZi.split("");
@@ -157,7 +154,8 @@ public class TestMonthActivity extends BaseActivity {
             }
         }
         Log.e(TAG, "getDaYun: getShiTianGanXiangHe(baZiList)" + getShiTianGanXiangHe(baZiList));
-        tv_result.setText(year + "年" + month + "月" + day + "日" + "四柱为：\n" +
+        tv_result.setText(year + "年" + month + "月" + day + "日 季节：" + SolarTermUtil.getSeason(Integer.parseInt(year), Integer.parseInt(month), Integer.parseInt(day)) + "\n"
+                + "四柱为：\n" +
                 siZhuData.getNianZhu() + "(" + paiPan.getNaYin(siZhuData.getNianZhu()) + ":" + paiPan.getOtherNayin(siZhuData.getNianZhu())
                 + " 五行：" + wuXingList.get(0) + " " + wuXingList.get(1) + ")\n"
                 + siZhuData.getYueZhu() + "(" + paiPan.getNaYin(siZhuData.getYueZhu()) + ":" + paiPan.getOtherNayin(siZhuData.getYueZhu())
@@ -682,7 +680,7 @@ public class TestMonthActivity extends BaseActivity {
         int solarMonth = calendar.get(Calendar.MONTH);
         int solarDay = calendar.get(Calendar.DAY_OF_MONTH);
         Log.e("getJieQi", "solarYear:" + solarYear + "  solarMonth:" + solarMonth + " solarDay:" + solarDay);
-        return SolarTermUtil.getSolatName(solarYear, (solarMonth < 10 ? ("0" + solarMonth) : (solarMonth + "")) + solarDay);
+        return SolarTermUtil.getSolarName(solarYear, (solarMonth < 10 ? ("0" + solarMonth) : (solarMonth + "")) + solarDay);
     }
 
     /**

@@ -1,6 +1,7 @@
 package com.necer.utils;
 
 import android.content.Context;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -8,8 +9,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * 节气工具
+ */
 public class SolarTermUtil {
 
+    private final static String TAG = "SolarTermUtil";
 
     private static final double D = 0.2422;
     private final static Map<String, Integer[]> INCREASE_OFFSETMAP = new HashMap<String, Integer[]>();// +1偏移
@@ -194,7 +199,7 @@ public class SolarTermUtil {
      * @param data 月份占两位，日不确定，如一月一日为：011，五月十日为0510
      * @return 节气，不是节气返回null
      */
-    public static String getSolatName(int year, String data) {
+    public static String getSolarName(int year, String data) {
         if (year != mYear) {
             solarTermToString(year);
         }
@@ -203,6 +208,73 @@ public class SolarTermUtil {
         } else {
             return null;
         }
+    }
+
+    /**
+     * 获取季节
+     *
+     * @param year  年
+     * @param month 月
+     * @param day   日
+     * @return 返回季节
+     */
+    public static int getSeason(int year, int month, int day) {
+        int season = 0;
+        if (mSolarData != null && mSolarData.size() > 0) {
+            try {
+                String liChun = mSolarData.get(0);
+                String liXia = mSolarData.get(6);
+                String liQiu = mSolarData.get(12);
+                String liDong = mSolarData.get(18);
+                boolean isAfterLiChun = isAfterSeason(month, day, liChun);
+                boolean isAfterLiXia = isAfterSeason(month, day, liXia);
+                boolean isAfterLiQiu = isAfterSeason(month, day, liQiu);
+                boolean isAfterLiDong = isAfterSeason(month, day, liDong);
+                if (isAfterLiChun && !isAfterLiXia) {
+                    return Const.CHUN;
+                } else if (isAfterLiXia && !isAfterLiQiu) {
+                    return Const.XIA;
+                } else if (isAfterLiQiu && !isAfterLiDong) {
+                    return Const.QIU;
+                } else {
+                    return Const.DONG;
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return season;
+    }
+
+    /**
+     * 判断日期是否在节气之后
+     *
+     * @param month  月
+     * @param day    日
+     * @param season 节气
+     * @return 是否在节气之后
+     */
+    public static boolean isAfterSeason(int month, int day, String season) {
+        try {
+            String sMonth, sDay;
+            if (season.startsWith("0")) {
+                season = season.substring(1);
+                sMonth = season.substring(0, 1);
+                sDay = season.substring(1);
+            } else {
+                sMonth = season.substring(0, 2);
+                sDay = season.substring(2);
+            }
+            Log.d(TAG, "isAfterSeason sMonth:" + sMonth + " sDay:" + sDay);
+            int iMonth = Integer.parseInt(sMonth);
+            int iDay = Integer.parseInt(sDay);
+            if (month > iMonth || (month == iMonth && day > iDay)) {
+                return true;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 
     public static void solarTermToString(int year) {

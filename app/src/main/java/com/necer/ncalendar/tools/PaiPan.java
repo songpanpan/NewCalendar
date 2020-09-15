@@ -50,7 +50,7 @@ public class PaiPan {
         put("癸", "河套中");
     }};
 
-     public final static Map<String, String> yinYangWuXing = new HashMap<String, String>() {{
+    public final static Map<String, String> yinYangWuXing = new HashMap<String, String>() {{
         put("甲木", "阳木");
         put("乙木", "阴木");
         put("丙火", "阳火");
@@ -538,7 +538,7 @@ public class PaiPan {
         Calendar calLiChun = Calendar.getInstance();
         try {
             calLiChun.setTime(sdf3.parse(stLiChun.getLiChunString(year)));// 找出当年立春时间
-
+            Log.e("TAG", "getLiChunCalendar: " + sdf3.parse(stLiChun.getLiChunString(year)));
         } catch (ParseException e) {
             e.printStackTrace();
         }
