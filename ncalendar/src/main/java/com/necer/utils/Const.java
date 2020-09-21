@@ -7,6 +7,11 @@ public class Const {
     public static final int XIA = 2;
     public static final int QIU = 3;
     public static final int DONG = 4;
+    public static final String JIN = "金";
+    public static final String MU = "木";
+    public static final String SHUI = "水";
+    public static final String HUO = "火";
+    public static final String TU = "土";
     public static final String YANG = "yang";
     public static final String YIN = "yin";
     public static final String FORWARD = "forward";

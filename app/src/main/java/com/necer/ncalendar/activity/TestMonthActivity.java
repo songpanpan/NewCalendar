@@ -164,6 +164,7 @@ public class TestMonthActivity extends BaseActivity {
                 + " 五行：" + wuXingList.get(4) + " " + wuXingList.get(5) + ")\n"
                 + siZhuData.getShiZhu() + "(" + paiPan.getNaYin(siZhuData.getShiZhu()) + ":" + paiPan.getOtherNayin(siZhuData.getShiZhu())
                 + " 五行：" + wuXingList.get(6) + " " + wuXingList.get(7) + ")\n"
+                +"喜用神："+SolarTermUtil.getXiYongShen(SolarTermUtil.getSeason(Integer.parseInt(year), Integer.parseInt(month), Integer.parseInt(day)),wuXingList)+"\n"
                 + "十天干相合:" + getShiTianGanXiangHe(baZiList) + "\n"
                 + "十二支六合:" + getShiErZhiLiuHe(baZiList) + "\n"
                 + "生合:" + getShengHe(baZiList) + "\n"

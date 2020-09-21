@@ -8,6 +8,8 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.logging.Handler;
 
 /**
  * 节气工具
@@ -589,5 +591,319 @@ public class SolarTermUtil {
         } else {
             return Const.YIN;
         }
+    }
+
+    /**
+     * 获取喜用神
+     *
+     * @param season     季节
+     * @param wuXingList 五行列表
+     * @return 喜用神
+     */
+    public static String getXiYongShen(int season, List<String> wuXingList) {
+        String xiYongShen = "unknown";
+        int jinSize = 0;
+        int muSize = 0;
+        int shuiSize = 0;
+        int huoSize = 0;
+        int tuSize = 0;
+        String zhuWuxing = wuXingList.get(4);
+        for (int i = 0; i < wuXingList.size(); i++) {
+            String wuXing = wuXingList.get(i);
+            if (wuXing.contains("金")) {
+                jinSize++;
+            } else if (wuXing.contains("木")) {
+                muSize++;
+            } else if (wuXing.contains("水")) {
+                shuiSize++;
+            } else if (wuXing.contains("火")) {
+                huoSize++;
+            } else if (wuXing.contains("土")) {
+                tuSize++;
+            }
+        }
+        if (zhuWuxing.contains("木")) {
+            if (muSize < 2) {
+                return Const.MU;
+            }
+            switch (season) {
+                case Const.CHUN:
+                    if (muSize == 2) {
+                        return Const.SHUI;
+                    }
+                    if (shuiSize == 2) {
+                        return Const.HUO;
+                    }
+                    if (huoSize == 2) {
+                        return Const.JIN;
+                    }
+                    if (shuiSize > 2) {
+                        return Const.TU;
+                    }
+                    if (tuSize > 2) {
+                        return Const.JIN;
+                    }
+                    if (huoSize > 2) {
+                        return Const.TU;
+                    }
+                    break;
+                case Const.XIA:
+                    if (muSize == 2) {
+                        return Const.SHUI;
+                    }
+                    if (shuiSize == 2) {
+                        return Const.TU;
+                    }
+                    if (tuSize == 2) {
+                        return Const.JIN;
+                    }
+                    if (shuiSize > 2) {
+                        return Const.TU;
+                    }
+                    if (tuSize > 2) {
+                        return Const.JIN;
+                    }
+                    break;
+                case Const.QIU:
+                    if (muSize == 2) {
+                        return Const.SHUI;
+                    }
+                    if (shuiSize == 2) {
+                        return Const.TU;
+                    }
+                    if (tuSize == 2) {
+                        return Const.JIN;
+                    }
+                    break;
+                case Const.DONG:
+                    if (muSize == 2) {
+                        return Const.TU;
+                    }
+                    if (tuSize == 2) {
+                        return Const.HUO;
+                    }
+                    if (huoSize == 2) {
+                        return Const.SHUI;
+                    }
+                    if (tuSize > 2) {
+                        return Const.JIN;
+                    }
+                    break;
+            }
+        } else if (zhuWuxing.contains("火")) {
+            if (huoSize < 2) {
+                return Const.HUO;
+            }
+            switch (season) {
+                case Const.CHUN:
+                    if (huoSize == 2) {
+                        return Const.MU;
+                    }
+                    if (muSize == 2) {
+                        return Const.SHUI;
+                    }
+                    if (shuiSize == 2) {
+                        return Const.MU;
+                    }
+                    if (huoSize > 2) {
+                        return Const.JIN;
+                    }
+                    break;
+                case Const.XIA:
+                    if (huoSize == 2) {
+                        return Const.SHUI;
+                    }
+                    if (shuiSize == 2) {
+                        return Const.TU;
+                    }
+                    if (tuSize == 2) {
+                        return Const.JIN;
+                    }
+                    if (huoSize > 2) {
+                        return Const.SHUI;
+                    }
+                    if (shuiSize > 2) {
+                        return Const.TU;
+                    }
+                    if (tuSize > 2) {
+                        return Const.JIN;
+                    }
+                    break;
+                case Const.QIU:
+                    if (huoSize == 2) {
+                        return Const.MU;
+                    }
+                    if (muSize == 2) {
+                        return Const.SHUI;
+                    }
+                    if (shuiSize == 2) {
+                        return Const.HUO;
+                    }
+                    break;
+                case Const.DONG:
+                    if (huoSize == 2) {
+                        return Const.MU;
+                    }
+                    if (muSize == 2) {
+                        return Const.TU;
+                    }
+                    if (tuSize == 2) {
+                        return Const.HUO;
+                    }
+                    break;
+            }
+        } else if (zhuWuxing.contains("土")) {
+            if (tuSize < 2) {
+                return Const.TU;
+            }
+            switch (season) {
+                case Const.CHUN:
+                    if (tuSize == 2) {
+                        return Const.HUO;
+                    }
+                    if (huoSize == 2) {
+                        return Const.JIN;
+                    }
+                    if (jinSize == 2) {
+                        return Const.SHUI;
+                    }
+                    if (huoSize > 2) {
+                        return Const.JIN;
+                    }
+                    break;
+                case Const.XIA:
+                    if (tuSize == 2) {
+                        return Const.SHUI;
+                    }
+                    if (shuiSize == 2) {
+                        return Const.JIN;
+                    }
+                    if (jinSize == 2) {
+                        return Const.MU;
+                    }
+                    if (tuSize > 2) {
+                        return Const.SHUI;
+                    }
+                    if (shuiSize > 2) {
+                        return Const.MU;
+                    }
+                    break;
+                case Const.QIU:
+                    if (tuSize == 2) {
+                        return Const.MU;
+                    }
+                    if (tuSize > 2) {
+                        return Const.HUO;
+                    }
+                    break;
+                case Const.DONG:
+                    if (tuSize == 2) {
+                        return Const.SHUI;
+                    }
+                    if (shuiSize == 2) {
+                        return Const.JIN;
+                    }
+                    if (jinSize == 2) {
+                        return Const.HUO;
+                    }
+                    if (tuSize > 2) {
+                        return Const.SHUI;
+                    }
+                    break;
+            }
+        } else if (zhuWuxing.contains("金")) {
+            if (jinSize < 2) {
+                return Const.JIN;
+            }
+            switch (season) {
+                case Const.CHUN:
+                    if (jinSize == 2) {
+                        return Const.HUO;
+                    }
+                    if (huoSize == 2) {
+                        return Const.TU;
+                    }
+                    break;
+                case Const.XIA:
+                    if (jinSize == 2) {
+                        return Const.SHUI;
+                    }
+                    break;
+                case Const.QIU:
+                    if (jinSize == 2) {
+                        return Const.HUO;
+                    }
+                    if (huoSize == 2) {
+                        return Const.SHUI;
+                    }
+                    if (shuiSize == 2) {
+                        return Const.MU;
+                    }
+                    break;
+                case Const.DONG:
+                    if (jinSize == 2) {
+                        return Const.TU;
+                    }
+                    if (tuSize == 2) {
+                        return Const.HUO;
+                    }
+                    if (huoSize == 2) {
+                        return Const.SHUI;
+                    }
+                    break;
+            }
+        } else if (zhuWuxing.contains("水")) {
+            if (shuiSize < 2) {
+                return Const.SHUI;
+            }
+            switch (season) {
+                case Const.CHUN:
+                    if (shuiSize == 2) {
+                        return Const.TU;
+                    }
+                    if (tuSize == 2) {
+                        return Const.HUO;
+                    }
+                    if (huoSize == 2) {
+                        return Const.MU;
+                    }
+                    break;
+                case Const.XIA:
+                    if (shuiSize == 2) {
+                        return Const.JIN;
+                    }
+                    break;
+                case Const.QIU:
+                    if (shuiSize == 2) {
+                        return Const.JIN;
+                    }
+                    if (jinSize == 2) {
+                        return Const.HUO;
+                    }
+                    if (huoSize == 2) {
+                        return Const.MU;
+                    }
+                    if (shuiSize > 2) {
+                        return Const.TU;
+                    }
+                    break;
+                case Const.DONG:
+                    if (shuiSize == 2) {
+                        return Const.HUO;
+                    }
+                    if (huoSize == 2) {
+                        return Const.TU;
+                    }
+                    if (tuSize == 2) {
+                        return Const.MU;
+                    }
+                    if (shuiSize > 2) {
+                        return Const.TU;
+                    }
+                    break;
+            }
+        }
+
+        return xiYongShen;
     }
 }
