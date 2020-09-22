@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.necer.calendar.BaseCalendar;
 import com.necer.calendar.MonthCalendar;
+import com.necer.calendar.ShiShenBean;
 import com.necer.entity.CalendarDate;
 import com.necer.listener.OnCalendarChangedListener;
 import com.necer.listener.OnCalendarMultipleChangedListener;
@@ -153,6 +154,7 @@ public class TestMonthActivity extends BaseActivity {
                 baZiList.add(baZiArray[i]);
             }
         }
+        ShiShenBean shiShenBean = SolarTermUtil.getShiShen(siZhuData);
         Log.e(TAG, "getDaYun: getShiTianGanXiangHe(baZiList)" + getShiTianGanXiangHe(baZiList));
         tv_result.setText(year + "年" + month + "月" + day + "日 季节：" + SolarTermUtil.getSeason(Integer.parseInt(year), Integer.parseInt(month), Integer.parseInt(day)) + "\n"
                 + "四柱为：\n" +
@@ -164,7 +166,10 @@ public class TestMonthActivity extends BaseActivity {
                 + " 五行：" + wuXingList.get(4) + " " + wuXingList.get(5) + ")\n"
                 + siZhuData.getShiZhu() + "(" + paiPan.getNaYin(siZhuData.getShiZhu()) + ":" + paiPan.getOtherNayin(siZhuData.getShiZhu())
                 + " 五行：" + wuXingList.get(6) + " " + wuXingList.get(7) + ")\n"
-                +"喜用神："+SolarTermUtil.getXiYongShen(SolarTermUtil.getSeason(Integer.parseInt(year), Integer.parseInt(month), Integer.parseInt(day)),wuXingList)+"\n"
+                + "用神：" + SolarTermUtil.getXiYongShen(SolarTermUtil.getSeason(Integer.parseInt(year), Integer.parseInt(month), Integer.parseInt(day)), wuXingList) + "\n"
+                + "年柱十神:" + shiShenBean.getNianShiShen() + "\n"
+                + "月柱十神:" + shiShenBean.getYueShiShen() + "\n"
+                + "时柱十神:" + shiShenBean.getShiShiShen() + "\n"
                 + "十天干相合:" + getShiTianGanXiangHe(baZiList) + "\n"
                 + "十二支六合:" + getShiErZhiLiuHe(baZiList) + "\n"
                 + "生合:" + getShengHe(baZiList) + "\n"

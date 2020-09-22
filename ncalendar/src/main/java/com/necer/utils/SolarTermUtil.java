@@ -3,6 +3,8 @@ package com.necer.utils;
 import android.content.Context;
 import android.util.Log;
 
+import com.necer.calendar.ShiShenBean;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -21,6 +23,20 @@ public class SolarTermUtil {
     private static final double D = 0.2422;
     private final static Map<String, Integer[]> INCREASE_OFFSETMAP = new HashMap<String, Integer[]>();// +1偏移
     private final static Map<String, Integer[]> DECREASE_OFFSETMAP = new HashMap<String, Integer[]>();// -1偏移
+    static String[][] shiShens = {
+            {"比肩", "劫财", "食神", "伤官", "偏财", "正财", "七杀", "正官", "偏印", "正印"},
+            {"劫财", "比肩", "伤官", "食神", "正财", "偏财", "正官", "七杀", "正印", "偏印"},
+            {"偏印", "正印", "比肩", "劫财", "食神", "伤官", "偏财", "正财", "七杀", "正官"},
+            {"正印", "偏印", "劫财", "比肩", "伤官", "食神", "正财", "偏财", "正官", "七杀"},
+            {"七杀", "正官", "偏印", "正印", "比肩", "劫财", "食神", "伤官", "偏财", "正财"},
+            {"正官", "七杀", "正印", "偏印", "劫财", "比肩", "伤官", "食神", "正财", "偏财"},
+            {"偏财", "正财", "七杀", "正官", "偏印", "正印", "比肩", "劫财", "食神", "伤官"},
+            {"正财", "偏财", "正官", "七杀", "正印", "偏印", "劫财", "比肩", "伤官", "食神"},
+            {"食神", "伤官", "偏财", "正财", "七杀", "正官", "偏印", "正印", "比肩", "劫财"},
+            {"伤官", "食神", "正财", "偏财", "正官", "七杀", "正印", "偏印", "劫财", "比肩"},
+    };
+
+    public static final String[] Gan = new String[]{"甲", "乙", "丙", "丁", "戊", "己", "庚", "辛", "壬", "癸"};
 
     public final static ArrayList<String> specialJieQi = new ArrayList<String>() {{
         add("立春");
@@ -905,5 +921,42 @@ public class SolarTermUtil {
         }
 
         return xiYongShen;
+    }
+
+    /**
+     * 获取十神
+     *
+     * @param siZhuData 四柱
+     * @return 喜用神
+     */
+    public static ShiShenBean getShiShen(SiZhuData siZhuData) {
+        String nianGan = siZhuData.getNianZhu().substring(0, 1);
+        String yueGan = siZhuData.getYueZhu().substring(0, 1);
+        String riGan = siZhuData.getRiZhu().substring(0, 1);
+        String shiGan = siZhuData.getShiZhu().substring(0, 1);
+        int yearIndex = getPosition(nianGan);
+        int monthIndex = getPosition(yueGan);
+        int dayIndex = getPosition(riGan);
+        int hourIndex = getPosition(shiGan);
+        ShiShenBean shiShenBean = new ShiShenBean();
+        shiShenBean.setNianShiShen(shiShens[dayIndex][yearIndex]);
+        shiShenBean.setYueShiShen(shiShens[dayIndex][monthIndex]);
+        shiShenBean.setShiShiShen(shiShens[dayIndex][hourIndex]);
+        return shiShenBean;
+    }
+
+    /**
+     * 获取天干的位置
+     *
+     * @param gan 天干
+     * @return 位置
+     */
+    public static int getPosition(String gan) {
+        for (int i = 0; i < Gan.length; i++) {
+            if (Gan[i].equals(gan)) {
+                return i;
+            }
+        }
+        return 0;
     }
 }
