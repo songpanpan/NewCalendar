@@ -1,8 +1,8 @@
 package com.necer.utils;
 
-import android.content.Context;
 import android.util.Log;
 
+import com.necer.calendar.CangGanShiShenBean;
 import com.necer.calendar.ShiShenBean;
 
 import java.util.ArrayList;
@@ -10,8 +10,6 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.CopyOnWriteArrayList;
-import java.util.logging.Handler;
 
 /**
  * 节气工具
@@ -23,7 +21,7 @@ public class SolarTermUtil {
     private static final double D = 0.2422;
     private final static Map<String, Integer[]> INCREASE_OFFSETMAP = new HashMap<String, Integer[]>();// +1偏移
     private final static Map<String, Integer[]> DECREASE_OFFSETMAP = new HashMap<String, Integer[]>();// -1偏移
-    static String[][] shiShens = {
+    public static String[][] shiShens = {
             {"比肩", "劫财", "食神", "伤官", "偏财", "正财", "七杀", "正官", "偏印", "正印"},
             {"劫财", "比肩", "伤官", "食神", "正财", "偏财", "正官", "七杀", "正印", "偏印"},
             {"偏印", "正印", "比肩", "劫财", "食神", "伤官", "偏财", "正财", "七杀", "正官"},
@@ -35,8 +33,25 @@ public class SolarTermUtil {
             {"食神", "伤官", "偏财", "正财", "七杀", "正官", "偏印", "正印", "比肩", "劫财"},
             {"伤官", "食神", "正财", "偏财", "正官", "七杀", "正印", "偏印", "劫财", "比肩"},
     };
+    //十二地支循藏
+    public static String[][] diZhiXunCang = {
+            {"葵"},
+            {"己", "癸", "辛"},
+            {"甲", "丙", "戊"},
+            {"乙"},
+            {"戊", "乙", "癸"},
+            {"丙", "戊", "庚"},
+            {"丁", "己"},
+            {"己", "乙", "丁"},
+            {"庚", "壬", "戊"},
+            {"辛"},
+            {"戊", "丁", "辛"},
+            {"壬", "甲"},
+    };
 
     public static final String[] Gan = new String[]{"甲", "乙", "丙", "丁", "戊", "己", "庚", "辛", "壬", "癸"};
+
+    public static final String[] Zhi = new String[]{"子", "丑", "寅", "卯", "辰", "巳", "午", "未", "申", "酉", "戌", "亥"};
 
     public final static ArrayList<String> specialJieQi = new ArrayList<String>() {{
         add("立春");
@@ -934,10 +949,10 @@ public class SolarTermUtil {
         String yueGan = siZhuData.getYueZhu().substring(0, 1);
         String riGan = siZhuData.getRiZhu().substring(0, 1);
         String shiGan = siZhuData.getShiZhu().substring(0, 1);
-        int yearIndex = getPosition(nianGan);
-        int monthIndex = getPosition(yueGan);
-        int dayIndex = getPosition(riGan);
-        int hourIndex = getPosition(shiGan);
+        int yearIndex = getTianGanPosition(nianGan);
+        int monthIndex = getTianGanPosition(yueGan);
+        int dayIndex = getTianGanPosition(riGan);
+        int hourIndex = getTianGanPosition(shiGan);
         ShiShenBean shiShenBean = new ShiShenBean();
         shiShenBean.setNianShiShen(shiShens[dayIndex][yearIndex]);
         shiShenBean.setYueShiShen(shiShens[dayIndex][monthIndex]);
@@ -946,14 +961,40 @@ public class SolarTermUtil {
     }
 
     /**
+     * 获取藏干十神
+     *
+     * @param siZhuData 四柱
+     * @return 藏干十神
+     */
+    public static CangGanShiShenBean CangGanShiShen(SiZhuData siZhuData) {
+        CangGanShiShenBean cangGanShiShenBean = new CangGanShiShenBean(siZhuData);
+        return cangGanShiShenBean;
+    }
+
+    /**
      * 获取天干的位置
      *
      * @param gan 天干
      * @return 位置
      */
-    public static int getPosition(String gan) {
+    public static int getTianGanPosition(String gan) {
         for (int i = 0; i < Gan.length; i++) {
             if (Gan[i].equals(gan)) {
+                return i;
+            }
+        }
+        return 0;
+    }
+
+    /**
+     * 获取地支的位置
+     *
+     * @param dizhi 天干
+     * @return 位置
+     */
+    public static int getDizhiPosition(String dizhi) {
+        for (int i = 0; i < Zhi.length; i++) {
+            if (Zhi[i].equals(dizhi)) {
                 return i;
             }
         }

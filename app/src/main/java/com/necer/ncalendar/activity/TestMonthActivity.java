@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.necer.calendar.BaseCalendar;
+import com.necer.calendar.CangGanShiShenBean;
 import com.necer.calendar.MonthCalendar;
 import com.necer.calendar.ShiShenBean;
 import com.necer.entity.CalendarDate;
@@ -24,7 +25,9 @@ import org.joda.time.LocalDate;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import cn.qqtheme.framework.picker.DateTimePicker;
 
@@ -155,6 +158,27 @@ public class TestMonthActivity extends BaseActivity {
             }
         }
         ShiShenBean shiShenBean = SolarTermUtil.getShiShen(siZhuData);
+        CangGanShiShenBean cangGanShiShenBean = SolarTermUtil.CangGanShiShen(siZhuData);
+        HashMap<String, String> nianCangGanMap = cangGanShiShenBean.getNianCangGanMap();
+        HashMap<String, String> yueCangGanMap = cangGanShiShenBean.getYueCangGanMap();
+        HashMap<String, String> shiCangGanMap = cangGanShiShenBean.getShiCangGanMap();
+        HashMap<String, String> riCangGanMap = cangGanShiShenBean.getRiCangGanMap();
+        StringBuilder nianCangGan = new StringBuilder(cangGanShiShenBean.getNianTianGan() + ":");
+        StringBuilder yueCangGan = new StringBuilder(cangGanShiShenBean.getYueTianGan() + ":");
+        StringBuilder shiCangGan = new StringBuilder(cangGanShiShenBean.getShiTianGan() + ":");
+        StringBuilder riCangGan = new StringBuilder(cangGanShiShenBean.getRiTianGan() + ":");
+        for (Map.Entry<String, String> m : nianCangGanMap.entrySet()) {
+            nianCangGan.append(" ").append(m.getKey()).append(":").append(m.getValue()).append(",");
+        }
+        for (Map.Entry<String, String> m : yueCangGanMap.entrySet()) {
+            yueCangGan.append(" ").append(m.getKey()).append(":").append(m.getValue()).append(",");
+        }
+        for (Map.Entry<String, String> m : shiCangGanMap.entrySet()) {
+            shiCangGan.append(" ").append(m.getKey()).append(":").append(m.getValue()).append(",");
+        }
+        for (Map.Entry<String, String> m : riCangGanMap.entrySet()) {
+            riCangGan.append(" ").append(m.getKey()).append(":").append(m.getValue()).append(",");
+        }
         Log.e(TAG, "getDaYun: getShiTianGanXiangHe(baZiList)" + getShiTianGanXiangHe(baZiList));
         tv_result.setText(year + "年" + month + "月" + day + "日 季节：" + SolarTermUtil.getSeason(Integer.parseInt(year), Integer.parseInt(month), Integer.parseInt(day)) + "\n"
                 + "四柱为：\n" +
@@ -170,6 +194,10 @@ public class TestMonthActivity extends BaseActivity {
                 + "年柱十神:" + shiShenBean.getNianShiShen() + "\n"
                 + "月柱十神:" + shiShenBean.getYueShiShen() + "\n"
                 + "时柱十神:" + shiShenBean.getShiShiShen() + "\n"
+                + "藏干年十神:" + nianCangGan + "\n"
+                + "藏干月十神:" + yueCangGan + "\n"
+                + "藏干日十神:" + riCangGan + "\n"
+                + "藏干时十神:" + shiCangGan + "\n"
                 + "十天干相合:" + getShiTianGanXiangHe(baZiList) + "\n"
                 + "十二支六合:" + getShiErZhiLiuHe(baZiList) + "\n"
                 + "生合:" + getShengHe(baZiList) + "\n"
