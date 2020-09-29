@@ -718,16 +718,16 @@ public class TestMonthActivity extends BaseActivity {
         if (aContainsB(tianGanList, list1) && list1.contains(baZiList.get(4))) {
             result = "甲乙合化土 ";
         }
-        if (aContainsB(tianGanList, list2) && list1.contains(baZiList.get(4))) {
+        if (aContainsB(tianGanList, list2) && list2.contains(baZiList.get(4))) {
             result = "乙庚合化金 ";
         }
-        if (aContainsB(tianGanList, list3) && list1.contains(baZiList.get(4))) {
+        if (aContainsB(tianGanList, list3) && list3.contains(baZiList.get(4))) {
             result = "丙辛合化水 ";
         }
-        if (aContainsB(tianGanList, list4) && list1.contains(baZiList.get(4))) {
+        if (aContainsB(tianGanList, list4) && list4.contains(baZiList.get(4))) {
             result = "丁壬合化木 ";
         }
-        if (aContainsB(tianGanList, list5) && list1.contains(baZiList.get(4))) {
+        if (aContainsB(tianGanList, list5) && list5.contains(baZiList.get(4))) {
             result = "戊癸合化火 ";
         }
         return result;
@@ -779,23 +779,41 @@ public class TestMonthActivity extends BaseActivity {
         List<String> list6 = new ArrayList<>();
         list3.add("巳");
         list3.add("申");
-        if (aContainsB(dizhiList, list1)) {
+        if (aContainsB(dizhiList, list1) && list1.contains(baZiList.get(5))) {
             result = "子丑合土 ";
+            if (list1.contains(baZiList.get(1))) {
+                result += "遥合";
+            }
         }
-        if (aContainsB(dizhiList, list2)) {
+        if (aContainsB(dizhiList, list2)&& list2.contains(baZiList.get(5))) {
             result = "午未合土 ";
+            if (list2.contains(baZiList.get(1))) {
+                result += "遥合";
+            }
         }
-        if (aContainsB(dizhiList, list3)) {
+        if (aContainsB(dizhiList, list3)&& list3.contains(baZiList.get(5))) {
             result = "寅亥合木 ";
+            if (list3.contains(baZiList.get(1))) {
+                result += "遥合";
+            }
         }
-        if (aContainsB(dizhiList, list4)) {
+        if (aContainsB(dizhiList, list4)&& list4.contains(baZiList.get(5))) {
             result = "卯戌合火 ";
+            if (list4.contains(baZiList.get(1))) {
+                result += "遥合";
+            }
         }
-        if (aContainsB(dizhiList, list5)) {
+        if (aContainsB(dizhiList, list5)&& list5.contains(baZiList.get(5))) {
             result = "辰酉合金 ";
+            if (list5.contains(baZiList.get(1))) {
+                result += "遥合";
+            }
         }
-        if (aContainsB(dizhiList, list6)) {
+        if (aContainsB(dizhiList, list6)&& list6.contains(baZiList.get(5))) {
             result = "巳申合水 ";
+            if (list6.contains(baZiList.get(1))) {
+                result += "遥合";
+            }
         }
         return result;
     }
