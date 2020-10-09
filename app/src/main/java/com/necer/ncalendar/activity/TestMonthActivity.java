@@ -182,7 +182,7 @@ public class TestMonthActivity extends BaseActivity {
             riCangGan.append(" ").append(m.getKey()).append(":").append(m.getValue()).append(",");
         }
         Log.e(TAG, "getDaYun: getShiTianGanXiangHe(baZiList)" + getShiTianGanXiangHe(baZiList));
-        tv_result.setText(year + "年" + month + "月" + day + "日 季节：" + SolarTermUtil.getSeason(Integer.parseInt(year), Integer.parseInt(month), Integer.parseInt(day)) + "\n"
+        tv_result.setText(year + "年" + month + "月" + day + "日+" + "季节：" + SolarTermUtil.getSeason(Integer.parseInt(year), Integer.parseInt(month), Integer.parseInt(day)) + "\n"
                 + "四柱为：\n" +
                 siZhuData.getNianZhu() + "(" + paiPan.getNaYin(siZhuData.getNianZhu()) + ":" + paiPan.getOtherNayin(siZhuData.getNianZhu())
                 + " 五行：" + wuXingList.get(0) + " " + wuXingList.get(1) + ")\n"
@@ -603,7 +603,7 @@ public class TestMonthActivity extends BaseActivity {
         dizhiList.add(baZiList.get(3));
         dizhiList.add(baZiList.get(5));
         dizhiList.add(baZiList.get(7));
-        String result = null;
+        String result = "";
         List<String> list1 = new ArrayList<>();
         list1.add("申");
         list1.add("子");
@@ -647,7 +647,7 @@ public class TestMonthActivity extends BaseActivity {
         dizhiList.add(baZiList.get(3));
         dizhiList.add(baZiList.get(5));
         dizhiList.add(baZiList.get(7));
-        String result = null;
+        String result = "";
         List<String> list1 = new ArrayList<>();
         list1.add("寅");
         list1.add("卯");
@@ -705,7 +705,7 @@ public class TestMonthActivity extends BaseActivity {
         tianGanList.add(baZiList.get(2));
         tianGanList.add(baZiList.get(4));
         tianGanList.add(baZiList.get(6));
-        String result = null;
+        String result = "";
         List<String> list1 = new ArrayList<>();
         list1.add("甲");
         list1.add("乙");
@@ -766,7 +766,7 @@ public class TestMonthActivity extends BaseActivity {
         dizhiList.add(baZiList.get(3));
         dizhiList.add(baZiList.get(5));
         dizhiList.add(baZiList.get(7));
-        String result = null;
+        String result = "";
         List<String> list1 = new ArrayList<>();
         list1.add("子");
         list1.add("丑");
