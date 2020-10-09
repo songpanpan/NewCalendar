@@ -3,6 +3,7 @@ package com.necer.utils;
 import android.util.Log;
 
 import com.necer.calendar.CangGanShiShenBean;
+import com.necer.calendar.ShiErGongBean;
 import com.necer.calendar.ShiShenBean;
 
 import java.util.ArrayList;
@@ -55,8 +56,6 @@ public class SolarTermUtil {
 
     //十二宫名称
     public static final String[] shiErGongName = new String[]{"长生", "沐浴", "冠带", "临官", "帝旺", "衰", "病", "死", "墓", "绝", "胎", "养"};
-
-
 
 
     //十二地支循藏
@@ -987,6 +986,47 @@ public class SolarTermUtil {
     }
 
     /**
+     * 获取十二宫
+     *
+     * @param siZhuData 四柱
+     * @return 十二宫
+     */
+    public static ShiErGongBean getShiErGong(SiZhuData siZhuData) {
+        String riGan = siZhuData.getRiZhu().substring(0, 1);
+
+        String nianZhi = siZhuData.getNianZhu().substring(1, 2);
+        String yueZhi = siZhuData.getYueZhu().substring(1, 2);
+        String riZhi = siZhuData.getRiZhu().substring(1, 2);
+        String shiZhi = siZhuData.getShiZhu().substring(1, 2);
+
+        ShiErGongBean shiErGongBean = new ShiErGongBean();
+        shiErGongBean.setNianShiErGong(getSingleShiErGong(riGan, nianZhi));
+        shiErGongBean.setYueShiErGong(getSingleShiErGong(riGan, yueZhi));
+        shiErGongBean.setRiShiErGong(getSingleShiErGong(riGan, riZhi));
+        shiErGongBean.setShiShiErGong(getSingleShiErGong(riGan, shiZhi));
+        return shiErGongBean;
+    }
+
+    /**
+     * 获取单个的十二宫
+     *
+     * @param gan 天干
+     * @param zhi 地支
+     * @return 十二宫
+     */
+    public static String getSingleShiErGong(String gan, String zhi) {
+        int tianGanIndex = getShiErGongTianGanPosition(gan);
+        for (int i = 0; i < 12; i++) {
+            for (int j = 0; j < 10; j++) {
+                if (j == tianGanIndex && shiErGong[i][j].equals(zhi)) {
+                    return shiErGongName[i];
+                }
+            }
+        }
+        return "";
+    }
+
+    /**
      * 获取藏干十神
      *
      * @param siZhuData 四柱
@@ -995,6 +1035,21 @@ public class SolarTermUtil {
     public static CangGanShiShenBean CangGanShiShen(SiZhuData siZhuData) {
         CangGanShiShenBean cangGanShiShenBean = new CangGanShiShenBean(siZhuData);
         return cangGanShiShenBean;
+    }
+
+    /**
+     * 获取十二宫天干的位置
+     *
+     * @param gan 天干
+     * @return 位置
+     */
+    public static int getShiErGongTianGanPosition(String gan) {
+        for (int i = 0; i < shiErGongTianGan.length; i++) {
+            if (shiErGongTianGan[i].equals(gan)) {
+                return i;
+            }
+        }
+        return 0;
     }
 
     /**

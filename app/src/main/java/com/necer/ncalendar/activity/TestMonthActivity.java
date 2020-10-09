@@ -10,6 +10,7 @@ import android.widget.TextView;
 import com.necer.calendar.BaseCalendar;
 import com.necer.calendar.CangGanShiShenBean;
 import com.necer.calendar.MonthCalendar;
+import com.necer.calendar.ShiErGongBean;
 import com.necer.calendar.ShiShenBean;
 import com.necer.entity.CalendarDate;
 import com.necer.listener.OnCalendarChangedListener;
@@ -158,6 +159,7 @@ public class TestMonthActivity extends BaseActivity {
             }
         }
         ShiShenBean shiShenBean = SolarTermUtil.getShiShen(siZhuData);
+        ShiErGongBean shiErGongBean = SolarTermUtil.getShiErGong(siZhuData);
         CangGanShiShenBean cangGanShiShenBean = SolarTermUtil.CangGanShiShen(siZhuData);
         HashMap<String, String> nianCangGanMap = cangGanShiShenBean.getNianCangGanMap();
         HashMap<String, String> yueCangGanMap = cangGanShiShenBean.getYueCangGanMap();
@@ -198,6 +200,10 @@ public class TestMonthActivity extends BaseActivity {
                 + "藏干月十神:" + yueCangGan + "\n"
                 + "藏干日十神:" + riCangGan + "\n"
                 + "藏干时十神:" + shiCangGan + "\n"
+                + "年十二宫:" + shiErGongBean.getNianShiErGong() + "\n"
+                + "月十二宫:" + shiErGongBean.getYueShiErGong() + "\n"
+                + "日十二宫:" + shiErGongBean.getRiShiErGong() + "\n"
+                + "时十二宫:" + shiErGongBean.getShiShiErGong() + "\n"
                 + "地支三合化五行:" + getSanHeHuaWuXing(baZiList) + "\n"
                 + "地支三会化五行:" + getSanHuiHuaWuXing(baZiList) + "\n"
                 + "天干合化五行:" + getTianGanHeHuaWuXing(baZiList) + "\n"
@@ -785,31 +791,31 @@ public class TestMonthActivity extends BaseActivity {
                 result += "遥合";
             }
         }
-        if (aContainsB(dizhiList, list2)&& list2.contains(baZiList.get(5))) {
+        if (aContainsB(dizhiList, list2) && list2.contains(baZiList.get(5))) {
             result = "午未合土 ";
             if (list2.contains(baZiList.get(1))) {
                 result += "遥合";
             }
         }
-        if (aContainsB(dizhiList, list3)&& list3.contains(baZiList.get(5))) {
+        if (aContainsB(dizhiList, list3) && list3.contains(baZiList.get(5))) {
             result = "寅亥合木 ";
             if (list3.contains(baZiList.get(1))) {
                 result += "遥合";
             }
         }
-        if (aContainsB(dizhiList, list4)&& list4.contains(baZiList.get(5))) {
+        if (aContainsB(dizhiList, list4) && list4.contains(baZiList.get(5))) {
             result = "卯戌合火 ";
             if (list4.contains(baZiList.get(1))) {
                 result += "遥合";
             }
         }
-        if (aContainsB(dizhiList, list5)&& list5.contains(baZiList.get(5))) {
+        if (aContainsB(dizhiList, list5) && list5.contains(baZiList.get(5))) {
             result = "辰酉合金 ";
             if (list5.contains(baZiList.get(1))) {
                 result += "遥合";
             }
         }
-        if (aContainsB(dizhiList, list6)&& list6.contains(baZiList.get(5))) {
+        if (aContainsB(dizhiList, list6) && list6.contains(baZiList.get(5))) {
             result = "巳申合水 ";
             if (list6.contains(baZiList.get(1))) {
                 result += "遥合";
