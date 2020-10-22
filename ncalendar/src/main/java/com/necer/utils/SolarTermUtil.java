@@ -51,6 +51,9 @@ public class SolarTermUtil {
             {"戌", "丑", "丑", "辰", "未", "未", "戌", "戌", "丑", "辰"}
     };
 
+    public static ShiGanLuList shiGanLuList = new ShiGanLuList();
+
+
     //十二宫天干
     public static final String[] shiErGongTianGan = new String[]{"甲", "丙", "戊", "庚", "壬", "乙", "丁", "己", "辛", "癸"};
 
@@ -1005,6 +1008,42 @@ public class SolarTermUtil {
         shiErGongBean.setRiShiErGong(getSingleShiErGong(riGan, riZhi));
         shiErGongBean.setShiShiErGong(getSingleShiErGong(riGan, shiZhi));
         return shiErGongBean;
+    }
+
+    /**
+     * 获取十干禄
+     *
+     * @param siZhuData 四柱
+     * @return 十干禄
+     */
+    public static String getShiGanLu(SiZhuData siZhuData) {
+        String nianGan = siZhuData.getNianZhu().substring(0, 1);
+        String yueGan = siZhuData.getYueZhu().substring(0, 1);
+        String riGan = siZhuData.getRiZhu().substring(0, 1);
+        String shiGan = siZhuData.getShiZhu().substring(0, 1);
+
+        String nianZhi = siZhuData.getNianZhu().substring(1, 2);
+        String yueZhi = siZhuData.getYueZhu().substring(1, 2);
+        String riZhi = siZhuData.getRiZhu().substring(1, 2);
+        String shiZhi = siZhuData.getShiZhu().substring(1, 2);
+
+        List<ShiGanLuList.ShiGanLuBean> shiGanLuBeanList = shiGanLuList.getShiGanLuBeanList();
+        if (shiGanLuBeanList != null && shiGanLuBeanList.size() > 0) {
+            StringBuilder result = new StringBuilder();
+            for (int i = 0; i < shiGanLuBeanList.size(); i++) {
+                ShiGanLuList.ShiGanLuBean bean = shiGanLuBeanList.get(i);
+                String tempGan = bean.getOtherGan();
+                String tempZhi = bean.getOtherZhi();
+                if (bean.getRiGan().equals(riGan) &&
+                        (tempGan.equals(nianGan) || tempGan.equals(yueGan) || tempGan.equals(shiGan)) &&
+                        tempZhi.equals(nianZhi) || tempZhi.equals(yueZhi) || tempZhi.equals(riZhi) || tempZhi.equals(shiZhi)) {
+                    result.append(";").append(bean.getResult());
+                }
+            }
+            return result.toString();
+        } else {
+            return "";
+        }
     }
 
     /**
