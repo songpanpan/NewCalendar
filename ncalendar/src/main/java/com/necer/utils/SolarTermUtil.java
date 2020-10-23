@@ -1026,7 +1026,11 @@ public class SolarTermUtil {
         String yueZhi = siZhuData.getYueZhu().substring(1, 2);
         String riZhi = siZhuData.getRiZhu().substring(1, 2);
         String shiZhi = siZhuData.getShiZhu().substring(1, 2);
-
+        List<String> siZhuGanList = new ArrayList<>();
+        siZhuGanList.add(nianGan);
+        siZhuGanList.add(yueGan);
+        siZhuGanList.add(riGan);
+        siZhuGanList.add(shiGan);
         List<ShiGanLuList.ShiGanLuBean> shiGanLuBeanList = shiGanLuList.getShiGanLuBeanList();
         if (shiGanLuBeanList != null && shiGanLuBeanList.size() > 0) {
             StringBuilder result = new StringBuilder();
@@ -1034,10 +1038,12 @@ public class SolarTermUtil {
                 ShiGanLuList.ShiGanLuBean bean = shiGanLuBeanList.get(i);
                 String tempGan = bean.getOtherGan();
                 String tempZhi = bean.getOtherZhi();
-                if (bean.getRiGan().equals(riGan) &&
-                        (tempGan.equals(nianGan) || tempGan.equals(yueGan) || tempGan.equals(shiGan)) &&
+                List<String> tempList = new ArrayList<>();
+                tempList.add(bean.getRiGan());
+                tempList.add(tempGan);
+                if (aContainsB(siZhuGanList, tempList) &&
                         (tempZhi.equals(nianZhi) || tempZhi.equals(yueZhi) || tempZhi.equals(riZhi) || tempZhi.equals(shiZhi))) {
-                    result.append(";").append(riGan + "见" + tempGan + "" + tempZhi + "为" + bean.getResult());
+                    result.append(":").append(riGan + "见" + tempGan + "" + tempZhi + "为" + bean.getResult());
                 }
             }
             return result.toString();
@@ -1119,5 +1125,25 @@ public class SolarTermUtil {
             }
         }
         return 0;
+    }
+
+    /**
+     * 判断list a 是否包含list b
+     *
+     * @param aList list a
+     * @param bList list b
+     * @return list a 是否包含list b
+     */
+    public static boolean aContainsB(List<String> aList, List<String> bList) {
+        if (aList != null && aList.size() > 0 && bList != null && bList.size() > 0) {
+            for (int i = 0; i < bList.size(); i++) {
+                if (!aList.contains(bList.get(i))) {
+                    return false;
+                }
+            }
+        } else {
+            return false;
+        }
+        return true;
     }
 }
