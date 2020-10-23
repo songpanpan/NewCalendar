@@ -1036,8 +1036,8 @@ public class SolarTermUtil {
                 String tempZhi = bean.getOtherZhi();
                 if (bean.getRiGan().equals(riGan) &&
                         (tempGan.equals(nianGan) || tempGan.equals(yueGan) || tempGan.equals(shiGan)) &&
-                        tempZhi.equals(nianZhi) || tempZhi.equals(yueZhi) || tempZhi.equals(riZhi) || tempZhi.equals(shiZhi)) {
-                    result.append(";").append(bean.getResult());
+                        (tempZhi.equals(nianZhi) || tempZhi.equals(yueZhi) || tempZhi.equals(riZhi) || tempZhi.equals(shiZhi))) {
+                    result.append(";").append(riGan + "见" + tempGan + "" + tempZhi + "为" + bean.getResult());
                 }
             }
             return result.toString();
