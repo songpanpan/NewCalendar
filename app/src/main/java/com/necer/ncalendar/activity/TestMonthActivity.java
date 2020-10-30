@@ -205,6 +205,8 @@ public class TestMonthActivity extends BaseActivity {
                 + "日十二宫:" + shiErGongBean.getRiShiErGong() + "\n"
                 + "时十二宫:" + shiErGongBean.getShiShiErGong() + "\n"
                 + "十干禄:" + SolarTermUtil.getShiGanLu(siZhuData) + "\n"
+                + "金舆:" + SolarTermUtil.getJinYu(siZhuData) + "\n"
+                + "驿马:" + SolarTermUtil.getYiMa(siZhuData) + "\n"
                 + "地支三合化五行:" + getSanHeHuaWuXing(baZiList) + "\n"
                 + "地支三会化五行:" + getSanHuiHuaWuXing(baZiList) + "\n"
                 + "天干合化五行:" + getTianGanHeHuaWuXing(baZiList) + "\n"

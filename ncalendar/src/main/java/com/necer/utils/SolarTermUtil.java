@@ -51,6 +51,31 @@ public class SolarTermUtil {
             {"戌", "丑", "丑", "辰", "未", "未", "戌", "戌", "丑", "辰"}
     };
 
+    //驿马
+    public static String[][] yiMa = {
+            {"寅", "午", "戌", "甲申", "寅午戌见甲申（截路空日马）"},
+            {"寅", "午", "戌", "丙申", "寅午戌见丙申（大败马）"},
+            {"寅", "午", "戌", "戊申", "寅午戌见戊申（福星伏马）"},
+            {"寅", "午", "戌", "庚申", "寅午戌见庚申（逢天关马）"},
+            {"寅", "午", "戌", "壬申", "寅午戌见壬申（大败马）"},
+            {"申", "子", "辰", "甲寅", "申子辰见甲寅（正禄文星马）"},
+            {"申", "子", "辰", "丙寅", "申子辰见丙寅（福星马）"},
+            {"申", "子", "辰", "戊寅", "申子辰见戊寅（伏马）"},
+            {"申", "子", "辰", "庚寅", "申子辰见庚寅（破禄马）"},
+            {"申", "子", "辰", "壬寅", "申子辰见壬寅（截路马）"},
+            {"巳", "酉", "丑", "乙亥", "巳酉丑见乙亥（天德马）"},
+            {"巳", "酉", "丑", "丁亥", "巳酉丑见丁亥（天乙马）"},
+            {"巳", "酉", "丑", "己亥", "巳酉丑见己亥（旺禄马）"},
+            {"巳", "酉", "丑", "辛亥", "巳酉丑见辛亥（正禄马）"},
+            {"巳", "酉", "丑", "癸亥", "巳酉丑见癸亥（大败马）"},
+            {"亥", "卯", "未", "乙巳", "亥卯未见乙巳（正禄马）"},
+            {"亥", "卯", "未", "乙巳", "亥卯未见乙巳（旺气马）"},
+            {"亥", "卯", "未", "乙巳", "亥卯未见乙巳（九天禄库马）"},
+            {"亥", "卯", "未", "乙巳", "亥卯未见乙巳（截路马）"},
+            {"亥", "卯", "未", "乙巳", "亥卯未见乙巳（天乙伏马）"}
+    };
+
+
     public static ShiGanLuList shiGanLuList = new ShiGanLuList();
 
 
@@ -1050,6 +1075,99 @@ public class SolarTermUtil {
         } else {
             return "";
         }
+    }
+
+
+    /**
+     * 获取金舆
+     *
+     * @param siZhuData 四柱
+     * @return 金舆
+     */
+    public static String getJinYu(SiZhuData siZhuData) {
+        String nianGan = siZhuData.getNianZhu().substring(0, 1);
+        String yueGan = siZhuData.getYueZhu().substring(0, 1);
+        String riGan = siZhuData.getRiZhu().substring(0, 1);
+        String shiGan = siZhuData.getShiZhu().substring(0, 1);
+
+        String nianZhi = siZhuData.getNianZhu().substring(1, 2);
+        String yueZhi = siZhuData.getYueZhu().substring(1, 2);
+        String riZhi = siZhuData.getRiZhu().substring(1, 2);
+        String shiZhi = siZhuData.getShiZhu().substring(1, 2);
+        List<String> siZhuGanZhiList = new ArrayList<>();
+        siZhuGanZhiList.add(nianGan);
+        siZhuGanZhiList.add(nianZhi);
+        siZhuGanZhiList.add(yueGan);
+        siZhuGanZhiList.add(yueZhi);
+        siZhuGanZhiList.add(riGan);
+        siZhuGanZhiList.add(riZhi);
+        siZhuGanZhiList.add(shiGan);
+        siZhuGanZhiList.add(shiZhi);
+        List<String> jinYu1 = new ArrayList<>();
+        jinYu1.add("甲");
+        jinYu1.add("子");
+        List<String> jinYu2 = new ArrayList<>();
+        jinYu2.add("寅");
+        List<String> jinYu3 = new ArrayList<>();
+        jinYu3.add("辰");
+        String result = "无金舆";
+        if (aContainsB(siZhuGanZhiList, jinYu1)) {
+            result = "四柱中有甲子有金舆";
+        }
+        if (aContainsB(siZhuGanZhiList, jinYu2)) {
+            result = "四柱中有寅有金舆";
+        }
+        if (aContainsB(siZhuGanZhiList, jinYu3)) {
+            result = "四柱中有辰有金舆";
+        }
+        return result;
+
+    }
+
+    /**
+     * 获取驿马
+     *
+     * @param siZhuData 四柱
+     * @return 驿马
+     */
+    public static String getYiMa(SiZhuData siZhuData) {
+        String nianGan = siZhuData.getNianZhu().substring(0, 1);
+        String yueGan = siZhuData.getYueZhu().substring(0, 1);
+        String riGan = siZhuData.getRiZhu().substring(0, 1);
+        String shiGan = siZhuData.getShiZhu().substring(0, 1);
+
+        String nianZhi = siZhuData.getNianZhu().substring(1, 2);
+        String yueZhi = siZhuData.getYueZhu().substring(1, 2);
+        String riZhi = siZhuData.getRiZhu().substring(1, 2);
+        String shiZhi = siZhuData.getShiZhu().substring(1, 2);
+        List<String> siZhuGanZhiList = new ArrayList<>();
+        siZhuGanZhiList.add(nianGan);
+        siZhuGanZhiList.add(nianZhi);
+        siZhuGanZhiList.add(yueGan);
+        siZhuGanZhiList.add(yueZhi);
+        siZhuGanZhiList.add(riGan);
+        siZhuGanZhiList.add(riZhi);
+        siZhuGanZhiList.add(shiGan);
+        siZhuGanZhiList.add(shiZhi);
+        siZhuGanZhiList.add(siZhuData.getNianZhu());
+        siZhuGanZhiList.add(siZhuData.getYueZhu());
+        siZhuGanZhiList.add(siZhuData.getRiZhu());
+        siZhuGanZhiList.add(siZhuData.getShiZhu());
+        StringBuilder result = new StringBuilder();
+        for (int i = 0; i < yiMa.length; i++) {
+            String[] temp = yiMa[i];
+            List<String> tempList = new ArrayList<>();
+            tempList.add(temp[0]);
+            tempList.add(temp[1]);
+            tempList.add(temp[2]);
+            tempList.add(temp[3]);
+            if (aContainsB(siZhuGanZhiList, tempList)) {
+                result.append(temp[4]).append("  ");
+            }
+        }
+
+        return result.toString();
+
     }
 
     /**
