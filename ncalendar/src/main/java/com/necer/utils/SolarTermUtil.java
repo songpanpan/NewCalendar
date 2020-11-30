@@ -75,6 +75,18 @@ public class SolarTermUtil {
             {"亥", "卯", "未", "乙巳", "亥卯未见乙巳（天乙伏马）"}
     };
 
+    /**
+     * 六十甲子
+     */
+    public static final String[] jiaZi = {
+            "甲子", "乙丑", "丙寅", "丁卯", "戊辰", "己巳", "庚午", "辛未", "壬申", "癸酉",
+            "甲戌", "乙亥", "丙子", "丁丑", "戊寅", "己卯", "庚辰", "辛巳", "壬午", "癸未",
+            "甲申", "乙酉", "丙戌", "丁亥", "戊子", "己丑", "庚寅", "辛卯", "壬辰", "癸巳",
+            "甲午", "乙未", "丙申", "丁酉", "戊戌", "己亥", "庚子", "辛丑", "壬寅", "癸卯",
+            "甲辰", "乙巳", "丙午", "丁未", "戊申", "己酉", "庚戌", "辛亥", "壬子", "癸丑",
+            "甲寅", "乙卯", "丙辰", "丁巳", "戊午", "己未", "庚申", "辛酉", "壬戌", "癸亥"
+    };
+
 
     public static ShiGanLuList shiGanLuList = new ShiGanLuList();
 
@@ -1077,6 +1089,100 @@ public class SolarTermUtil {
         }
     }
 
+    /**
+     * 获取十干禄
+     *
+     * @param siZhuData 四柱
+     * @return 十干禄
+     */
+    public static List<String> getShiGanLuList(SiZhuData siZhuData) {
+        String nianGan = siZhuData.getNianZhu().substring(0, 1);
+        String yueGan = siZhuData.getYueZhu().substring(0, 1);
+        String riGan = siZhuData.getRiZhu().substring(0, 1);
+        String shiGan = siZhuData.getShiZhu().substring(0, 1);
+
+        String nianZhi = siZhuData.getNianZhu().substring(1, 2);
+        String yueZhi = siZhuData.getYueZhu().substring(1, 2);
+        String riZhi = siZhuData.getRiZhu().substring(1, 2);
+        String shiZhi = siZhuData.getShiZhu().substring(1, 2);
+        List<String> siZhuGanList = new ArrayList<>();
+        siZhuGanList.add(nianGan);
+        siZhuGanList.add(yueGan);
+        siZhuGanList.add(riGan);
+        siZhuGanList.add(shiGan);
+        List<ShiGanLuList.ShiGanLuBean> shiGanLuBeanList = shiGanLuList.getShiGanLuBeanList();
+        List<String> resultList = new ArrayList<>();
+        if (shiGanLuBeanList != null && shiGanLuBeanList.size() > 0) {
+            for (int i = 0; i < shiGanLuBeanList.size(); i++) {
+                ShiGanLuList.ShiGanLuBean bean = shiGanLuBeanList.get(i);
+                String tempGan = bean.getOtherGan();
+                String tempZhi = bean.getOtherZhi();
+                List<String> tempList = new ArrayList<>();
+                tempList.add(bean.getRiGan());
+                tempList.add(tempGan);
+                if (aContainsB(siZhuGanList, tempList) &&
+                        (tempZhi.equals(nianZhi) || tempZhi.equals(yueZhi) || tempZhi.equals(riZhi) || tempZhi.equals(shiZhi))) {
+                    resultList.add(riGan + "见" + tempGan + "" + tempZhi + "为" + bean.getResult());
+                }
+            }
+            return resultList;
+        } else {
+            return null;
+        }
+    }
+
+    /**
+     * 获取十干禄
+     *
+     * @param siZhuData 四柱
+     * @return 十干禄
+     */
+    public static String getDaYunShiGanLu(SiZhuData siZhuData, int age, String daYunZhu) {
+        String nianGan = siZhuData.getNianZhu().substring(0, 1);
+        String yueGan = siZhuData.getYueZhu().substring(0, 1);
+        String riGan = siZhuData.getRiZhu().substring(0, 1);
+        String shiGan = siZhuData.getShiZhu().substring(0, 1);
+        String daYunGan = daYunZhu.substring(0, 1);
+
+
+        String nianZhi = siZhuData.getNianZhu().substring(1, 2);
+        String yueZhi = siZhuData.getYueZhu().substring(1, 2);
+        String riZhi = siZhuData.getRiZhu().substring(1, 2);
+        String shiZhi = siZhuData.getShiZhu().substring(1, 2);
+        String daYunZhi = daYunZhu.substring(1, 2);
+        List<String> siZhuGanList = new ArrayList<>();
+        siZhuGanList.add(nianGan);
+        siZhuGanList.add(yueGan);
+        siZhuGanList.add(riGan);
+        siZhuGanList.add(shiGan);
+        siZhuGanList.add(daYunGan);
+        List<ShiGanLuList.ShiGanLuBean> shiGanLuBeanList = shiGanLuList.getShiGanLuBeanList();
+        List<String> normalShiGanLu = getShiGanLuList(siZhuData);
+        if (shiGanLuBeanList != null && shiGanLuBeanList.size() > 0) {
+            StringBuilder result = new StringBuilder();
+            result.append(age).append("岁 ").append(daYunZhu).append("年：");
+            for (int i = 0; i < shiGanLuBeanList.size(); i++) {
+                ShiGanLuList.ShiGanLuBean bean = shiGanLuBeanList.get(i);
+                String tempGan = bean.getOtherGan();
+                String tempZhi = bean.getOtherZhi();
+                List<String> tempList = new ArrayList<>();
+                tempList.add(bean.getRiGan());
+                tempList.add(tempGan);
+                if (aContainsB(siZhuGanList, tempList) &&
+                        (tempZhi.equals(nianZhi) || tempZhi.equals(yueZhi) || tempZhi.equals(riZhi) || tempZhi.equals(shiZhi) || tempZhi.equals(daYunZhi))) {
+
+                    String temp = riGan + "见" + tempGan + "" + tempZhi + "为" + bean.getResult();
+                    if (!normalShiGanLu.contains(temp)) {
+                        result.append(":").append(temp);
+                    }
+                }
+            }
+            return result.toString();
+        } else {
+            return "";
+        }
+    }
+
 
     /**
      * 获取金舆
@@ -1263,5 +1369,29 @@ public class SolarTermUtil {
             return false;
         }
         return true;
+    }
+
+    /**
+     * 获取大运一柱
+     *
+     * @param siZhuData 四柱
+     * @param age       年龄
+     * @return 大运一柱
+     */
+    public static String getDaYunZhu(SiZhuData siZhuData, int age) {
+        String nianZhu = siZhuData.getNianZhu();
+        for (int i = 0; i < jiaZi.length; i++) {
+            if (jiaZi[i].equals(nianZhu)) {
+                int tempAge = i + age;
+                if (tempAge >= 60) {
+                    tempAge = tempAge - 60;
+                }
+                if (tempAge >= 60) {
+                    tempAge = tempAge - 60;
+                }
+                return jiaZi[tempAge];
+            }
+        }
+        return "";
     }
 }

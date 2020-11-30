@@ -181,7 +181,27 @@ public class TestMonthActivity extends BaseActivity {
         for (Map.Entry<String, String> m : riCangGanMap.entrySet()) {
             riCangGan.append(" ").append(m.getKey()).append(":").append(m.getValue()).append(",");
         }
+        int daYunAge = SolarTermUtil.getDaYunAge(calendar, siZhuData, Const.MAN);
         Log.e(TAG, "getDaYun: getShiTianGanXiangHe(baZiList)" + getShiTianGanXiangHe(baZiList));
+        String yongShen = SolarTermUtil.getXiYongShen(SolarTermUtil.getSeason(Integer.parseInt(year), Integer.parseInt(month), Integer.parseInt(day)), wuXingList);
+        String xiYongSehn = "";
+        switch (yongShen) {
+            case Const.JIN:
+                xiYongSehn = "金 （喜火）（忌土）（消水）";
+                break;
+            case Const.MU:
+                xiYongSehn = "木 （喜水）（忌金）（消土）";
+                break;
+            case Const.SHUI:
+                xiYongSehn = "水 （喜金）（忌土）（消木）";
+                break;
+            case Const.HUO:
+                xiYongSehn = "火 （喜木）（忌水）（消土）";
+                break;
+            case Const.TU:
+                xiYongSehn = "土 （喜火）（忌水）（消木）";
+                break;
+        }
         tv_result.setText(year + "年" + month + "月" + day + "日+" + "季节：" + SolarTermUtil.getSeason(Integer.parseInt(year), Integer.parseInt(month), Integer.parseInt(day)) + "\n"
                 + "四柱为：\n" +
                 siZhuData.getNianZhu() + "(" + paiPan.getNaYin(siZhuData.getNianZhu()) + ":" + paiPan.getOtherNayin(siZhuData.getNianZhu())
@@ -192,7 +212,7 @@ public class TestMonthActivity extends BaseActivity {
                 + " 五行：" + wuXingList.get(4) + " " + wuXingList.get(5) + ")\n"
                 + siZhuData.getShiZhu() + "(" + paiPan.getNaYin(siZhuData.getShiZhu()) + ":" + paiPan.getOtherNayin(siZhuData.getShiZhu())
                 + " 五行：" + wuXingList.get(6) + " " + wuXingList.get(7) + ")\n"
-                + "用神：" + SolarTermUtil.getXiYongShen(SolarTermUtil.getSeason(Integer.parseInt(year), Integer.parseInt(month), Integer.parseInt(day)), wuXingList) + "\n"
+                + "用神：" + xiYongSehn + "\n"
                 + "年柱十神:" + shiShenBean.getNianShiShen() + "\n"
                 + "月柱十神:" + shiShenBean.getYueShiShen() + "\n"
                 + "时柱十神:" + shiShenBean.getShiShiShen() + "\n"
@@ -205,6 +225,14 @@ public class TestMonthActivity extends BaseActivity {
                 + "日十二宫:" + shiErGongBean.getRiShiErGong() + "\n"
                 + "时十二宫:" + shiErGongBean.getShiShiErGong() + "\n"
                 + "十干禄:" + SolarTermUtil.getShiGanLu(siZhuData) + "\n"
+                + "十干禄:" + SolarTermUtil.getDaYunShiGanLu(siZhuData, daYunAge, dayun[0]) + "\n"
+                + "十干禄:" + SolarTermUtil.getDaYunShiGanLu(siZhuData, daYunAge + 10, dayun[1]) + "\n"
+                + "十干禄:" + SolarTermUtil.getDaYunShiGanLu(siZhuData, daYunAge + 20, dayun[2]) + "\n"
+                + "十干禄:" + SolarTermUtil.getDaYunShiGanLu(siZhuData, daYunAge + 30, dayun[3]) + "\n"
+                + "十干禄:" + SolarTermUtil.getDaYunShiGanLu(siZhuData, daYunAge + 40, dayun[4]) + "\n"
+                + "十干禄:" + SolarTermUtil.getDaYunShiGanLu(siZhuData, daYunAge + 50, dayun[5]) + "\n"
+                + "十干禄:" + SolarTermUtil.getDaYunShiGanLu(siZhuData, daYunAge + 60, dayun[6]) + "\n"
+                + "十干禄:" + SolarTermUtil.getDaYunShiGanLu(siZhuData, daYunAge + 70, dayun[7]) + "\n"
                 + "金舆:" + SolarTermUtil.getJinYu(siZhuData) + "\n"
                 + "驿马:" + SolarTermUtil.getYiMa(siZhuData) + "\n"
                 + "地支三合化五行:" + getSanHeHuaWuXing(baZiList) + "\n"
@@ -219,7 +247,7 @@ public class TestMonthActivity extends BaseActivity {
                 + "十二支相冲:" + getShiErZhiXiangChong(baZiList) + "\n"
                 + "十二支相穿:" + getShiErZhiXiangChuan(baZiList) + "\n"
                 + "十二支相刑:" + getShiErZhiXiangXing(baZiList) + "\n"
-                + "大运：\n" + dayunStr + "\n大运年龄：" + SolarTermUtil.getDaYunAge(calendar, siZhuData, Const.MAN) + "\n" + "扎根运：" +
+                + "大运：\n" + dayunStr + "\n大运年龄：" + daYunAge + "\n" + "扎根运：" +
                 PaiPan.getZhaGenYunFromRiZhu(siZhuData.getRiZhu()) + " 第" +
                 PaiPan.getZhaGenYunLevel(SolarTermUtil.getDaYunAge(calendar, siZhuData, Const.MAN)) + "段\n"
                 + "时辰：" + siZhuData.getShiZhu().substring(1) + "\n" + "建星：" + getJianXing(calendar) + "\n日柱挂："

@@ -80,7 +80,7 @@ public class BaZi {
     /**
      * 六十甲子
      */
-    public static final String[] jiazhi = {
+    public static final String[] jiaZi = {
             "甲子", "乙丑", "丙寅", "丁卯", "戊辰", "己巳", "庚午", "辛未", "壬申", "癸酉",
             "甲戌", "乙亥", "丙子", "丁丑", "戊寅", "己卯", "庚辰", "辛巳", "壬午", "癸未",
             "甲申", "乙酉", "丙戌", "丁亥", "戊子", "己丑", "庚寅", "辛卯", "壬辰", "癸巳",
@@ -99,7 +99,7 @@ public class BaZi {
         //1864年是甲子年，每隔六十年一个甲子
         int idx = (year - 1864) % 60;
         //没有过春节的话那么年还算上一年的，此处求的年份的干支
-        String y = jiazhi[idx];
+        String y = jiaZi[idx];
 
         String m = "";
         String d = "";
@@ -124,7 +124,7 @@ public class BaZi {
         int offset = (int) ((cal.getTime().getTime() - baseDate.getTime()) / 86400000L);
         offset = (offset + 40) % 60;
         //求的日的干支
-        d = jiazhi[offset];
+        d = jiaZi[offset];
 
         /**
          * 日上起时
