@@ -187,7 +187,7 @@ public class TestMonthActivity extends BaseActivity {
         String xiYongSehn = "";
         switch (yongShen) {
             case Const.JIN:
-                xiYongSehn = "金 （喜火）（忌土）（消水）";
+                xiYongSehn = "金 （喜土）（忌火）（消水）";
                 break;
             case Const.MU:
                 xiYongSehn = "木 （喜水）（忌金）（消土）";
@@ -224,7 +224,7 @@ public class TestMonthActivity extends BaseActivity {
                 + "月十二宫:" + shiErGongBean.getYueShiErGong() + "\n"
                 + "日十二宫:" + shiErGongBean.getRiShiErGong() + "\n"
                 + "时十二宫:" + shiErGongBean.getShiShiErGong() + "\n"
-                + "十干禄:" + SolarTermUtil.getShiGanLu(siZhuData) + "\n"
+                + "四柱十干禄:" + SolarTermUtil.getShiGanLuNew(siZhuData) + "\n"
                 + "十干禄:" + SolarTermUtil.getDaYunShiGanLu(siZhuData, daYunAge, dayun[0]) + "\n"
                 + "十干禄:" + SolarTermUtil.getDaYunShiGanLu(siZhuData, daYunAge + 10, dayun[1]) + "\n"
                 + "十干禄:" + SolarTermUtil.getDaYunShiGanLu(siZhuData, daYunAge + 20, dayun[2]) + "\n"

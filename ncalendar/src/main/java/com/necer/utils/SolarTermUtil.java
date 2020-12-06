@@ -1137,27 +1137,45 @@ public class SolarTermUtil {
      * @param siZhuData 四柱
      * @return 十干禄
      */
-    public static String getDaYunShiGanLu(SiZhuData siZhuData, int age, String daYunZhu) {
-        String nianGan = siZhuData.getNianZhu().substring(0, 1);
-        String yueGan = siZhuData.getYueZhu().substring(0, 1);
+    public static String getShiGanLuNew(SiZhuData siZhuData) {
+        String nianZhu = siZhuData.getNianZhu().substring(0, 2);
+        String yueZhu = siZhuData.getYueZhu().substring(0, 2);
+        String riZhu = siZhuData.getRiZhu().substring(0, 2);
+        String shiZhu = siZhuData.getShiZhu().substring(0, 2);
+
         String riGan = siZhuData.getRiZhu().substring(0, 1);
-        String shiGan = siZhuData.getShiZhu().substring(0, 1);
-        String daYunGan = daYunZhu.substring(0, 1);
-
-
-        String nianZhi = siZhuData.getNianZhu().substring(1, 2);
-        String yueZhi = siZhuData.getYueZhu().substring(1, 2);
-        String riZhi = siZhuData.getRiZhu().substring(1, 2);
-        String shiZhi = siZhuData.getShiZhu().substring(1, 2);
-        String daYunZhi = daYunZhu.substring(1, 2);
-        List<String> siZhuGanList = new ArrayList<>();
-        siZhuGanList.add(nianGan);
-        siZhuGanList.add(yueGan);
-        siZhuGanList.add(riGan);
-        siZhuGanList.add(shiGan);
-        siZhuGanList.add(daYunGan);
         List<ShiGanLuList.ShiGanLuBean> shiGanLuBeanList = shiGanLuList.getShiGanLuBeanList();
-        List<String> normalShiGanLu = getShiGanLuList(siZhuData);
+        if (shiGanLuBeanList != null && shiGanLuBeanList.size() > 0) {
+            StringBuilder result = new StringBuilder();
+            for (int i = 0; i < shiGanLuBeanList.size(); i++) {
+                ShiGanLuList.ShiGanLuBean bean = shiGanLuBeanList.get(i);
+                String tempGan = bean.getOtherGan();
+                String tempZhi = bean.getOtherZhi();
+                String tempGanZhi = tempGan + tempZhi;
+                if (bean.getRiGan().equals(riGan) && (tempGanZhi.equals(nianZhu) ||
+                        tempGanZhi.equals(yueZhu) ||
+                        tempGanZhi.equals(riZhu) ||
+                        tempGanZhi.equals(shiZhu))) {
+                    result.append(":").append(riGan + "见" + tempGan + "" + tempZhi + "为" + bean.getResult());
+                }
+            }
+            return result.toString();
+        } else {
+            return "";
+        }
+    }
+
+    /**
+     * 获取十干禄
+     *
+     * @param siZhuData 四柱
+     * @return 十干禄
+     */
+    public static String getDaYunShiGanLu(SiZhuData siZhuData, int age, String daYunZhu) {
+        String riGan = siZhuData.getRiZhu().substring(0, 1);
+
+
+        List<ShiGanLuList.ShiGanLuBean> shiGanLuBeanList = shiGanLuList.getShiGanLuBeanList();
         if (shiGanLuBeanList != null && shiGanLuBeanList.size() > 0) {
             StringBuilder result = new StringBuilder();
             result.append(age).append("岁 ").append(daYunZhu).append("年：");
@@ -1165,16 +1183,10 @@ public class SolarTermUtil {
                 ShiGanLuList.ShiGanLuBean bean = shiGanLuBeanList.get(i);
                 String tempGan = bean.getOtherGan();
                 String tempZhi = bean.getOtherZhi();
-                List<String> tempList = new ArrayList<>();
-                tempList.add(bean.getRiGan());
-                tempList.add(tempGan);
-                if (aContainsB(siZhuGanList, tempList) &&
-                        (tempZhi.equals(nianZhi) || tempZhi.equals(yueZhi) || tempZhi.equals(riZhi) || tempZhi.equals(shiZhi) || tempZhi.equals(daYunZhi))) {
-
+                String tempGanZhi = tempGan + tempZhi;
+                if (bean.getRiGan().equals(riGan) && tempGanZhi.equals(daYunZhu)) {
                     String temp = riGan + "见" + tempGan + "" + tempZhi + "为" + bean.getResult();
-                    if (!normalShiGanLu.contains(temp)) {
-                        result.append(":").append(temp);
-                    }
+                    result.append(":").append(temp);
                 }
             }
             return result.toString();
