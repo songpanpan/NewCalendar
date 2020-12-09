@@ -706,6 +706,7 @@ public class SolarTermUtil {
         String zhuWuxing = wuXingList.get(4);
         for (int i = 0; i < wuXingList.size(); i++) {
             String wuXing = wuXingList.get(i);
+            Log.d(TAG, "getXiYongShen: i:"+i+" wuXing:"+wuXing);
             if (wuXing.contains("金")) {
                 jinSize++;
             } else if (wuXing.contains("木")) {
