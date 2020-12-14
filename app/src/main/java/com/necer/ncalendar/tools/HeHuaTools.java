@@ -415,7 +415,7 @@ public class HeHuaTools {
      * @param baZiList 八字list
      * @return 返回相合的十天干
      */
-    public static  String getShiErZhiSanHe(List<String> baZiList) {
+    public static String getShiErZhiSanHe(List<String> baZiList) {
         String result = "";
         List<String> list1 = new ArrayList<>();
         list1.add("申");
@@ -730,20 +730,12 @@ public class HeHuaTools {
      * @return 返回克合的十天干
      */
     public static String getTianGanHeHuaWuXing(List<String> baZiList, String daYunZhu) {
-        String sanHe = getSanHeHuaWuXing(baZiList,daYunZhu);
-        String sanHui = getSanHuiHuaWuXing(baZiList,daYunZhu);
-        if (sanHe != null) {
-            return "有三合化五行，合化不成立";
-        }
-        if (sanHui != null) {
-            return "有三会化五行，合化不成立";
-        }
         List<String> tianGanList = new ArrayList<>();
         tianGanList.add(baZiList.get(0));
         tianGanList.add(baZiList.get(2));
         tianGanList.add(baZiList.get(4));
         tianGanList.add(baZiList.get(6));
-        tianGanList.add(daYunZhu.substring(0,1));
+        tianGanList.add(daYunZhu.substring(0, 1));
         String result = "";
         List<String> list1 = new ArrayList<>();
         list1.add("甲");
@@ -760,19 +752,19 @@ public class HeHuaTools {
         List<String> list5 = new ArrayList<>();
         list3.add("戊");
         list3.add("癸");
-        if (aContainsB(tianGanList, list1) && list1.contains(baZiList.get(4))) {
+        if (aContainsB(tianGanList, list1) && list1.contains(baZiList.get(4)) && list1.contains(daYunZhu.substring(0, 1))) {
             result = "甲乙合化土 ";
         }
-        if (aContainsB(tianGanList, list2) && list2.contains(baZiList.get(4))) {
+        if (aContainsB(tianGanList, list2) && list2.contains(baZiList.get(4)) && list2.contains(daYunZhu.substring(0, 1))) {
             result = "乙庚合化金 ";
         }
-        if (aContainsB(tianGanList, list3) && list3.contains(baZiList.get(4))) {
+        if (aContainsB(tianGanList, list3) && list3.contains(baZiList.get(4)) && list3.contains(daYunZhu.substring(0, 1))) {
             result = "丙辛合化水 ";
         }
-        if (aContainsB(tianGanList, list4) && list4.contains(baZiList.get(4))) {
+        if (aContainsB(tianGanList, list4) && list4.contains(baZiList.get(4)) && list4.contains(daYunZhu.substring(0, 1))) {
             result = "丁壬合化木 ";
         }
-        if (aContainsB(tianGanList, list5) && list5.contains(baZiList.get(4))) {
+        if (aContainsB(tianGanList, list5) && list5.contains(baZiList.get(4)) && list5.contains(daYunZhu.substring(0, 1))) {
             result = "戊癸合化火 ";
         }
         return result;
@@ -792,14 +784,6 @@ public class HeHuaTools {
      * @return 返回克合的十天干
      */
     public static String getDiZhiHeHuaWuXing(List<String> baZiList, String daYunZhu) {
-        String sanHe = getSanHeHuaWuXing(baZiList,daYunZhu);
-        String sanHui = getSanHuiHuaWuXing(baZiList,daYunZhu);
-        if (sanHe != null) {
-            return "有三合化五行，合化不成立";
-        }
-        if (sanHui != null) {
-            return "有三会化五行，合化不成立";
-        }
         List<String> dizhiList = new ArrayList<>();
         dizhiList.add(baZiList.get(1));
         dizhiList.add(baZiList.get(3));
@@ -825,37 +809,37 @@ public class HeHuaTools {
         List<String> list6 = new ArrayList<>();
         list3.add("巳");
         list3.add("申");
-        if (aContainsB(dizhiList, list1) && list1.contains(baZiList.get(5))) {
+        if (aContainsB(dizhiList, list1) && list1.contains(baZiList.get(5))&&list1.contains(daYunZhu.substring(1))) {
             result = "子丑合土 ";
             if (list1.contains(baZiList.get(1))) {
                 result += "遥合";
             }
         }
-        if (aContainsB(dizhiList, list2) && list2.contains(baZiList.get(5))) {
+        if (aContainsB(dizhiList, list2) && list2.contains(baZiList.get(5))&&list2.contains(daYunZhu.substring(1))) {
             result = "午未合土 ";
             if (list2.contains(baZiList.get(1))) {
                 result += "遥合";
             }
         }
-        if (aContainsB(dizhiList, list3) && list3.contains(baZiList.get(5))) {
+        if (aContainsB(dizhiList, list3) && list3.contains(baZiList.get(5))&&list3.contains(daYunZhu.substring(1))) {
             result = "寅亥合木 ";
             if (list3.contains(baZiList.get(1))) {
                 result += "遥合";
             }
         }
-        if (aContainsB(dizhiList, list4) && list4.contains(baZiList.get(5))) {
+        if (aContainsB(dizhiList, list4) && list4.contains(baZiList.get(5))&&list4.contains(daYunZhu.substring(1))) {
             result = "卯戌合火 ";
             if (list4.contains(baZiList.get(1))) {
                 result += "遥合";
             }
         }
-        if (aContainsB(dizhiList, list5) && list5.contains(baZiList.get(5))) {
+        if (aContainsB(dizhiList, list5) && list5.contains(baZiList.get(5))&&list5.contains(daYunZhu.substring(1))) {
             result = "辰酉合金 ";
             if (list5.contains(baZiList.get(1))) {
                 result += "遥合";
             }
         }
-        if (aContainsB(dizhiList, list6) && list6.contains(baZiList.get(5))) {
+        if (aContainsB(dizhiList, list6) && list6.contains(baZiList.get(5))&&list6.contains(daYunZhu.substring(1))) {
             result = "巳申合水 ";
             if (list6.contains(baZiList.get(1))) {
                 result += "遥合";
@@ -867,12 +851,13 @@ public class HeHuaTools {
     /**
      * 获取十天干相合
      *
-     * @param baZiList 八字list
+     * @param oldBaZiList 八字list
      * @return 返回相合的十天干
      */
-    public static String getShiTianGanXiangHe(List<String> baZiList, String daYunZhu) {
+    public static String getShiTianGanXiangHe(List<String> oldBaZiList, String daYunZhu) {
         String result = "";
-        baZiList.add(daYunZhu.substring(0,1));
+        List<String> baZiList = new ArrayList<>(oldBaZiList);
+        baZiList.add(daYunZhu.substring(0, 1));
         baZiList.add(daYunZhu.substring(1));
         List<String> list1 = new ArrayList<>();
         list1.add("甲");
@@ -911,12 +896,13 @@ public class HeHuaTools {
     /**
      * 获取十二支六合
      *
-     * @param baZiList 八字list
+     * @param oldBaZiList 八字list
      * @return 返回十二支六合
      */
-    public static String getShiErZhiLiuHe(List<String> baZiList, String daYunZhu) {
+    public static String getShiErZhiLiuHe(List<String> oldBaZiList, String daYunZhu) {
         String result = "";
-        baZiList.add(daYunZhu.substring(0,1));
+        List<String> baZiList = new ArrayList<>(oldBaZiList);
+        baZiList.add(daYunZhu.substring(0, 1));
         baZiList.add(daYunZhu.substring(1));
         List<String> list1 = new ArrayList<>();
         list1.add("子");
@@ -961,11 +947,12 @@ public class HeHuaTools {
     /**
      * 生合
      *
-     * @param baZiList 八字list
+     * @param oldBaZiList 八字list
      * @return 返回生合的十天干
      */
-    public static String getShengHe(List<String> baZiList, String daYunZhu) {
-        baZiList.add(daYunZhu.substring(0,1));
+    public static String getShengHe(List<String> oldBaZiList, String daYunZhu) {
+        List<String> baZiList = new ArrayList<>(oldBaZiList);
+        baZiList.add(daYunZhu.substring(0, 1));
         baZiList.add(daYunZhu.substring(1));
         String result = "";
         List<String> list1 = new ArrayList<>();
@@ -992,11 +979,12 @@ public class HeHuaTools {
     /**
      * 克合
      *
-     * @param baZiList 八字list
+     * @param oldBaZiList 八字list
      * @return 返回克合的十天干
      */
-    public static String getKeHe(List<String> baZiList, String daYunZhu) {
-        baZiList.add(daYunZhu.substring(0,1));
+    public static String getKeHe(List<String> oldBaZiList, String daYunZhu) {
+        List<String> baZiList = new ArrayList<>(oldBaZiList);
+        baZiList.add(daYunZhu.substring(0, 1));
         baZiList.add(daYunZhu.substring(1));
         String result = "";
         List<String> list1 = new ArrayList<>();
@@ -1023,11 +1011,12 @@ public class HeHuaTools {
     /**
      * 获取十二支三合
      *
-     * @param baZiList 八字list
+     * @param oldBaZiList 八字list
      * @return 返回相合的十天干
      */
-    public static  String getShiErZhiSanHe(List<String> baZiList, String daYunZhu) {
-        baZiList.add(daYunZhu.substring(0,1));
+    public static String getShiErZhiSanHe(List<String> oldBaZiList, String daYunZhu) {
+        List<String> baZiList = new ArrayList<>(oldBaZiList);
+        baZiList.add(daYunZhu.substring(0, 1));
         baZiList.add(daYunZhu.substring(1));
         String result = "";
         List<String> list1 = new ArrayList<>();
@@ -1073,11 +1062,12 @@ public class HeHuaTools {
     /**
      * 获取十二支相冲
      *
-     * @param baZiList 八字list
+     * @param oldBaZiList 八字list
      * @return 返回十二支六合
      */
-    public static String getShiErZhiXiangChong(List<String> baZiList, String daYunZhu) {
-        baZiList.add(daYunZhu.substring(0,1));
+    public static String getShiErZhiXiangChong(List<String> oldBaZiList, String daYunZhu) {
+        List<String> baZiList = new ArrayList<>(oldBaZiList);
+        baZiList.add(daYunZhu.substring(0, 1));
         baZiList.add(daYunZhu.substring(1));
         String result = "";
         List<String> list1 = new ArrayList<>();
@@ -1123,11 +1113,12 @@ public class HeHuaTools {
     /**
      * 获取十二支相穿
      *
-     * @param baZiList 八字list
+     * @param oldBaZiList 八字list
      * @return 返回十二支六合
      */
-    public static String getShiErZhiXiangChuan(List<String> baZiList, String daYunZhu) {
-        baZiList.add(daYunZhu.substring(0,1));
+    public static String getShiErZhiXiangChuan(List<String> oldBaZiList, String daYunZhu) {
+        List<String> baZiList = new ArrayList<>(oldBaZiList);
+        baZiList.add(daYunZhu.substring(0, 1));
         baZiList.add(daYunZhu.substring(1));
         String result = "";
         List<String> list1 = new ArrayList<>();
@@ -1173,11 +1164,12 @@ public class HeHuaTools {
     /**
      * 获取十二支相刑
      *
-     * @param baZiList 八字list
+     * @param oldBaZiList 八字list
      * @return 返回相合的十天干
      */
-    public static String getShiErZhiXiangXing(List<String> baZiList, String daYunZhu) {
-        baZiList.add(daYunZhu.substring(0,1));
+    public static String getShiErZhiXiangXing(List<String> oldBaZiList, String daYunZhu) {
+        List<String> baZiList = new ArrayList<>(oldBaZiList);
+        baZiList.add(daYunZhu.substring(0, 1));
         baZiList.add(daYunZhu.substring(1));
         String result = "";
         List<String> list11 = new ArrayList<>();
