@@ -1,5 +1,9 @@
 package com.necer.ncalendar.tools;
 
+import android.util.Log;
+
+import com.necer.ncalendar.activity.Utils;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -64,10 +68,10 @@ public class HeHuaTools {
             result += "亥卯未合木局 ";
         }
         if (aContainsB(dizhiList, list3)) {
-            result = "寅午戌合火局 ";
+            result += "寅午戌合火局 ";
         }
         if (aContainsB(dizhiList, list4)) {
-            result = "巳酉丑合金局 ";
+            result += "巳酉丑合金局 ";
         }
         return result;
     }
@@ -102,16 +106,16 @@ public class HeHuaTools {
         list3.add("子");
         list3.add("丑");
         if (aContainsB(dizhiList, list1)) {
-            result = "寅卯辰三会东方木 ";
+            result += "寅卯辰三会东方木 ";
         }
         if (aContainsB(dizhiList, list2)) {
-            result = "巳午未三会东方火 ";
+            result += "巳午未三会东方火 ";
         }
         if (aContainsB(dizhiList, list3)) {
-            result = "申酉戌三会西方金 ";
+            result += "申酉戌三会西方金 ";
         }
         if (aContainsB(dizhiList, list4)) {
-            result = "亥子丑三会北方水 ";
+            result += "亥子丑三会北方水 ";
         }
         return result;
     }
@@ -153,25 +157,25 @@ public class HeHuaTools {
         list3.add("丙");
         list3.add("辛");
         List<String> list4 = new ArrayList<>();
-        list3.add("丁");
-        list3.add("壬");
+        list4.add("丁");
+        list4.add("壬");
         List<String> list5 = new ArrayList<>();
-        list3.add("戊");
-        list3.add("癸");
+        list5.add("戊");
+        list5.add("癸");
         if (aContainsB(tianGanList, list1) && list1.contains(baZiList.get(4))) {
-            result = "甲乙合化土 ";
+            result += "甲乙合化土 ";
         }
         if (aContainsB(tianGanList, list2) && list2.contains(baZiList.get(4))) {
-            result = "乙庚合化金 ";
+            result += "乙庚合化金 ";
         }
         if (aContainsB(tianGanList, list3) && list3.contains(baZiList.get(4))) {
-            result = "丙辛合化水 ";
+            result += "丙辛合化水 ";
         }
         if (aContainsB(tianGanList, list4) && list4.contains(baZiList.get(4))) {
-            result = "丁壬合化木 ";
+            result += "丁壬合化木 ";
         }
         if (aContainsB(tianGanList, list5) && list5.contains(baZiList.get(4))) {
-            result = "戊癸合化火 ";
+            result += "戊癸合化火 ";
         }
         return result;
     }
@@ -214,46 +218,46 @@ public class HeHuaTools {
         list3.add("寅");
         list3.add("亥");
         List<String> list4 = new ArrayList<>();
-        list3.add("卯");
-        list3.add("戌");
+        list4.add("卯");
+        list4.add("戌");
         List<String> list5 = new ArrayList<>();
-        list3.add("辰");
-        list3.add("酉");
+        list5.add("辰");
+        list5.add("酉");
         List<String> list6 = new ArrayList<>();
-        list3.add("巳");
-        list3.add("申");
+        list6.add("巳");
+        list6.add("申");
         if (aContainsB(dizhiList, list1) && list1.contains(baZiList.get(5))) {
-            result = "子丑合土 ";
+            result += "子丑合土 ";
             if (list1.contains(baZiList.get(1))) {
                 result += "遥合";
             }
         }
         if (aContainsB(dizhiList, list2) && list2.contains(baZiList.get(5))) {
-            result = "午未合土 ";
+            result += "午未合土 ";
             if (list2.contains(baZiList.get(1))) {
                 result += "遥合";
             }
         }
         if (aContainsB(dizhiList, list3) && list3.contains(baZiList.get(5))) {
-            result = "寅亥合木 ";
+            result += "寅亥合木 ";
             if (list3.contains(baZiList.get(1))) {
                 result += "遥合";
             }
         }
         if (aContainsB(dizhiList, list4) && list4.contains(baZiList.get(5))) {
-            result = "卯戌合火 ";
+            result += "卯戌合火 ";
             if (list4.contains(baZiList.get(1))) {
                 result += "遥合";
             }
         }
         if (aContainsB(dizhiList, list5) && list5.contains(baZiList.get(5))) {
-            result = "辰酉合金 ";
+            result += "辰酉合金 ";
             if (list5.contains(baZiList.get(1))) {
                 result += "遥合";
             }
         }
         if (aContainsB(dizhiList, list6) && list6.contains(baZiList.get(5))) {
-            result = "巳申合水 ";
+            result += "巳申合水 ";
             if (list6.contains(baZiList.get(1))) {
                 result += "遥合";
             }
@@ -664,10 +668,10 @@ public class HeHuaTools {
             result += "亥卯未合木局 ";
         }
         if (aContainsB(dizhiList, list3)) {
-            result = "寅午戌合火局 ";
+            result += "寅午戌合火局 ";
         }
         if (aContainsB(dizhiList, list4)) {
-            result = "巳酉丑合金局 ";
+            result += "巳酉丑合金局 ";
         }
         return result;
     }
@@ -703,16 +707,16 @@ public class HeHuaTools {
         list3.add("子");
         list3.add("丑");
         if (aContainsB(dizhiList, list1)) {
-            result = "寅卯辰三会东方木 ";
+            result += "寅卯辰三会东方木 ";
         }
         if (aContainsB(dizhiList, list2)) {
-            result = "巳午未三会东方火 ";
+            result += "巳午未三会东方火 ";
         }
         if (aContainsB(dizhiList, list3)) {
-            result = "申酉戌三会西方金 ";
+            result += "申酉戌三会西方金 ";
         }
         if (aContainsB(dizhiList, list4)) {
-            result = "亥子丑三会北方水 ";
+            result += "亥子丑三会北方水 ";
         }
         return result;
     }
@@ -747,25 +751,25 @@ public class HeHuaTools {
         list3.add("丙");
         list3.add("辛");
         List<String> list4 = new ArrayList<>();
-        list3.add("丁");
-        list3.add("壬");
+        list4.add("丁");
+        list4.add("壬");
         List<String> list5 = new ArrayList<>();
-        list3.add("戊");
-        list3.add("癸");
-        if (aContainsB(tianGanList, list1) && list1.contains(baZiList.get(4)) && list1.contains(daYunZhu.substring(0, 1))) {
-            result = "甲乙合化土 ";
+        list5.add("戊");
+        list5.add("癸");
+        if (aContainsB(tianGanList, list1) && list1.contains(daYunZhu.substring(0, 1))) {
+            result += "甲乙合化土 ";
         }
-        if (aContainsB(tianGanList, list2) && list2.contains(baZiList.get(4)) && list2.contains(daYunZhu.substring(0, 1))) {
-            result = "乙庚合化金 ";
+        if (aContainsB(tianGanList, list2) && list2.contains(daYunZhu.substring(0, 1))) {
+            result += "乙庚合化金 ";
         }
-        if (aContainsB(tianGanList, list3) && list3.contains(baZiList.get(4)) && list3.contains(daYunZhu.substring(0, 1))) {
-            result = "丙辛合化水 ";
+        if (aContainsB(tianGanList, list3) && list3.contains(daYunZhu.substring(0, 1))) {
+            result += "丙辛合化水 ";
         }
-        if (aContainsB(tianGanList, list4) && list4.contains(baZiList.get(4)) && list4.contains(daYunZhu.substring(0, 1))) {
-            result = "丁壬合化木 ";
+        if (aContainsB(tianGanList, list4) && list4.contains(daYunZhu.substring(0, 1))) {
+            result += "丁壬合化木 ";
         }
-        if (aContainsB(tianGanList, list5) && list5.contains(baZiList.get(4)) && list5.contains(daYunZhu.substring(0, 1))) {
-            result = "戊癸合化火 ";
+        if (aContainsB(tianGanList, list5) && list5.contains(daYunZhu.substring(0, 1))) {
+            result += "戊癸合化火 ";
         }
         return result;
     }
@@ -801,46 +805,46 @@ public class HeHuaTools {
         list3.add("寅");
         list3.add("亥");
         List<String> list4 = new ArrayList<>();
-        list3.add("卯");
-        list3.add("戌");
+        list4.add("卯");
+        list4.add("戌");
         List<String> list5 = new ArrayList<>();
-        list3.add("辰");
-        list3.add("酉");
+        list5.add("辰");
+        list5.add("酉");
         List<String> list6 = new ArrayList<>();
-        list3.add("巳");
-        list3.add("申");
-        if (aContainsB(dizhiList, list1) && list1.contains(baZiList.get(5))&&list1.contains(daYunZhu.substring(1))) {
-            result = "子丑合土 ";
+        list6.add("巳");
+        list6.add("申");
+        if (aContainsB(dizhiList, list1)) {
+            result += "子丑合土 ";
             if (list1.contains(baZiList.get(1))) {
-                result += "遥合";
+                result += "遥合 ";
             }
         }
-        if (aContainsB(dizhiList, list2) && list2.contains(baZiList.get(5))&&list2.contains(daYunZhu.substring(1))) {
-            result = "午未合土 ";
+        if (aContainsB(dizhiList, list2)) {
+            result += "午未合土 ";
             if (list2.contains(baZiList.get(1))) {
-                result += "遥合";
+                result += "遥合 ";
             }
         }
-        if (aContainsB(dizhiList, list3) && list3.contains(baZiList.get(5))&&list3.contains(daYunZhu.substring(1))) {
-            result = "寅亥合木 ";
+        if (aContainsB(dizhiList, list3)) {
+            result += "寅亥合木 ";
             if (list3.contains(baZiList.get(1))) {
-                result += "遥合";
+                result += "遥合 ";
             }
         }
-        if (aContainsB(dizhiList, list4) && list4.contains(baZiList.get(5))&&list4.contains(daYunZhu.substring(1))) {
-            result = "卯戌合火 ";
+        if (aContainsB(dizhiList, list4)) {
+            result += "卯戌合火 ";
             if (list4.contains(baZiList.get(1))) {
-                result += "遥合";
+                result += "遥合 ";
             }
         }
-        if (aContainsB(dizhiList, list5) && list5.contains(baZiList.get(5))&&list5.contains(daYunZhu.substring(1))) {
-            result = "辰酉合金 ";
+        if (aContainsB(dizhiList, list5)) {
+            result += "辰酉合金 ";
             if (list5.contains(baZiList.get(1))) {
-                result += "遥合";
+                result += "遥合 ";
             }
         }
-        if (aContainsB(dizhiList, list6) && list6.contains(baZiList.get(5))&&list6.contains(daYunZhu.substring(1))) {
-            result = "巳申合水 ";
+        if (aContainsB(dizhiList, list6)) {
+            result += "巳申合水 ";
             if (list6.contains(baZiList.get(1))) {
                 result += "遥合";
             }
@@ -940,7 +944,7 @@ public class HeHuaTools {
         if (aContainsB(baZiList, list6)) {
             result += "午与未合午太阳，未太阴也 ";
         }
-
+        Log.d("", "getShiErZhiLiuHe: " + result);
         return result;
     }
 
