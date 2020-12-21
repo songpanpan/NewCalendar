@@ -1,10 +1,13 @@
 package com.necer.ncalendar.tools;
 
+import android.text.TextUtils;
 import android.util.Log;
 
 import com.necer.ncalendar.activity.Utils;
 
+import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -1240,5 +1243,63 @@ public class HeHuaTools {
         }
 
         return result;
+    }
+
+    /**
+     * 检测数组中最多的相同元素
+     *
+     * @return 最多的相同元素
+     */
+    public static MaxElement checkMaxSize(List<String> list) {
+        if (list == null || list.size() == 0) {
+            return null;
+        }
+        HashMap<String, Integer> map = new HashMap<String, Integer>();
+        for (String element : list) {
+            if (map.containsKey(element)) {
+                map.put(element, map.get(element) + 1);
+            } else {
+                map.put(element, 1);
+            }
+        }
+        String max = "";
+        for (String element : map.keySet()) {
+            if (TextUtils.isEmpty(element)) {
+                max = element;
+            } else {
+                if (map.get(element) > map.get(max)) {
+                    max = element;
+                }
+            }
+
+        }
+        MaxElement maxElement = new MaxElement();
+        maxElement.setElement(max);
+        maxElement.setNum(map.get(max));
+        return maxElement;
+    }
+
+    /**
+     * 用于存放数组中出现最多的元素
+     */
+    public static class MaxElement {
+        private int num;
+        private String element;
+
+        public int getNum() {
+            return num;
+        }
+
+        public void setNum(int num) {
+            this.num = num;
+        }
+
+        public String getElement() {
+            return element;
+        }
+
+        public void setElement(String element) {
+            this.element = element;
+        }
     }
 }
