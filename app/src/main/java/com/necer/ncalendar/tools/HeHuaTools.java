@@ -1256,7 +1256,7 @@ public class HeHuaTools {
         }
         HashMap<String, Integer> map = new HashMap<String, Integer>();
         for (String element : list) {
-            if (map.containsKey(element)) {
+            if (map.containsKey(element)&&element.equals(list.get(4))) {
                 map.put(element, map.get(element) + 1);
             } else {
                 map.put(element, 1);
@@ -1264,10 +1264,10 @@ public class HeHuaTools {
         }
         String max = "";
         for (String element : map.keySet()) {
-            if (TextUtils.isEmpty(element)) {
+            if (TextUtils.isEmpty(max)) {
                 max = element;
             } else {
-                if (map.get(element) > map.get(max)) {
+                if (map.get(element) > map.get(max)&&element.equals(list.get(4))) {
                     max = element;
                 }
             }
@@ -1277,6 +1277,220 @@ public class HeHuaTools {
         maxElement.setElement(max);
         maxElement.setNum(map.get(max));
         return maxElement;
+    }
+
+    public static String dealWithBaziTianGanList(List<String> baZiList, String daYunZhu) {
+        MaxElement maxElement = checkBaziTianGanList(baZiList, daYunZhu);
+        String result = "";
+        if (maxElement.getNum() == 2) {
+            result = "有2个" + maxElement.getElement() + "为天比 " + getShiErZhiSanHeEx(baZiList, daYunZhu);
+        } else if (maxElement.getNum() == 3) {
+            result = "有3个" + maxElement.getElement() + "为天罗";
+        }
+        return result;
+    }
+
+    public static String dealWithBaziDizhiList(List<String> baZiList, String daYunZhu) {
+        MaxElement maxElement = checkBaziDiZhiList(baZiList, daYunZhu);
+        String result = "";
+        if (maxElement.getNum() == 2) {
+            result = "有2个" + maxElement.getElement() + "为地比 ";
+        } else if (maxElement.getNum() == 3) {
+            result = "有3个" + maxElement.getElement() + "为劫";
+        } else if (maxElement.getNum() == 4) {
+            result = "有4个" + maxElement.getElement() + "为地网";
+        }
+        return result;
+    }
+
+    public static String checkTianDiBi(List<String> baZiList, String daYunZhu){
+        MaxElement tianbi=checkBaziTianGanList(baZiList,daYunZhu);
+        MaxElement dibi=checkBaziDiZhiList(baZiList,daYunZhu);
+        if(tianbi.getNum()==2&&dibi.getNum()==2){
+            return "天地比";
+        }
+        return "";
+    }
+
+    public static MaxElement checkBaziTianGanList(List<String> baZiList, String daYunZhu) {
+        List<String> tianGanList = new ArrayList<>();
+        tianGanList.add(baZiList.get(0));
+        tianGanList.add(baZiList.get(2));
+        tianGanList.add(baZiList.get(4));
+        tianGanList.add(baZiList.get(6));
+        tianGanList.add(daYunZhu.substring(0, 1));
+        MaxElement tianElement = checkMaxSize(tianGanList);
+        return tianElement;
+    }
+
+
+
+    public static MaxElement checkBaziDiZhiList(List<String> baZiList, String daYunZhu) {
+
+        List<String> diZhiList = new ArrayList<>();
+        diZhiList.add(baZiList.get(1));
+        diZhiList.add(baZiList.get(3));
+        diZhiList.add(baZiList.get(5));
+        diZhiList.add(baZiList.get(7));
+        diZhiList.add(daYunZhu.substring(1));
+        MaxElement diElement = checkMaxSize(diZhiList);
+        return diElement;
+    }
+
+    /**
+     * 获取十二支三合
+     *
+     * @param baZiList 八字list
+     * @return 返回相合的十天干
+     */
+    public static String getShiErZhiSanHeEx(List<String> baZiList, String daYunZhu) {
+        baZiList.add(daYunZhu.substring(0, 1));
+        baZiList.add(daYunZhu.substring(1));
+        String gan = daYunZhu.substring(0, 1);
+        String zhi = daYunZhu.substring(1);
+        String result = "";
+        List<String> list1 = new ArrayList<>();
+        list1.add("申");
+        list1.add("子");
+        list1.add("辰");
+        List<String> list2 = new ArrayList<>();
+        list2.add("亥");
+        list2.add("卯");
+        list2.add("未");
+        List<String> list3 = new ArrayList<>();
+        list3.add("寅");
+        list3.add("午");
+        list3.add("戌");
+        List<String> list4 = new ArrayList<>();
+        list4.add("巳");
+        list4.add("酉");
+        list4.add("丑");
+        List<String> list5 = new ArrayList<>();
+        list5.add("辰");
+        list5.add("戌");
+        list5.add("丑");
+        list5.add("未");
+        List<String> list11 = new ArrayList<>();
+        list11.add("申");
+        list11.add("子");
+        List<String> list12 = new ArrayList<>();
+        list12.add("子");
+        list12.add("辰");
+        List<String> list13 = new ArrayList<>();
+        list13.add("申");
+        list13.add("辰");
+        List<String> list21 = new ArrayList<>();
+        list21.add("亥");
+        list21.add("卯");
+        List<String> list22 = new ArrayList<>();
+        list22.add("卯");
+        list22.add("未");
+        List<String> list23 = new ArrayList<>();
+        list23.add("亥");
+        list23.add("未");
+        List<String> list31 = new ArrayList<>();
+        list31.add("寅");
+        list31.add("午");
+        List<String> list32 = new ArrayList<>();
+        list32.add("午");
+        list32.add("戌");
+        List<String> list33 = new ArrayList<>();
+        list33.add("寅");
+        list33.add("戌");
+        List<String> list41 = new ArrayList<>();
+        list41.add("巳");
+        list41.add("酉");
+        List<String> list42 = new ArrayList<>();
+        list42.add("酉");
+        list42.add("丑");
+        List<String> list43 = new ArrayList<>();
+        list43.add("巳");
+        list43.add("丑");
+        List<String> list51 = new ArrayList<>();
+        list51.add("戌");
+        list51.add("丑");
+        list51.add("未");
+        List<String> list52 = new ArrayList<>();
+        list52.add("辰");
+        list52.add("丑");
+        list52.add("未");
+        List<String> list53 = new ArrayList<>();
+        list53.add("辰");
+        list53.add("戌");
+        list53.add("未");
+        List<String> list54 = new ArrayList<>();
+        list54.add("辰");
+        list54.add("戌");
+        list54.add("丑");
+        if (aContainsB(baZiList, list1) &&(list1.contains(gan)||list1.contains(zhi))) {
+            result += "申子辰水局 ";
+        }
+        if (aContainsB(baZiList, list11)&&(list11.contains(gan)||list11.contains(zhi))) {
+            result += "申子半水局 ";
+        }
+        if (aContainsB(baZiList, list12)&&(list12.contains(gan)||list12.contains(zhi))) {
+            result += "子辰半水局 ";
+        }
+        if (aContainsB(baZiList, list13)&&(list13.contains(gan)||list13.contains(zhi))) {
+            result += "申辰半水局 ";
+        }
+
+        if (aContainsB(baZiList, list2)&&(list2.contains(gan)||list2.contains(zhi))) {
+            result += "亥卯未木局 ";
+        }
+        if (aContainsB(baZiList, list21)&&(list21.contains(gan)||list21.contains(zhi))) {
+            result += "亥卯半木局 ";
+        }
+        if (aContainsB(baZiList, list22)&&(list22.contains(gan)||list22.contains(zhi))) {
+            result += "卯未半木局 ";
+        }
+        if (aContainsB(baZiList, list23)&&(list23.contains(gan)||list23.contains(zhi))) {
+            result += "亥未半木局 ";
+        }
+        if (aContainsB(baZiList, list3)&&(list3.contains(gan)||list3.contains(zhi))) {
+            result += "寅午戌火局 ";
+        }
+        if (aContainsB(baZiList, list31)&&(list31.contains(gan)||list31.contains(zhi))) {
+            result += "寅午半火局 ";
+        }
+        if (aContainsB(baZiList, list32)&&(list32.contains(gan)||list32.contains(zhi))) {
+            result += "午戌半火局 ";
+        }
+        if (aContainsB(baZiList, list33)&&(list33.contains(gan)||list33.contains(zhi))) {
+            result += "寅戌半火局 ";
+        }
+
+        if (aContainsB(baZiList, list4)&&(list4.contains(gan)||list4.contains(zhi))) {
+            result += "巳酉丑金局 ";
+        }
+        if (aContainsB(baZiList, list41)&&(list41.contains(gan)||list41.contains(zhi))) {
+            result += "巳酉半金局 ";
+        }
+        if (aContainsB(baZiList, list42)&&(list42.contains(gan)||list42.contains(zhi))) {
+            result += "酉丑半金局 ";
+        }
+        if (aContainsB(baZiList, list43)&&(list43.contains(gan)||list43.contains(zhi))) {
+            result += "巳丑半金局 ";
+        }
+
+        if (aContainsB(baZiList, list5)&&(list5.contains(gan)||list5.contains(zhi))) {
+            result += "辰戌丑未土局 ";
+        }
+        if (aContainsB(baZiList, list51)&&(list51.contains(gan)||list51.contains(zhi))) {
+            result += "戌丑未半土局 ";
+        }
+        if (aContainsB(baZiList, list52)&&(list52.contains(gan)||list52.contains(zhi))) {
+            result += "辰丑未半土局 ";
+        }
+        if (aContainsB(baZiList, list53)&&(list53.contains(gan)||list53.contains(zhi))) {
+            result += "辰戌未半土局 ";
+        }
+        if (aContainsB(baZiList, list54)&&(list54.contains(gan)||list54.contains(zhi))) {
+            result += "辰戌丑半土局 ";
+        }
+
+
+        return result;
     }
 
     /**
