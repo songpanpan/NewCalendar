@@ -50,6 +50,14 @@ public class PaiPan {
         put("癸", "河套中");
     }};
 
+    final static Map<String, String> jieDianMap = new HashMap<String, String>() {{
+        put("金", "处暑分运，处暑前算上10年，处暑后算后10年");
+        put("木", "大寒分运，亥时前算上10年，亥时后算下10年");
+        put("水", "立冬分运，立冬前算上10年，立冬后算下10年");
+        put("火", "春分分运，春分前算上10年，春分后算下10年");
+        put("土", "芒种分运，芒种前算上10年，芒种后算下10年");
+    }};
+
     public final static Map<String, String> yinYangWuXing = new HashMap<String, String>() {{
         put("甲木", "阳木");
         put("乙木", "阴木");
@@ -68,7 +76,7 @@ public class PaiPan {
             "松柏木", "松柏木", "长流水", "长流水", "沙中金", "沙中金", "山下火", "山下火", "平地木", "平地木", "壁上土", "壁上土", "金箔金", "金箔金", "佛灯火",
             "佛灯火", "天河水", "天河水", "大驿土", "大驿土", "钗钏金", "钗钏金", "桑松木", "桑松木", "大溪水", "大溪水", "沙中土", "沙中土", "天上火", "天上火",
             "石榴木", "石榴木", "大海水", "大海水"};
-    public final String[][] nayinArray = {
+    public static final String[][] nayinArray = {
             //干支，纳音，岁数，男，女
             {"丙戌", "屋上土", "1", "3", "3"},
             {"乙酉", "泉中水", "2", "4", "2"},
@@ -388,7 +396,7 @@ public class PaiPan {
      * 输入性别和年干，返回排大运的方向
      *
      * @param gender  1、男 0、女
-     * @param yeargan
+     * @param yeargan 年干
      * @return
      */
     public int getPaiDaYunDir(int gender, String yeargan) {
@@ -662,6 +670,20 @@ public class PaiPan {
             return 5;
         }
         return 0;
+    }
+
+    public String getMingWuXing(String nianZhu){
+        for (int i = 0; i < nayinArray.length; i++) {
+            if (nayinArray[i][0].equals(nianZhu)) {
+                Log.d("getMingWuXing", "getMingWuXing: "+nayinArray[i][1]);
+                return nayinArray[i][1].substring(2);
+            }
+        }
+        return "";
+    }
+
+    public String getJieDian(String mingWuXing){
+        return jieDianMap.get(mingWuXing);
     }
 
 }

@@ -86,7 +86,7 @@ public class TestMonthActivity extends BaseActivity {
         picker.setTopLineColor(0x99FF0000);
         picker.setLabelTextColor(0xFFFF0000);
         picker.setDividerColor(0xFFFF0000);
-        picker.setSelectedItem(1995, 5, 5, 12, 30);
+        picker.setSelectedItem(1995, 6, 20, 12, 0);
         picker.setOnDateTimePickListener(new DateTimePicker.OnYearMonthDayTimePickListener() {
             @Override
             public void onDateTimePicked(String year, String month, String day, String hour, String minute) {
@@ -147,11 +147,13 @@ public class TestMonthActivity extends BaseActivity {
                 dayunStr.append(" ").append(dayun[i]);
             }
         }
+
         Log.e("spptag", "大运年龄：" + SolarTermUtil.getDaYunAge(calendar, siZhuData, Const.MAN));
         Log.e("spptag", "大运结束-----------------------------------------------------");
         Log.e("spptag", "惊蛰" + SolarTermUtil.getSolarTermNum(2020, "JINGZHE") + "");
         SolarTermUtil.solarTermToString(Integer.parseInt(year));
         List<String> wuXingList = getWuXingList(paiPan, siZhuData);
+
         String baZi = siZhuData.getNianZhu() + siZhuData.getYueZhu() + siZhuData.getRiZhu() + siZhuData.getShiZhu();
         String[] baZiArray = baZi.split("");
         List<String> baZiList = new ArrayList<>();
@@ -160,6 +162,8 @@ public class TestMonthActivity extends BaseActivity {
                 baZiList.add(baZiArray[i]);
             }
         }
+        Log.d(TAG, "mingWuXing" + paiPan.getMingWuXing(baZiList.get(0) + baZiList.get(1)));
+        String mingWuXing = paiPan.getMingWuXing(baZiList.get(0) + baZiList.get(1));
         ShiShenBean shiShenBean = SolarTermUtil.getShiShen(siZhuData);
         ShiErGongBean shiErGongBean = SolarTermUtil.getShiErGong(siZhuData);
         CangGanShiShenBean cangGanShiShenBean = SolarTermUtil.CangGanShiShen(siZhuData);
@@ -203,7 +207,7 @@ public class TestMonthActivity extends BaseActivity {
                 xiYongSehn = "土 （喜火）（忌水）（消木）";
                 break;
         }
-        try{
+        try {
             tv_result.setText(year + "年" + month + "月" + day + "日+" + "季节：" + SolarTermUtil.getSeason(Integer.parseInt(year), Integer.parseInt(month), Integer.parseInt(day)) + "\n"
                     + "四柱为：\n" +
                     siZhuData.getNianZhu() + "(" + paiPan.getNaYin(siZhuData.getNianZhu()) + ":" + paiPan.getOtherNayin(siZhuData.getNianZhu())
@@ -215,6 +219,7 @@ public class TestMonthActivity extends BaseActivity {
                     + siZhuData.getShiZhu() + "(" + paiPan.getNaYin(siZhuData.getShiZhu()) + ":" + paiPan.getOtherNayin(siZhuData.getShiZhu())
                     + " 五行：" + wuXingList.get(6) + " " + wuXingList.get(7) + ")\n"
                     + "用神：" + xiYongSehn + "\n"
+                    + mingWuXing + "命  " +paiPan.getJieDian(mingWuXing)+"\n"
                     + "年柱十神:" + shiShenBean.getNianShiShen() + "\n"
                     + "月柱十神:" + shiShenBean.getYueShiShen() + "\n"
                     + "时柱十神:" + shiShenBean.getShiShiShen() + "\n"
@@ -253,8 +258,8 @@ public class TestMonthActivity extends BaseActivity {
                     + "--------------大运年龄：" + daYunAge + " " + dayun[0] + "大运--------------\n"
 //                + "地支三合化五行:" + HeHuaTools.getSanHeHuaWuXing(baZiList, dayun[0]) + "\n"
                     + "天干相同：" + HeHuaTools.dealWithBaziTianGanList(baZiList, dayun[0]) + "\n"
-                    + "地支相同："+ HeHuaTools.dealWithBaziDizhiList(baZiList, dayun[0]) +
-                    HeHuaTools.checkTianDiBi(baZiList, dayun[0])+ "\n"
+                    + "地支相同：" + HeHuaTools.dealWithBaziDizhiList(baZiList, dayun[0]) +
+                    HeHuaTools.checkTianDiBi(baZiList, dayun[0]) + "\n"
                     + "地支三会化五行:" + HeHuaTools.getSanHuiHuaWuXing(baZiList, dayun[0]) + "\n"
                     + "天干合化五行:" + HeHuaTools.getTianGanHeHuaWuXing(baZiList, dayun[0]) + "\n"
                     + "地支合化五行:" + HeHuaTools.getDiZhiHeHuaWuXing(baZiList, dayun[0]) + "\n"
@@ -270,8 +275,8 @@ public class TestMonthActivity extends BaseActivity {
                     + "--------------大运年龄：" + (daYunAge + 10) + " " + dayun[1] + "大运--------------\n"
 //                + "地支三合化五行:" + HeHuaTools.getSanHeHuaWuXing(baZiList, dayun[1]) + "\n"
                     + "天干相同：" + HeHuaTools.dealWithBaziTianGanList(baZiList, dayun[1]) + "\n"
-                    + "地支相同："+ HeHuaTools.dealWithBaziDizhiList(baZiList, dayun[1]) +
-                    HeHuaTools.checkTianDiBi(baZiList, dayun[1])+ "\n"
+                    + "地支相同：" + HeHuaTools.dealWithBaziDizhiList(baZiList, dayun[1]) +
+                    HeHuaTools.checkTianDiBi(baZiList, dayun[1]) + "\n"
                     + "地支三会化五行:" + HeHuaTools.getSanHuiHuaWuXing(baZiList, dayun[1]) + "\n"
                     + "天干合化五行:" + HeHuaTools.getTianGanHeHuaWuXing(baZiList, dayun[1]) + "\n"
                     + "地支合化五行:" + HeHuaTools.getDiZhiHeHuaWuXing(baZiList, dayun[1]) + "\n"
@@ -287,8 +292,8 @@ public class TestMonthActivity extends BaseActivity {
                     + "--------------大运年龄：" + (daYunAge + 20) + " " + dayun[2] + "大运--------------\n"
 //                + "地支三合化五行:" + HeHuaTools.getSanHeHuaWuXing(baZiList, dayun[2]) + "\n"
                     + "天干相同：" + HeHuaTools.dealWithBaziTianGanList(baZiList, dayun[2]) + "\n"
-                    + "地支相同："+ HeHuaTools.dealWithBaziDizhiList(baZiList, dayun[2]) +
-                    HeHuaTools.checkTianDiBi(baZiList, dayun[2])+ "\n"
+                    + "地支相同：" + HeHuaTools.dealWithBaziDizhiList(baZiList, dayun[2]) +
+                    HeHuaTools.checkTianDiBi(baZiList, dayun[2]) + "\n"
                     + "地支三会化五行:" + HeHuaTools.getSanHuiHuaWuXing(baZiList, dayun[2]) + "\n"
                     + "天干合化五行:" + HeHuaTools.getTianGanHeHuaWuXing(baZiList, dayun[2]) + "\n"
                     + "地支合化五行:" + HeHuaTools.getDiZhiHeHuaWuXing(baZiList, dayun[2]) + "\n"
@@ -304,9 +309,9 @@ public class TestMonthActivity extends BaseActivity {
                     + "--------------大运年龄：" + (daYunAge + 30) + " " + dayun[3] + "大运--------------\n"
 //                + "地支三合化五行:" + HeHuaTools.getSanHeHuaWuXing(baZiList, dayun[3]) + "\n"
                     + "天干相同：" + HeHuaTools.dealWithBaziTianGanList(baZiList, dayun[3]) + "\n"
-                    + "地支相同："+ HeHuaTools.dealWithBaziDizhiList(baZiList, dayun[3])
+                    + "地支相同：" + HeHuaTools.dealWithBaziDizhiList(baZiList, dayun[3])
                     +
-                    HeHuaTools.checkTianDiBi(baZiList, dayun[3])+"\n"
+                    HeHuaTools.checkTianDiBi(baZiList, dayun[3]) + "\n"
                     + "地支三会化五行:" + HeHuaTools.getSanHuiHuaWuXing(baZiList, dayun[3]) + "\n"
                     + "天干合化五行:" + HeHuaTools.getTianGanHeHuaWuXing(baZiList, dayun[3]) + "\n"
                     + "地支合化五行:" + HeHuaTools.getDiZhiHeHuaWuXing(baZiList, dayun[3]) + "\n"
@@ -322,8 +327,8 @@ public class TestMonthActivity extends BaseActivity {
                     + "--------------大运年龄：" + (daYunAge + 40) + " " + dayun[4] + "大运--------------\n"
 //                + "地支三合化五行:" + HeHuaTools.getSanHeHuaWuXing(baZiList, dayun[4]) + "\n"
                     + "天干相同：" + HeHuaTools.dealWithBaziTianGanList(baZiList, dayun[4]) + "\n"
-                    + "地支相同："+ HeHuaTools.dealWithBaziDizhiList(baZiList, dayun[4]) +
-                    HeHuaTools.checkTianDiBi(baZiList, dayun[4])+ "\n"
+                    + "地支相同：" + HeHuaTools.dealWithBaziDizhiList(baZiList, dayun[4]) +
+                    HeHuaTools.checkTianDiBi(baZiList, dayun[4]) + "\n"
                     + "地支三会化五行:" + HeHuaTools.getSanHuiHuaWuXing(baZiList, dayun[4]) + "\n"
                     + "天干合化五行:" + HeHuaTools.getTianGanHeHuaWuXing(baZiList, dayun[4]) + "\n"
                     + "地支合化五行:" + HeHuaTools.getDiZhiHeHuaWuXing(baZiList, dayun[4]) + "\n"
@@ -339,8 +344,8 @@ public class TestMonthActivity extends BaseActivity {
                     + "--------------大运年龄：" + (daYunAge + 50) + " " + dayun[5] + "大运--------------\n"
 //                + "地支三合化五行:" + HeHuaTools.getSanHeHuaWuXing(baZiList, dayun[5]) + "\n"
                     + "天干相同：" + HeHuaTools.dealWithBaziTianGanList(baZiList, dayun[5]) +
-                    HeHuaTools.checkTianDiBi(baZiList, dayun[5])+ "\n"
-                    + "地支相同："+ HeHuaTools.dealWithBaziDizhiList(baZiList, dayun[5]) + "\n"
+                    HeHuaTools.checkTianDiBi(baZiList, dayun[5]) + "\n"
+                    + "地支相同：" + HeHuaTools.dealWithBaziDizhiList(baZiList, dayun[5]) + "\n"
                     + "地支三会化五行:" + HeHuaTools.getSanHuiHuaWuXing(baZiList, dayun[5]) + "\n"
                     + "天干合化五行:" + HeHuaTools.getTianGanHeHuaWuXing(baZiList, dayun[5]) + "\n"
                     + "地支合化五行:" + HeHuaTools.getDiZhiHeHuaWuXing(baZiList, dayun[5]) + "\n"
@@ -356,8 +361,8 @@ public class TestMonthActivity extends BaseActivity {
                     + "--------------大运年龄：" + (daYunAge + 60) + " " + dayun[6] + "大运--------------\n"
 //                + "地支三合化五行:" + HeHuaTools.getSanHeHuaWuXing(baZiList, dayun[6]) + "\n"
                     + "天干相同：" + HeHuaTools.dealWithBaziTianGanList(baZiList, dayun[6]) + "\n"
-                    + "地支相同："+ HeHuaTools.dealWithBaziDizhiList(baZiList, dayun[6]) +
-                    HeHuaTools.checkTianDiBi(baZiList, dayun[6])+ "\n"
+                    + "地支相同：" + HeHuaTools.dealWithBaziDizhiList(baZiList, dayun[6]) +
+                    HeHuaTools.checkTianDiBi(baZiList, dayun[6]) + "\n"
                     + "地支三会化五行:" + HeHuaTools.getSanHuiHuaWuXing(baZiList, dayun[6]) + "\n"
                     + "天干合化五行:" + HeHuaTools.getTianGanHeHuaWuXing(baZiList, dayun[6]) + "\n"
                     + "地支合化五行:" + HeHuaTools.getDiZhiHeHuaWuXing(baZiList, dayun[6]) + "\n"
@@ -373,8 +378,8 @@ public class TestMonthActivity extends BaseActivity {
                     + "--------------大运年龄：" + (daYunAge + 70) + " " + dayun[7] + "大运--------------\n"
 //                + "地支三合化五行:" + HeHuaTools.getSanHeHuaWuXing(baZiList, dayun[7]) + "\n"
                     + "天干相同：" + HeHuaTools.dealWithBaziTianGanList(baZiList, dayun[7]) + "\n"
-                    + "地支相同："+ HeHuaTools.dealWithBaziDizhiList(baZiList, dayun[7]) +
-                    HeHuaTools.checkTianDiBi(baZiList, dayun[7])+"\n"
+                    + "地支相同：" + HeHuaTools.dealWithBaziDizhiList(baZiList, dayun[7]) +
+                    HeHuaTools.checkTianDiBi(baZiList, dayun[7]) + "\n"
                     + "地支三会化五行:" + HeHuaTools.getSanHuiHuaWuXing(baZiList, dayun[7]) + "\n"
                     + "天干合化五行:" + HeHuaTools.getTianGanHeHuaWuXing(baZiList, dayun[7]) + "\n"
                     + "地支合化五行:" + HeHuaTools.getDiZhiHeHuaWuXing(baZiList, dayun[7]) + "\n"
@@ -394,7 +399,7 @@ public class TestMonthActivity extends BaseActivity {
                     + "时辰：" + siZhuData.getShiZhu().substring(1) + "\n" + "建星：" + getJianXing(calendar) + "\n日柱挂："
                     + paiPan.getOtherNayin(siZhuData.getRiZhu()) + "," +
                     PaiPan.LiuShiGua.get(paiPan.getOtherNayin(siZhuData.getRiZhu())) + "\n五行\n" + "");
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
 

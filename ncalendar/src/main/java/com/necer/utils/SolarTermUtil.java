@@ -966,7 +966,7 @@ public class SolarTermUtil {
                     }
                     break;
                 case Const.XIA:
-                    if (shuiSize == 2) {
+                    if (shuiSize >= 2) {
                         return Const.JIN;
                     }
                     break;
