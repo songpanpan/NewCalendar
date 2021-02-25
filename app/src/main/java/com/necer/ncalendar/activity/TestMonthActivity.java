@@ -230,7 +230,7 @@ public class TestMonthActivity extends BaseActivity {
                 liuNian.append("\n天比：" + t.tianBi);
                 liuNian.append("\n地比：" + t.diBi);
                 liuNian.append("\n天地比：" + t.tianDiBi);
-                liuNian.append("\n===============================================\n\n");
+                liuNian.append("\n=================================\n\n");
             }
             String finalString = liuNian.toString();
             tv_result.setText(year + "年" + month + "月" + day + "日+" + "季节：" + SolarTermUtil.getSeason(Integer.parseInt(year), Integer.parseInt(month), Integer.parseInt(day)) + "\n"

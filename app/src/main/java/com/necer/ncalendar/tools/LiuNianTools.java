@@ -48,7 +48,7 @@ public class LiuNianTools {
                 t.shiErZhiXiangChuan = HeHuaTools.getShiErZhiXiangChuan(baZiList, t.nianGanZhi);
                 t.shiErZhiXiangXing = HeHuaTools.getShiErZhiXiangXing(baZiList, t.nianGanZhi);
                 t.tianBi = HeHuaTools.dealWithBaziTianGanList(baZiList, t.nianGanZhi);
-                t.tianBi = HeHuaTools.dealWithBaziDizhiList(baZiList, t.nianGanZhi);
+                t.diBi = HeHuaTools.dealWithBaziDizhiList(baZiList, t.nianGanZhi);
                 t.tianDiBi = HeHuaTools.checkTianDiBi(baZiList, t.nianGanZhi);
             } else {
                 int tenAge = i / 10;
@@ -73,7 +73,7 @@ public class LiuNianTools {
                 t.shiErZhiXiangChuan = HeHuaTools.getShiErZhiXiangChuan(baZiList, t.nianGanZhi, t.daYun);
                 t.shiErZhiXiangXing = HeHuaTools.getShiErZhiXiangXing(baZiList, t.nianGanZhi, t.daYun);
                 t.tianBi = HeHuaTools.dealWithBaziTianGanList(baZiList, t.nianGanZhi, t.nianGanZhi);
-                t.tianBi = HeHuaTools.dealWithBaziDizhiList(baZiList, t.nianGanZhi, t.nianGanZhi);
+                t.diBi = HeHuaTools.dealWithBaziDizhiList(baZiList, t.nianGanZhi, t.nianGanZhi);
                 t.tianDiBi = HeHuaTools.checkTianDiBi(baZiList, t.nianGanZhi, t.nianGanZhi);
             }
             liuNianHashMap.put(i, t);
