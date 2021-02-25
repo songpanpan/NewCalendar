@@ -1625,7 +1625,7 @@ public class HeHuaTools {
      * @param oldBaZiList 八字list
      * @return 返回生合的十天干
      */
-    public static String getShengHe(List<String> oldBaZiList, String daYunZhu,String liuNian) {
+    public static String getShengHe(List<String> oldBaZiList, String daYunZhu, String liuNian) {
         List<String> baZiList = new ArrayList<>(oldBaZiList);
         baZiList.add(daYunZhu.substring(0, 1));
         baZiList.add(daYunZhu.substring(1));
@@ -1659,7 +1659,7 @@ public class HeHuaTools {
      * @param oldBaZiList 八字list
      * @return 返回克合的十天干
      */
-    public static String getKeHe(List<String> oldBaZiList, String daYunZhu,String liuNian) {
+    public static String getKeHe(List<String> oldBaZiList, String daYunZhu, String liuNian) {
         List<String> baZiList = new ArrayList<>(oldBaZiList);
         baZiList.add(daYunZhu.substring(0, 1));
         baZiList.add(daYunZhu.substring(1));
@@ -1693,7 +1693,7 @@ public class HeHuaTools {
      * @param oldBaZiList 八字list
      * @return 返回相合的十天干
      */
-    public static String getShiErZhiSanHe(List<String> oldBaZiList, String daYunZhu,String liuNian) {
+    public static String getShiErZhiSanHe(List<String> oldBaZiList, String daYunZhu, String liuNian) {
         List<String> baZiList = new ArrayList<>(oldBaZiList);
         baZiList.add(daYunZhu.substring(0, 1));
         baZiList.add(daYunZhu.substring(1));
@@ -1747,7 +1747,7 @@ public class HeHuaTools {
      * @param oldBaZiList 八字list
      * @return 返回十二支六合
      */
-    public static String getShiErZhiXiangChong(List<String> oldBaZiList, String daYunZhu,String liuNian) {
+    public static String getShiErZhiXiangChong(List<String> oldBaZiList, String daYunZhu, String liuNian) {
         List<String> baZiList = new ArrayList<>(oldBaZiList);
         baZiList.add(daYunZhu.substring(0, 1));
         baZiList.add(daYunZhu.substring(1));
@@ -1800,7 +1800,7 @@ public class HeHuaTools {
      * @param oldBaZiList 八字list
      * @return 返回十二支六合
      */
-    public static String getShiErZhiXiangChuan(List<String> oldBaZiList, String daYunZhu,String liuNian) {
+    public static String getShiErZhiXiangChuan(List<String> oldBaZiList, String daYunZhu, String liuNian) {
         List<String> baZiList = new ArrayList<>(oldBaZiList);
         baZiList.add(daYunZhu.substring(0, 1));
         baZiList.add(daYunZhu.substring(1));
@@ -1853,7 +1853,7 @@ public class HeHuaTools {
      * @param oldBaZiList 八字list
      * @return 返回相合的十天干
      */
-    public static String getShiErZhiXiangXing(List<String> oldBaZiList, String daYunZhu,String liuNian) {
+    public static String getShiErZhiXiangXing(List<String> oldBaZiList, String daYunZhu, String liuNian) {
         List<String> baZiList = new ArrayList<>(oldBaZiList);
         baZiList.add(daYunZhu.substring(0, 1));
         baZiList.add(daYunZhu.substring(1));
@@ -1924,6 +1924,65 @@ public class HeHuaTools {
         }
 
         return result;
+    }
+
+    public static String dealWithBaziTianGanList(List<String> baZiList, String daYunZhu, String liuNian) {
+        MaxElement maxElement = checkBaziTianGanList(baZiList, daYunZhu, liuNian);
+        String result = "";
+        if (maxElement.getNum() == 2) {
+            result = "有2个" + maxElement.getElement() + "为天比 " + getShiErZhiSanHeEx(baZiList, daYunZhu);
+        } else if (maxElement.getNum() == 3) {
+            result = "有3个" + maxElement.getElement() + "为天罗";
+        }
+        return result;
+    }
+
+    public static String dealWithBaziDizhiList(List<String> baZiList, String daYunZhu, String liuNian) {
+        MaxElement maxElement = checkBaziDiZhiList(baZiList, daYunZhu, liuNian);
+        String result = "";
+        if (maxElement.getNum() == 2) {
+            result = "有2个" + maxElement.getElement() + "为地比 ";
+        } else if (maxElement.getNum() == 3) {
+            result = "有3个" + maxElement.getElement() + "为劫";
+        } else if (maxElement.getNum() == 4) {
+            result = "有4个" + maxElement.getElement() + "为地网";
+        }
+        return result;
+    }
+
+    public static String checkTianDiBi(List<String> baZiList, String daYunZhu, String liuNian) {
+        MaxElement tianbi = checkBaziTianGanList(baZiList, daYunZhu, liuNian);
+        MaxElement dibi = checkBaziDiZhiList(baZiList, daYunZhu, liuNian);
+        if (tianbi.getNum() == 2 && dibi.getNum() == 2) {
+            return "天地比";
+        }
+        return "";
+    }
+
+    public static MaxElement checkBaziTianGanList(List<String> baZiList, String daYunZhu, String liuNian) {
+        List<String> tianGanList = new ArrayList<>();
+        tianGanList.add(baZiList.get(0));
+        tianGanList.add(baZiList.get(2));
+        tianGanList.add(baZiList.get(4));
+        tianGanList.add(baZiList.get(6));
+        tianGanList.add(daYunZhu.substring(0, 1));
+        tianGanList.add(liuNian.substring(0, 1));
+        MaxElement tianElement = checkMaxSize(tianGanList);
+        return tianElement;
+    }
+
+
+    public static MaxElement checkBaziDiZhiList(List<String> baZiList, String daYunZhu, String liuNian) {
+
+        List<String> diZhiList = new ArrayList<>();
+        diZhiList.add(baZiList.get(1));
+        diZhiList.add(baZiList.get(3));
+        diZhiList.add(baZiList.get(5));
+        diZhiList.add(baZiList.get(7));
+        diZhiList.add(daYunZhu.substring(1));
+        diZhiList.add(liuNian.substring(1));
+        MaxElement diElement = checkMaxSize(diZhiList);
+        return diElement;
     }
 
 }

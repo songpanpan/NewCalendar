@@ -214,7 +214,7 @@ public class TestMonthActivity extends BaseActivity {
             StringBuilder liuNian = new StringBuilder();
             for (int i = 1; i < liuNianHashMap.size(); i++) {
                 LiuNian t = liuNianHashMap.get(i);
-                liuNian.append("\n=======================").append(i).append("岁===========================\n");
+                liuNian.append("\n==============").append(i).append("岁==================\n");
                 liuNian.append("\n流年：" + t.nianGanZhi);
                 liuNian.append("\n四柱：").append(t.siZhuNian).append(" ").append(t.siZhuYue).append(" ").
                         append(t.siZhuRi).append(" ").append(t.siZhuShi);
@@ -227,7 +227,10 @@ public class TestMonthActivity extends BaseActivity {
                 liuNian.append("\n十二支相冲：" + t.shiErZhiXiangChong);
                 liuNian.append("\n十二支相穿：" + t.shiErZhiXiangChuan);
                 liuNian.append("\n十二支相邢：" + t.shiErZhiXiangXing);
-                liuNian.append("\n==========================================================================\n\n");
+                liuNian.append("\n天比：" + t.tianBi);
+                liuNian.append("\n地比：" + t.diBi);
+                liuNian.append("\n天地比：" + t.tianDiBi);
+                liuNian.append("\n===============================================\n\n");
             }
             String finalString = liuNian.toString();
             tv_result.setText(year + "年" + month + "月" + day + "日+" + "季节：" + SolarTermUtil.getSeason(Integer.parseInt(year), Integer.parseInt(month), Integer.parseInt(day)) + "\n"

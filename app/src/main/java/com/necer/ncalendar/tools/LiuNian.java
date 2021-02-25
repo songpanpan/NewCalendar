@@ -31,5 +31,8 @@ public class LiuNian {
     public String shiErZhiXiangChong;
     public String shiErZhiXiangChuan;
     public String shiErZhiXiangXing;
-    
+    public String tianBi;
+    public String diBi;
+    public String tianDiBi;
+
 }
