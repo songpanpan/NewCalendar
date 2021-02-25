@@ -214,11 +214,21 @@ public class TestMonthActivity extends BaseActivity {
             StringBuilder liuNian = new StringBuilder();
             for (int i = 1; i < liuNianHashMap.size(); i++) {
                 LiuNian t = liuNianHashMap.get(i);
+                String tempDayun = "";
+                if (t.isDaYunNian) {
+                    if (i <= 10) {
+                        tempDayun = "芒种后算" + t.daYun;
+                    } else {
+                        tempDayun = "芒种前算" + t.preDaYun + "芒种后算" + t.daYun;
+                    }
+                } else {
+                    tempDayun = t.daYun;
+                }
                 liuNian.append("\n==============").append(i).append("岁==================\n");
                 liuNian.append("\n流年：" + t.nianGanZhi);
                 liuNian.append("\n四柱：").append(t.siZhuNian).append(" ").append(t.siZhuYue).append(" ").
                         append(t.siZhuRi).append(" ").append(t.siZhuShi);
-                liuNian.append("\n大运：" + t.daYun);
+                liuNian.append("\n大运：" + tempDayun);
                 liuNian.append("\n十天干相合：" + t.shiTianGanXiangHe);
                 liuNian.append("\n十二支六合：" + t.shiErZhiLiuHe);
                 liuNian.append("\n生合：" + t.shengHe);

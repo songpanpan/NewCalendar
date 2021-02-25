@@ -6,6 +6,8 @@ package com.necer.ncalendar.tools;
 public class LiuNian {
     //年龄
     public int age;
+    //之前的大运
+    public String preDaYun = "";
     //当前的大运
     public String daYun;
     //当前年柱

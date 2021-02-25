@@ -55,6 +55,9 @@ public class LiuNianTools {
                 int smallAge = i % 10;
                 if (smallAge == daYunAge) {
                     t.isDaYunNian = true;
+                    if (tenAge > 0) {
+                        t.preDaYun = daYunArray[tenAge - 1];
+                    }
                     t.daYun = daYunArray[tenAge];
                     t.fenGeJieQi = "芒种";
                 } else if (smallAge < daYunAge) {
@@ -84,13 +87,9 @@ public class LiuNianTools {
     private String getCurrentNianGanZhi(int age, String nianZhu) {
         int position = jiaZi.indexOf(nianZhu);
         int index = position + age;
-        if (index > 60) {
+        if (index >= 60) {
             index = index % 60;
         }
-        if (index == 0) {
-            return jiaZi.get(59);
-        } else {
-            return jiaZi.get(index - 1);
-        }
+        return jiaZi.get(index);
     }
 }
