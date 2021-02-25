@@ -17,6 +17,8 @@ import com.necer.listener.OnCalendarChangedListener;
 import com.necer.listener.OnCalendarMultipleChangedListener;
 import com.necer.ncalendar.R;
 import com.necer.ncalendar.tools.HeHuaTools;
+import com.necer.ncalendar.tools.LiuNian;
+import com.necer.ncalendar.tools.LiuNianTools;
 import com.necer.ncalendar.tools.PaiPan;
 import com.necer.utils.CalendarUtil;
 import com.necer.utils.Const;
@@ -208,6 +210,26 @@ public class TestMonthActivity extends BaseActivity {
                 break;
         }
         try {
+            HashMap<Integer, LiuNian> liuNianHashMap = new LiuNianTools().createLiuNian(daYunAge, siZhuData, dayun, baZiList);
+            StringBuilder liuNian = new StringBuilder();
+            for (int i = 1; i < liuNianHashMap.size(); i++) {
+                LiuNian t = liuNianHashMap.get(i);
+                liuNian.append("\n=======================").append(i).append("岁===========================\n");
+                liuNian.append("\n流年：" + t.nianGanZhi);
+                liuNian.append("\n四柱：").append(t.siZhuNian).append(" ").append(t.siZhuYue).append(" ").
+                        append(t.siZhuRi).append(" ").append(t.siZhuShi);
+                liuNian.append("\n大运：" + t.daYun);
+                liuNian.append("\n十天干相合：" + t.shiTianGanXiangHe);
+                liuNian.append("\n十二支六合：" + t.shiErZhiLiuHe);
+                liuNian.append("\n生合：" + t.shengHe);
+                liuNian.append("\n克合：" + t.keHe);
+                liuNian.append("\n十二支三合：" + t.shiErZhiSanHe);
+                liuNian.append("\n十二支相冲：" + t.shiErZhiXiangChong);
+                liuNian.append("\n十二支相穿：" + t.shiErZhiXiangChuan);
+                liuNian.append("\n十二支相邢：" + t.shiErZhiXiangXing);
+                liuNian.append("\n==========================================================================\n\n");
+            }
+            String finalString = liuNian.toString();
             tv_result.setText(year + "年" + month + "月" + day + "日+" + "季节：" + SolarTermUtil.getSeason(Integer.parseInt(year), Integer.parseInt(month), Integer.parseInt(day)) + "\n"
                     + "四柱为：\n" +
                     siZhuData.getNianZhu() + "(" + paiPan.getNaYin(siZhuData.getNianZhu()) + ":" + paiPan.getOtherNayin(siZhuData.getNianZhu())
@@ -219,7 +241,7 @@ public class TestMonthActivity extends BaseActivity {
                     + siZhuData.getShiZhu() + "(" + paiPan.getNaYin(siZhuData.getShiZhu()) + ":" + paiPan.getOtherNayin(siZhuData.getShiZhu())
                     + " 五行：" + wuXingList.get(6) + " " + wuXingList.get(7) + ")\n"
                     + "用神：" + xiYongSehn + "\n"
-                    + mingWuXing + "命  " +paiPan.getJieDian(mingWuXing)+"\n"
+                    + mingWuXing + "命  " + paiPan.getJieDian(mingWuXing) + "\n"
                     + "年柱十神:" + shiShenBean.getNianShiShen() + "\n"
                     + "月柱十神:" + shiShenBean.getYueShiShen() + "\n"
                     + "时柱十神:" + shiShenBean.getShiShiShen() + "\n"
@@ -392,13 +414,12 @@ public class TestMonthActivity extends BaseActivity {
                     + "十二支相穿:" + HeHuaTools.getShiErZhiXiangChuan(baZiList, dayun[7]) + "\n"
                     + "十二支相刑:" + HeHuaTools.getShiErZhiXiangXing(baZiList, dayun[7]) + "\n"
                     + "-------------------------------------------------------------------\n"
-
                     + "大运：\n" + dayunStr + "\n大运年龄：" + daYunAge + "\n" + "扎根运：" +
                     PaiPan.getZhaGenYunFromRiZhu(siZhuData.getRiZhu()) + " 第" +
                     PaiPan.getZhaGenYunLevel(SolarTermUtil.getDaYunAge(calendar, siZhuData, Const.MAN)) + "段\n"
                     + "时辰：" + siZhuData.getShiZhu().substring(1) + "\n" + "建星：" + getJianXing(calendar) + "\n日柱挂："
                     + paiPan.getOtherNayin(siZhuData.getRiZhu()) + "," +
-                    PaiPan.LiuShiGua.get(paiPan.getOtherNayin(siZhuData.getRiZhu())) + "\n五行\n" + "");
+                    PaiPan.LiuShiGua.get(paiPan.getOtherNayin(siZhuData.getRiZhu())) + "\n五行\n" + finalString);
         } catch (Exception e) {
             e.printStackTrace();
         }

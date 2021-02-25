@@ -2,6 +2,7 @@ package com.necer.ncalendar.tools;
 
 import com.necer.utils.SiZhuData;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -27,7 +28,7 @@ public class LiuNianTools {
         String nianZhu = siZhuData.getNianZhu();
         HashMap<Integer, LiuNian> liuNianHashMap = new HashMap<>();
         String dayun = "";
-        for (int i = 1; i < 100; i++) {
+        for (int i = 1; i < 80; i++) {
             LiuNian t = new LiuNian();
             t.age = i;
             t.nianGanZhi = getCurrentNianGanZhi(i, nianZhu);
@@ -60,6 +61,14 @@ public class LiuNianTools {
                     t.isDaYunNian = false;
                     t.daYun = daYunArray[tenAge];
                 }
+                t.shiTianGanXiangHe = HeHuaTools.getShiTianGanXiangHe(baZiList, t.nianGanZhi, t.daYun);
+                t.shiErZhiLiuHe = HeHuaTools.getShiErZhiLiuHe(baZiList, t.nianGanZhi, t.daYun);
+                t.shengHe = HeHuaTools.getShengHe(baZiList, t.nianGanZhi, t.daYun);
+                t.keHe = HeHuaTools.getKeHe(baZiList, t.nianGanZhi, t.daYun);
+                t.shiErZhiSanHe = HeHuaTools.getShiErZhiSanHe(baZiList, t.nianGanZhi, t.daYun);
+                t.shiErZhiXiangChong = HeHuaTools.getShiErZhiXiangChong(baZiList, t.nianGanZhi, t.daYun);
+                t.shiErZhiXiangChuan = HeHuaTools.getShiErZhiXiangChuan(baZiList, t.nianGanZhi, t.daYun);
+                t.shiErZhiXiangXing = HeHuaTools.getShiErZhiXiangXing(baZiList, t.nianGanZhi, t.daYun);
             }
             liuNianHashMap.put(i, t);
         }
@@ -72,6 +81,10 @@ public class LiuNianTools {
         if (index > 60) {
             index = index % 60;
         }
-        return jiaZi.get(index);
+        if (index == 0) {
+            return jiaZi.get(59);
+        } else {
+            return jiaZi.get(index - 1);
+        }
     }
 }
