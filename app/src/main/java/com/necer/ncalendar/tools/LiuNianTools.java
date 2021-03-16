@@ -75,9 +75,9 @@ public class LiuNianTools {
                 t.shiErZhiXiangChong = HeHuaTools.getShiErZhiXiangChong(baZiList, t.nianGanZhi, t.daYun);
                 t.shiErZhiXiangChuan = HeHuaTools.getShiErZhiXiangChuan(baZiList, t.nianGanZhi, t.daYun);
                 t.shiErZhiXiangXing = HeHuaTools.getShiErZhiXiangXing(baZiList, t.nianGanZhi, t.daYun);
-                t.tianBi = HeHuaTools.dealWithBaziTianGanList(baZiList, t.nianGanZhi, t.nianGanZhi);
-                t.diBi = HeHuaTools.dealWithBaziDizhiList(baZiList, t.nianGanZhi, t.nianGanZhi);
-                t.tianDiBi = HeHuaTools.checkTianDiBi(baZiList, t.nianGanZhi, t.nianGanZhi);
+                t.tianBi = HeHuaTools.dealWithBaziTianGanList(baZiList, t.nianGanZhi, t.daYun);
+                t.diBi = HeHuaTools.dealWithBaziDizhiList(baZiList, t.nianGanZhi, t.daYun);
+                t.tianDiBi = HeHuaTools.checkTianDiBi(baZiList, t.nianGanZhi, t.daYun);
             }
             liuNianHashMap.put(i, t);
         }

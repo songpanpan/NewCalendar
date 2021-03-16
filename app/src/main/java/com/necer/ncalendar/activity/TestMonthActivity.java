@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.necer.calendar.BaseCalendar;
 import com.necer.calendar.CangGanShiShenBean;
@@ -59,7 +60,7 @@ public class TestMonthActivity extends BaseActivity {
                 tv_selected_date.setText(year + "年" + month + "月 农历" + calendarDate.lunar.lunarYear
                         + "年" + calendarDate.lunar.lunarMonth + "月" + calendarDate.lunar.lunarDay + "日");
                 jumpToData(year + "", month + "", localDate.getDayOfMonth() + "");
-                getDaYun(year + "", month + "", localDate.getDayOfMonth() + "", 22 + "", 00 + "");
+                getDaYun(year + "", month + "", localDate.getDayOfMonth() + "", 1 + "", 20 + "");
 
             }
         });
@@ -88,13 +89,15 @@ public class TestMonthActivity extends BaseActivity {
         picker.setTopLineColor(0x99FF0000);
         picker.setLabelTextColor(0xFFFF0000);
         picker.setDividerColor(0xFFFF0000);
-        picker.setSelectedItem(1995, 6, 20, 12, 0);
+        picker.setSelectedItem(1964, 1, 12, 8, 20);
         picker.setOnDateTimePickListener(new DateTimePicker.OnYearMonthDayTimePickListener() {
             @Override
             public void onDateTimePicked(String year, String month, String day, String hour, String minute) {
-//                Toast.makeText(TestMonthActivity.this, year + "-" + month + "-" + day + " " + hour + ":" + minute, Toast.LENGTH_LONG).show();
+                Toast.makeText(TestMonthActivity.this, year + "-" + month + "-" + day + " " + hour + ":" + minute, Toast.LENGTH_LONG).show();
+                Log.d(TAG, "onDateTimePicked: "+year + "-" + month + "-" + day + " " + hour + ":" + minute);
                 tv_selected_date.setText(year + "年" + month + "月");
                 jumpToData(year, month, day);
+//                getDaYun(year, month, day, hour, minute);
                 getDaYun(year, month, day, hour, minute);
             }
         });
@@ -197,7 +200,7 @@ public class TestMonthActivity extends BaseActivity {
                 xiYongSehn = "金 （喜土）（忌火）（消水）";
                 break;
             case Const.MU:
-                xiYongSehn = "木 （喜水）（忌金）（消土）";
+                xiYongSehn = "木 （喜水）（忌金）（消火）";
                 break;
             case Const.SHUI:
                 xiYongSehn = "水 （喜金）（忌土）（消木）";
